@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using AskAMech.Domain.Models;
 
-namespace AskAMech.Infrastructure
+namespace AskAMech.Infrastructure.SeedData
 {
     public class QuestionsSeed
     {
