@@ -2,9 +2,9 @@
 using Microsoft.EntityFrameworkCore.Metadata;
 using Microsoft.EntityFrameworkCore.Migrations;
 
-namespace AskAMech.Data.Migrations
+namespace AskAMech.Infrastructure.Migrations
 {
-    public partial class CreateIdentitySchema : Migration
+    public partial class ExtractDbToLibrary : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {

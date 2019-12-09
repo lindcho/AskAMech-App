@@ -1,10 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
+﻿using AskAMech.Domain.Models;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 
-namespace AskAMech.Data
+namespace AskAMech.Infrastructure.Data
 {
     public class ApplicationDbContext : IdentityDbContext
     {
@@ -12,5 +10,7 @@ namespace AskAMech.Data
             : base(options)
         {
         }
+
+        public DbSet<Question> Questions { get; set; }
     }
 }

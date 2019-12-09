@@ -3,7 +3,11 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 15
 VisualStudioVersion = 15.0.28307.852
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AskAMech", "AskAMech\AskAMech.csproj", "{D5E14657-34B8-4293-BFFE-F6F91CD16001}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AskAMech", "AskAMech\AskAMech.csproj", "{D5E14657-34B8-4293-BFFE-F6F91CD16001}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AskAMech.Infrastructure", "AskAMech.Infrastructure\AskAMech.Infrastructure.csproj", "{33B8DFC4-FA4E-437D-A56C-AF74C085A985}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AskAMech.Domain", "AskAMech.Domain\AskAMech.Domain.csproj", "{6DC066B7-6CB3-4ACA-95CB-303C69E12D1B}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -15,6 +19,14 @@ Global
 		{D5E14657-34B8-4293-BFFE-F6F91CD16001}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{D5E14657-34B8-4293-BFFE-F6F91CD16001}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{D5E14657-34B8-4293-BFFE-F6F91CD16001}.Release|Any CPU.Build.0 = Release|Any CPU
+		{33B8DFC4-FA4E-437D-A56C-AF74C085A985}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{33B8DFC4-FA4E-437D-A56C-AF74C085A985}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{33B8DFC4-FA4E-437D-A56C-AF74C085A985}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{33B8DFC4-FA4E-437D-A56C-AF74C085A985}.Release|Any CPU.Build.0 = Release|Any CPU
+		{6DC066B7-6CB3-4ACA-95CB-303C69E12D1B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{6DC066B7-6CB3-4ACA-95CB-303C69E12D1B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{6DC066B7-6CB3-4ACA-95CB-303C69E12D1B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{6DC066B7-6CB3-4ACA-95CB-303C69E12D1B}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
