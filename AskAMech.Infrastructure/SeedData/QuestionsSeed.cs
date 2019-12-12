@@ -14,7 +14,6 @@ namespace AskAMech.Infrastructure.SeedData
                 {
                     Id = i,
                     Title = "Title" + i,
-                    Abstract = "Abstract " + 1,
                     Description = $"Description {i}",
                     AuthorId = (000000 + i).ToString(),
                     DateCreated = new DateTime(2019, 11, 09),

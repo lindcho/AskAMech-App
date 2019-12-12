@@ -11,7 +11,7 @@ namespace AskAMech.Infrastructure.Data
         public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options)
             : base(options)
         {
-            
+            QuestionsSeed.GenerateQuestions(15);
         }
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
@@ -22,7 +22,9 @@ namespace AskAMech.Infrastructure.Data
             modelBuilder.Entity<Question>().HasData(QuestionsSeed.GenerateQuestions(15));
         }
 
+
         public DbSet<Question> Questions { get; set; }
     }
+    
 
 }
