@@ -1,12 +1,14 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
+﻿using System.Collections.Generic;
+using System.Threading;
+using System.Threading.Tasks;
 using AskAMech.Domain.Models;
 
 namespace AskAMech.Command.Gateways
 {
-   public interface IQuestionGateway
+    public interface IQuestionGateway
    {
-       List<Question> GetAllQuestions();
-   }
+       Task<List<Question>> GetAllQuestions(CancellationToken cancellationToken);
+       Task Add(Question question,CancellationToken cancellationToken);
+
+    }
 }

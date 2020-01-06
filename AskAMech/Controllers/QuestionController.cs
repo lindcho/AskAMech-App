@@ -1,5 +1,7 @@
-﻿using System.Linq;
+﻿using System.Threading;
+using System.Threading.Tasks;
 using AskAMech.Command.Gateways;
+using AskAMech.Domain.Models;
 using Microsoft.AspNetCore.Mvc;
 
 namespace AskAMech.Controllers
@@ -14,9 +16,27 @@ namespace AskAMech.Controllers
         }
 
         [HttpGet]
-        public IActionResult Index()
+        public async Task<IActionResult> List()
         {
-            return View(_questionGateway.GetAllQuestions().ToList());
+            return View(await _questionGateway.GetAllQuestions(new CancellationToken()));
+        }
+
+        // GET: Questions/Create
+        public IActionResult Add()
+        {
+            return View();
+        }
+
+        // POST: Quest/Create
+        // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
+        // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public IActionResult Add([Bind("Id,Title,Description")] Question question)
+        {
+            if (!ModelState.IsValid) return View(question);
+            _questionGateway.Add(question, new CancellationToken());
+            return RedirectToAction(nameof(List));
         }
     }
 }
