@@ -1,10 +1,13 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
+using AskAMech.Command.Exceptions;
 using AskAMech.Command.Services;
 using AskAMech.Domain.Models;
 using AskAMech.Infrastructure.Data;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 
 namespace AskAMech.Command.Gateways
@@ -27,11 +30,26 @@ namespace AskAMech.Command.Gateways
 
         public async Task Add(Question question, CancellationToken cancellationToken)
         {
-            question.DateCreated = DateTime.Now;
-            question.LastModified = DateTime.Now;
-            question.AuthorId = _requestUserProvider.GetUserId();
-            _context.Questions.Add(question);
-            await _context.SaveChangesAsync(cancellationToken);
+            var userId = _requestUserProvider.GetUserId();
+            if (string.IsNullOrEmpty(userId))
+            {
+                throw new  NotFoundException(nameof(IdentityUser), userId); ;
+            }
+
+            try
+            {
+                question.DateCreated = DateTime.Now;
+                question.LastModified = DateTime.Now;
+                question.AuthorId = _requestUserProvider.GetUserId();
+                _context.Questions.Add(question);
+                await _context.SaveChangesAsync(cancellationToken);
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(e);
+                throw;
+            }
+            
         }
 
         public async Task<Question> Update( Question question,CancellationToken cancellationToken)
