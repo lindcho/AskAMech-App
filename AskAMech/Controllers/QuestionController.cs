@@ -38,5 +38,28 @@ namespace AskAMech.Controllers
             _questionGateway.Add(question, new CancellationToken());
             return RedirectToAction(nameof(List));
         }
+
+        public async Task<IActionResult> Edit(int? id)
+        {
+            if (id == null)
+            {
+                return NotFound();
+            }
+            var question = await _questionGateway.GetQuestion(id);
+            if (question == null)
+            {
+                return NotFound();
+            }
+            return View(question);
+        }
+        
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> Edit([Bind("Id,Title,Description,DateCreated,LastModified,AuthorId")] Question question)
+        {
+            if (!ModelState.IsValid) return View(question);
+            await _questionGateway.Update(question, new CancellationToken());
+            return RedirectToAction(nameof(List));
+        }
     }
 }

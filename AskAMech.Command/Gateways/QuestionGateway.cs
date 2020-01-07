@@ -27,9 +27,24 @@ namespace AskAMech.Command.Gateways
             question.DateCreated = DateTime.Now;
             question.LastModified = DateTime.Now;
             //TODO Remove after implementing service for current user
-            question.AuthorId = "aaa7d6f1-6515-4425-bc4e-094e135ad1b0";
+            question.AuthorId = "946e894f-1bee-4f63-b741-77f47953fa86";
             _context.Questions.Add(question);
             await _context.SaveChangesAsync(cancellationToken);
+        }
+
+        public async Task<Question> Update( Question question,CancellationToken cancellationToken)
+        {
+            question.LastModified = DateTime.Now;
+            question.AuthorId = "946e894f-1bee-4f63-b741-77f47953fa86";
+            _context.Questions.Update(question);
+            await _context.SaveChangesAsync(cancellationToken);
+            return question;
+        }
+
+        public async Task<Question> GetQuestion(int? id)
+        {
+            var question = await _context.Questions.FindAsync(id);
+            return question;
         }
     }
 }
