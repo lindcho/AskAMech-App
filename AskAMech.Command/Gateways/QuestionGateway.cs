@@ -36,6 +36,12 @@ namespace AskAMech.Command.Gateways
                 throw new  NotFoundException(nameof(IdentityUser), userId); ;
             }
 
+            var questions = await GetAllQuestions(cancellationToken);
+            if (questions.Any(t => t.Title == question.Title))
+            {
+                return;
+            }
+
             try
             {
                 question.DateCreated = DateTime.Now;
@@ -49,7 +55,6 @@ namespace AskAMech.Command.Gateways
                 Console.WriteLine(e);
                 throw;
             }
-            
         }
 
         public async Task<Question> Update( Question question,CancellationToken cancellationToken)
