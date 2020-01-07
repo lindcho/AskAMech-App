@@ -2,6 +2,7 @@
 using System.Threading.Tasks;
 using AskAMech.Command.Gateways;
 using AskAMech.Domain.Models;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace AskAMech.Controllers
@@ -21,15 +22,17 @@ namespace AskAMech.Controllers
             return View(await _questionGateway.GetAllQuestions(new CancellationToken()));
         }
 
-        // GET: Questions/Create
+        // GET: Questions/Add
+        [Authorize]
         public IActionResult Add()
         {
             return View();
         }
 
-        // POST: Quest/Create
+        // POST: Questions/Add
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
+        [Authorize]
         [HttpPost]
         [ValidateAntiForgeryToken]
         public IActionResult Add([Bind("Id,Title,Description")] Question question)

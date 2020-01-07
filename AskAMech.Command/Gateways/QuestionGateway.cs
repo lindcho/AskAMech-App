@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Threading;
 using System.Threading.Tasks;
+using AskAMech.Command.Services;
 using AskAMech.Domain.Models;
 using AskAMech.Infrastructure.Data;
 using Microsoft.EntityFrameworkCore;
@@ -11,10 +12,12 @@ namespace AskAMech.Command.Gateways
     public class QuestionGateway : IQuestionGateway
     {
         private readonly ApplicationDbContext _context;
+        private readonly IRequestUserProvider _requestUserProvider;
 
-        public QuestionGateway(ApplicationDbContext context)
+        public QuestionGateway(ApplicationDbContext context, IRequestUserProvider requestUserProvider)
         {
             _context = context;
+            _requestUserProvider = requestUserProvider;
         }
 
         public async Task<List<Question>> GetAllQuestions(CancellationToken cancellationToken)
@@ -26,8 +29,7 @@ namespace AskAMech.Command.Gateways
         {
             question.DateCreated = DateTime.Now;
             question.LastModified = DateTime.Now;
-            //TODO Remove after implementing service for current user
-            question.AuthorId = "946e894f-1bee-4f63-b741-77f47953fa86";
+            question.AuthorId = _requestUserProvider.GetUserId();
             _context.Questions.Add(question);
             await _context.SaveChangesAsync(cancellationToken);
         }

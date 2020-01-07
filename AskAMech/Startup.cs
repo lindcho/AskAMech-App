@@ -1,4 +1,5 @@
 ﻿using AskAMech.Command.Gateways;
+using AskAMech.Command.Services;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.UI;
@@ -7,8 +8,10 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using AskAMech.Infrastructure.Data;
+using Microsoft.AspNetCore.Mvc.Infrastructure;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.DependencyInjection.Extensions;
 
 namespace AskAMech
 {
@@ -34,11 +37,17 @@ namespace AskAMech
             services.AddDbContext<ApplicationDbContext>(options =>
                 options.UseSqlServer(
                     Configuration.GetConnectionString("DefaultConnection")));
+
             services.AddDefaultIdentity<IdentityUser>()
                 .AddDefaultUI(UIFramework.Bootstrap4)
                 .AddEntityFrameworkStores<ApplicationDbContext>();
 
+            // Add application gateways as scoped dependencies so they are shared per every request
             services.AddScoped<IQuestionGateway, QuestionGateway>();
+
+            // Add application services that are created each time they're requested from the service container.
+            services.AddTransient<IRequestUserProvider, RequestUserProvider>();
+
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
         }
 
