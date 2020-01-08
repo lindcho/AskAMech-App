@@ -24,6 +24,7 @@ namespace AskAMech.Controllers
 
         // GET: Questions/Add
         [Authorize]
+        [HttpGet]
         public IActionResult Add()
         {
             return View();
@@ -35,13 +36,14 @@ namespace AskAMech.Controllers
         [Authorize]
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public IActionResult Add([Bind("Id,Title,Description")] Question question)
+        public async Task<IActionResult> Add([Bind("Id,Title,Description")] Question question)
         {
             if (!ModelState.IsValid) return View(question);
-            _questionGateway.Add(question, new CancellationToken());
+            await _questionGateway.Add(question, new CancellationToken());
             return RedirectToAction(nameof(List));
         }
 
+        [HttpGet]
         public async Task<IActionResult> Edit(int? id)
         {
             if (id == null)

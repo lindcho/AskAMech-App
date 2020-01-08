@@ -30,30 +30,30 @@ namespace AskAMech.Command.Gateways
 
         public async Task Add(Question question, CancellationToken cancellationToken)
         {
-            var userId = _requestUserProvider.GetUserId();
-            if (string.IsNullOrEmpty(userId))
+            var currentUserId = _requestUserProvider.GetUserId();
+            if (string.IsNullOrEmpty(currentUserId))
             {
-                throw new  NotFoundException(nameof(IdentityUser), userId); ;
+                throw new NotFoundException(nameof(IdentityUser), currentUserId); ;
             }
 
             var questions = await GetAllQuestions(cancellationToken);
             if (questions.Any(t => t.Title == question.Title))
             {
-                return;
+                throw new ArgumentException("Title already exist!");
             }
 
             try
             {
                 question.DateCreated = DateTime.Now;
                 question.LastModified = DateTime.Now;
-                question.AuthorId = _requestUserProvider.GetUserId();
+                question.AuthorId = currentUserId;
                 _context.Questions.Add(question);
                 await _context.SaveChangesAsync(cancellationToken);
             }
             catch (Exception e)
             {
                 Console.WriteLine(e);
-                throw;
+                throw e;
             }
         }
 
