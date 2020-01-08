@@ -22,6 +22,13 @@ namespace AskAMech.Controllers
             return View(await _questionGateway.GetAllQuestions(new CancellationToken()));
         }
 
+        [Authorize]
+        [HttpGet]
+        public async Task<IActionResult> ListUserQuestions()
+        {
+            return View(await _questionGateway.GetUserQuestions());
+        }
+
         // GET: Questions/Add
         [Authorize]
         [HttpGet]

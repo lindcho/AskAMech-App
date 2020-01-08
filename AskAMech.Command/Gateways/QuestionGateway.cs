@@ -86,5 +86,17 @@ namespace AskAMech.Command.Gateways
             Question question = await _context.Questions.FindAsync(id);
             return question;
         }
+
+        public async Task<List<Question>> GetUserQuestions()
+        {
+            var currentUserId = _requestUserProvider.GetUserId();
+            if (string.IsNullOrEmpty(currentUserId))
+            {
+                throw new NotFoundException(nameof(IdentityUser), currentUserId);
+            }
+
+            var questions = await GetAllQuestions(new CancellationToken());
+            return questions.Where(x => x.AuthorId == currentUserId).ToList();
+        }
     }
 }

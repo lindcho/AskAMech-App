@@ -11,6 +11,7 @@ namespace AskAMech.Command.Gateways
         Task Add(Question question, CancellationToken cancellationToken);
         Task<Question> Update(Question question, CancellationToken cancellationToken);
         Task<Question> GetQuestion(int? id);
+        Task<List<Question>> GetUserQuestions();
 
     }
 }
