@@ -57,18 +57,33 @@ namespace AskAMech.Command.Gateways
             }
         }
 
-        public async Task<Question> Update( Question question,CancellationToken cancellationToken)
+        public async Task<Question> Update(Question question, CancellationToken cancellationToken)
         {
-            question.LastModified = DateTime.Now;
-            question.AuthorId = "946e894f-1bee-4f63-b741-77f47953fa86";
-            _context.Questions.Update(question);
-            await _context.SaveChangesAsync(cancellationToken);
+            var currentUserId = _requestUserProvider.GetUserId();
+            if (string.IsNullOrEmpty(currentUserId))
+            {
+                throw new NotFoundException(nameof(IdentityUser), currentUserId); ;
+            }
+
+            try
+            {
+                question.LastModified = DateTime.Now;
+                question.AuthorId = currentUserId;
+                _context.Questions.Update(question);
+                await _context.SaveChangesAsync(cancellationToken);
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(e);
+                throw e;
+            }
+
             return question;
         }
 
         public async Task<Question> GetQuestion(int? id)
         {
-            var question = await _context.Questions.FindAsync(id);
+            Question question = await _context.Questions.FindAsync(id);
             return question;
         }
     }

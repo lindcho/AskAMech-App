@@ -55,10 +55,10 @@ namespace AskAMech.Controllers
             }
             return View(question);
         }
-        
+
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit([Bind("Id,Title,Description,DateCreated,LastModified,AuthorId")] Question question)
+        public async Task<IActionResult> Edit([Bind("Id,Title,Description")] Question question)
         {
             if (!ModelState.IsValid) return View(question);
             await _questionGateway.Update(question, new CancellationToken());
