@@ -1,6 +1,8 @@
-﻿using System.Threading;
+﻿using System.Net;
+using System.Threading;
 using System.Threading.Tasks;
 using AskAMech.Command.Gateways;
+using AskAMech.Command.Services;
 using AskAMech.Domain.Models;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
@@ -71,7 +73,7 @@ namespace AskAMech.Controllers
         {
             if (!ModelState.IsValid) return View(question);
             await _questionGateway.Update(question, new CancellationToken());
-            return RedirectToAction(nameof(List));
+            return RedirectToAction(nameof(ListUserQuestions));
         }
     }
 }
