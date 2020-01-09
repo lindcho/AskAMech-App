@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Http;
+﻿using AskAMech.Domain.Models;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
 
 namespace AskAMech.Command.Services
@@ -6,9 +7,9 @@ namespace AskAMech.Command.Services
     public class RequestUserProvider: IRequestUserProvider
     {
         private readonly IHttpContextAccessor _contextAccessor;
-        private readonly UserManager<IdentityUser> _userManager;
+        private readonly UserManager<ApplicationUser> _userManager;
 
-        public RequestUserProvider(IHttpContextAccessor contextAccessor, UserManager<IdentityUser> userManager)
+        public RequestUserProvider(IHttpContextAccessor contextAccessor, UserManager<ApplicationUser> userManager)
         {
             _contextAccessor = contextAccessor;
             _userManager = userManager;

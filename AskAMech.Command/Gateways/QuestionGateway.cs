@@ -33,7 +33,7 @@ namespace AskAMech.Command.Gateways
             var currentUserId = _requestUserProvider.GetUserId();
             if (string.IsNullOrEmpty(currentUserId))
             {
-                throw new NotFoundException(nameof(IdentityUser), currentUserId); ;
+                throw new NotFoundException(nameof(ApplicationUser), currentUserId); ;
             }
 
             var questions = await GetAllQuestions(cancellationToken);
@@ -62,7 +62,7 @@ namespace AskAMech.Command.Gateways
             var currentUserId = _requestUserProvider.GetUserId();
             if (string.IsNullOrEmpty(currentUserId))
             {
-                throw new NotFoundException(nameof(IdentityUser), currentUserId); ;
+                throw new NotFoundException(nameof(ApplicationUser), currentUserId); ;
             }
 
             try
@@ -92,7 +92,7 @@ namespace AskAMech.Command.Gateways
             var currentUserId = _requestUserProvider.GetUserId();
             if (string.IsNullOrEmpty(currentUserId))
             {
-                throw new NotFoundException(nameof(IdentityUser), currentUserId);
+                throw new NotFoundException(nameof(ApplicationUser), currentUserId);
             }
 
             var questions = await GetAllQuestions(new CancellationToken());
