@@ -53,7 +53,7 @@ namespace AskAMech.Command.Gateways
             catch (Exception e)
             {
                 Console.WriteLine(e);
-                throw e;
+                throw;
             }
         }
 
@@ -75,7 +75,7 @@ namespace AskAMech.Command.Gateways
             catch (Exception e)
             {
                 Console.WriteLine(e);
-                throw e;
+                throw;
             }
 
             return question;
@@ -83,7 +83,9 @@ namespace AskAMech.Command.Gateways
 
         public async Task<Question> GetQuestion(int? id)
         {
-            var question = await _context.Questions.FindAsync(id);
+            var question = await _context.Questions
+                .Include(q => q.Author)
+                .FirstOrDefaultAsync(q => q.Id == id);
             return question;
         }
 

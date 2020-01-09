@@ -75,5 +75,11 @@ namespace AskAMech.Controllers
             await _questionGateway.Update(question, new CancellationToken());
             return RedirectToAction(nameof(ListUserQuestions));
         }
+
+        public async Task<IActionResult> ViewQuestion(int id)
+        {
+             var question = await _questionGateway.GetQuestion(id);
+             return View(question);
+        }
     }
 }

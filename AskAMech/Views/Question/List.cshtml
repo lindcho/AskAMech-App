@@ -1,11 +1,11 @@
 ﻿@model IEnumerable<AskAMech.Domain.Models.Question>
-
+@{ var isAuthenticated = Context.User.Identity.IsAuthenticated; }
 @{
     ViewData["Title"] = "Index";
 }
 
 <h1>Index</h1>
-@if (Context.User.Identity.IsAuthenticated)
+@if (isAuthenticated)
 {
     <p>
         <a asp-action="Add">Create New</a>
@@ -31,7 +31,7 @@
         {
             <tr>
                 <td>
-                    @Html.DisplayFor(modelItem => item.Title)
+                    <a asp-action="ViewQuestion" asp-route-id="@item.Id">@Html.DisplayFor(modelItem => item.Title)</a>
                 </td>
                 <td>
                     @Html.DisplayFor(modelItem => item.Description)
