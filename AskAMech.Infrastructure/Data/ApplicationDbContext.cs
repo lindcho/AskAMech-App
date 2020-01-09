@@ -42,29 +42,34 @@ namespace AskAMech.Infrastructure.Data
                         new Question
                         {
                             Title = "where to buy a strong tire", Description = "I need to know where can i buy a strong tire.",
-                            DateCreated = DateTime.Now.Subtract(TimeSpan.FromMinutes(60))
+                            DateCreated = DateTime.Now.Subtract(TimeSpan.FromMinutes(60)),
+                            LastModified = DateTime.Now.Subtract(TimeSpan.FromMinutes(10))
                         },
                         new Question
                         {
                             Title = "How to fit a tire",
                             Description = "I just bought a tire but don;t know how to fit it in my car.",
-                            DateCreated = DateTime.Now
+                            DateCreated = DateTime.Now.Subtract(TimeSpan.FromHours(3)),
+                            LastModified = DateTime.Now.Subtract(TimeSpan.FromMinutes(2))
                         },
                         new Question
                         {
                             Title = "How to fit brackes", Description = "I bought brackpads but don't know how to fix it.",
-                            DateCreated = new DateTime(2017, 03, 09)
+                            DateCreated = new DateTime(2017, 03, 09),
+                            LastModified = DateTime.Now.Subtract(TimeSpan.FromDays(30))
                         },
                         new Question
                         {
                             Title = "CV problem", Description = "my cra is making a noise i think i need to replace cv's.",
-                            DateCreated = new DateTime(2018, 10, 09)
+                            DateCreated = new DateTime(2018, 10, 09),
+                            LastModified = DateTime.Now.Subtract(TimeSpan.FromMinutes(10))
                         },
                         new Question
                         {
                             Title = "My car brakes are not working",
                             Description = "i bought this brakes two months ago but it seams like they are not original.",
-                            DateCreated = new DateTime(2019, 06, 09)
+                            DateCreated = new DateTime(2019, 06, 09),
+                            LastModified = DateTime.Now.Subtract(TimeSpan.FromMinutes(16))
                         }
                     }
                 });

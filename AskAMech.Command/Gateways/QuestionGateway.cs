@@ -83,7 +83,7 @@ namespace AskAMech.Command.Gateways
 
         public async Task<Question> GetQuestion(int? id)
         {
-            Question question = await _context.Questions.FindAsync(id);
+            var question = await _context.Questions.FindAsync(id);
             return question;
         }
 
