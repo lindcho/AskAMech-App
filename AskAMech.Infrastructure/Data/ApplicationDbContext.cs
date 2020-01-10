@@ -55,20 +55,20 @@ namespace AskAMech.Infrastructure.Data
                         new Question
                         {
                             Title = "How to fit brackes", Description = "I bought brackpads but don't know how to fix it.",
-                            DateCreated = new DateTime(2017, 03, 09),
+                            DateCreated = DateTime.Now.Subtract(TimeSpan.FromDays(60)),
                             LastModified = DateTime.Now.Subtract(TimeSpan.FromDays(30))
                         },
                         new Question
                         {
                             Title = "CV problem", Description = "my cra is making a noise i think i need to replace cv's.",
-                            DateCreated = new DateTime(2018, 10, 09),
+                            DateCreated = DateTime.Now.Subtract(TimeSpan.FromDays(60)),
                             LastModified = DateTime.Now.Subtract(TimeSpan.FromMinutes(10))
                         },
                         new Question
                         {
                             Title = "My car brakes are not working",
                             Description = "i bought this brakes two months ago but it seams like they are not original.",
-                            DateCreated = new DateTime(2019, 06, 09),
+                            DateCreated = DateTime.Now.Subtract(TimeSpan.FromDays(60)),
                             LastModified = DateTime.Now.Subtract(TimeSpan.FromMinutes(16))
                         }
                     }
