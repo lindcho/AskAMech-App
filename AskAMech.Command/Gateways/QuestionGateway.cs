@@ -7,11 +7,11 @@ using AskAMech.Command.Exceptions;
 using AskAMech.Command.Services;
 using AskAMech.Domain.Models;
 using AskAMech.Infrastructure.Data;
-using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 
 namespace AskAMech.Command.Gateways
 {
+
     public class QuestionGateway : IQuestionGateway
     {
         private readonly ApplicationDbContext _context;
@@ -33,7 +33,7 @@ namespace AskAMech.Command.Gateways
             var currentUserId = _requestUserProvider.GetUserId();
             if (string.IsNullOrEmpty(currentUserId))
             {
-                throw new NotFoundException(nameof(ApplicationUser), currentUserId); ;
+                throw new NotFoundException(nameof(ApplicationUser), currentUserId);
             }
 
             var questions = await GetAllQuestions(cancellationToken);
@@ -62,7 +62,7 @@ namespace AskAMech.Command.Gateways
             var currentUserId = _requestUserProvider.GetUserId();
             if (string.IsNullOrEmpty(currentUserId))
             {
-                throw new NotFoundException(nameof(ApplicationUser), currentUserId); ;
+                throw new NotFoundException(nameof(ApplicationUser), currentUserId);
             }
 
             try
@@ -99,6 +99,13 @@ namespace AskAMech.Command.Gateways
 
             var questions = await GetAllQuestions(new CancellationToken());
             return questions.Where(x => x.AuthorId == currentUserId).ToList();
+        }
+
+        public bool CanUserEditQuestion(int? id)
+        {
+            var currentUserId = _requestUserProvider.GetUserId();
+            var author = GetQuestion(id);
+            return currentUserId == author.Result.AuthorId;
         }
     }
 }

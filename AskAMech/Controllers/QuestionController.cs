@@ -1,4 +1,5 @@
-﻿using System.Net;
+﻿using System.Linq;
+using System.Net;
 using System.Threading;
 using System.Threading.Tasks;
 using AskAMech.Command.Gateways;
@@ -21,9 +22,14 @@ namespace AskAMech.Controllers
         [HttpGet]
         public async Task<IActionResult> List()
         {
-            return View(await _questionGateway.GetAllQuestions(new CancellationToken()));
+            var questionsWithFullName = await _questionGateway.GetAllQuestions(new CancellationToken());
+            foreach (var question in questionsWithFullName)
+            {
+                    question.Author.FullName = question.Author.FullName ?? question.Author.UserName;
+            }
+            return View(questionsWithFullName);
         }
-
+         
         [Authorize]
         [HttpGet]
         public async Task<IActionResult> ListUserQuestions()
@@ -76,10 +82,14 @@ namespace AskAMech.Controllers
             return RedirectToAction(nameof(ListUserQuestions));
         }
 
+        [HttpGet]
         public async Task<IActionResult> ViewQuestion(int id)
         {
-             var question = await _questionGateway.GetQuestion(id);
-             return View(question);
+            ViewBag.canEdit = _questionGateway.CanUserEditQuestion(id);
+            var questionWithFullName = await _questionGateway.GetQuestion(id);
+            questionWithFullName.Author.FullName = questionWithFullName.Author.FullName ?? questionWithFullName.Author.UserName;
+
+            return View(questionWithFullName);
         }
     }
 }
