@@ -1,9 +1,6 @@
-﻿using System.Linq;
-using System.Net;
-using System.Threading;
+﻿using System.Threading;
 using System.Threading.Tasks;
-using AskAMech.Command.Gateways;
-using AskAMech.Command.Services;
+using AskAMech.Data.DbGateways;
 using AskAMech.Domain.Models;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
@@ -22,7 +19,7 @@ namespace AskAMech.Controllers
         [HttpGet]
         public async Task<IActionResult> List()
         {
-            var questionsWithFullName = await _questionGateway.GetAllQuestions(new CancellationToken());
+            var questionsWithFullName = await _questionGateway.GetAll(new CancellationToken());
             foreach (var question in questionsWithFullName)
             {
                     question.Author.FullName = question.Author.FullName ?? question.Author.UserName;

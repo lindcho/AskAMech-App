@@ -7,9 +7,11 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AskAMech", "AskAMech\AskAMe
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AskAMech.Infrastructure", "AskAMech.Infrastructure\AskAMech.Infrastructure.csproj", "{33B8DFC4-FA4E-437D-A56C-AF74C085A985}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AskAMech.Domain", "AskAMech.Domain\AskAMech.Domain.csproj", "{6DC066B7-6CB3-4ACA-95CB-303C69E12D1B}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AskAMech.Domain", "AskAMech.Domain\AskAMech.Domain.csproj", "{6DC066B7-6CB3-4ACA-95CB-303C69E12D1B}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AskAMech.Command", "AskAMech.Command\AskAMech.Command.csproj", "{8DE68B32-6B67-4E96-A2FF-B55AD3D260DC}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AskAMech.Command", "AskAMech.Command\AskAMech.Command.csproj", "{8DE68B32-6B67-4E96-A2FF-B55AD3D260DC}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AskAMech.Data", "AskAMech.Data\AskAMech.Data.csproj", "{10EEB34D-2FA7-468F-9E48-C3FCF5CD6898}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -33,6 +35,10 @@ Global
 		{8DE68B32-6B67-4E96-A2FF-B55AD3D260DC}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{8DE68B32-6B67-4E96-A2FF-B55AD3D260DC}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{8DE68B32-6B67-4E96-A2FF-B55AD3D260DC}.Release|Any CPU.Build.0 = Release|Any CPU
+		{10EEB34D-2FA7-468F-9E48-C3FCF5CD6898}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{10EEB34D-2FA7-468F-9E48-C3FCF5CD6898}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{10EEB34D-2FA7-468F-9E48-C3FCF5CD6898}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{10EEB34D-2FA7-468F-9E48-C3FCF5CD6898}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

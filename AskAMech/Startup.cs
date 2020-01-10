@@ -1,5 +1,5 @@
-﻿using AskAMech.Command.Gateways;
-using AskAMech.Command.Services;
+﻿using AskAMech.Command.Services;
+using AskAMech.Data.DbGateways;
 using AskAMech.Domain.Models;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Identity;

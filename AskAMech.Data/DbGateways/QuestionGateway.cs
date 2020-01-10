@@ -9,7 +9,7 @@ using AskAMech.Domain.Models;
 using AskAMech.Infrastructure.Data;
 using Microsoft.EntityFrameworkCore;
 
-namespace AskAMech.Command.Gateways
+namespace AskAMech.Data.DbGateways
 {
 
     public class QuestionGateway : IQuestionGateway
@@ -23,7 +23,7 @@ namespace AskAMech.Command.Gateways
             _requestUserProvider = requestUserProvider;
         }
 
-        public async Task<List<Question>> GetAllQuestions(CancellationToken cancellationToken)
+        public async Task<List<Question>> GetAll(CancellationToken cancellationToken)
         {
             return await _context.Questions.Include(q => q.Author).ToListAsync(cancellationToken: cancellationToken);
         }
@@ -36,7 +36,7 @@ namespace AskAMech.Command.Gateways
                 throw new NotFoundException(nameof(ApplicationUser), currentUserId);
             }
 
-            var questions = await GetAllQuestions(cancellationToken);
+            var questions = await GetAll(cancellationToken);
             if (questions.Any(t => t.Title == question.Title))
             {
                 throw new ArgumentException("Title already exist!");
@@ -97,7 +97,7 @@ namespace AskAMech.Command.Gateways
                 throw new NotFoundException(nameof(ApplicationUser), currentUserId);
             }
 
-            var questions = await GetAllQuestions(new CancellationToken());
+            var questions = await GetAll(new CancellationToken());
             return questions.Where(x => x.AuthorId == currentUserId).ToList();
         }
 
