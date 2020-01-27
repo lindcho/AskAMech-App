@@ -32,33 +32,15 @@ namespace AskAMech.Data.DbGateways
             await _context.SaveChangesAsync(cancellationToken);
         }
 
-        public async Task<Question> Update(Question question, CancellationToken cancellationToken)
+        public async Task Update(Question question, CancellationToken cancellationToken)
         {
-            var currentUserId = "12323435";
-            if (string.IsNullOrEmpty(currentUserId))
-            {
-                // NotFoundException(nameof(ApplicationUser), currentUserId);
-            }
-
-            try
-            {
-                question.LastModified = DateTime.Now;
-                question.AuthorId = currentUserId;
                 _context.Questions.Update(question);
                 await _context.SaveChangesAsync(cancellationToken);
-            }
-            catch (Exception e)
-            {
-                Console.WriteLine(e);
-                throw;
-            }
-
-            return question;
         }
 
         public async Task<Question> GetQuestion(int? id)
         {
-            var question = await _context.Questions
+            var question = await _context.Questions.AsNoTracking()
                 .Include(q => q.Author)
                 .FirstOrDefaultAsync(q => q.Id == id);
             return question;
@@ -74,13 +56,6 @@ namespace AskAMech.Data.DbGateways
 
             var questions = await GetAll(new CancellationToken());
             return questions.Where(x => x.AuthorId == currentUserId).ToList();
-        }
-
-        public bool CanUserEditQuestion(int? id)
-        {
-            var currentUserId = "12323435";
-            var author = GetQuestion(id);
-            return currentUserId == author.Result.AuthorId;
         }
     }
 }

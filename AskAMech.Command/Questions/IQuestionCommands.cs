@@ -9,6 +9,8 @@ namespace AskAMech.Command.Questions
     {
         Task<List<Question>> GetAllQuestions(CancellationToken cancellationToken);
         Task AskQuestion(Question question, CancellationToken cancellationToken);
-
+        Task<Question> UpdateQuestion(Question question, CancellationToken cancellationToken);
+        Task<Question> GetQuestion(int? id);
+        bool CanUserEditQuestion(int? id);
     }
 }

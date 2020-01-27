@@ -58,16 +58,9 @@ namespace AskAMech.Controllers
         [HttpGet]
         public async Task<IActionResult> Edit(int? id)
         {
-            if (id == null)
-            {
-                return NotFound();
-            }
-            //var question = await _questionCommands.GetQuestion(id);
-            //if (question == null)
-            //{
-            //    return NotFound();
-            //}
-            return View(/*question*/);
+            var question = await _questionCommands.GetQuestion(id);
+            await _questionCommands.GetQuestion(id);
+            return View(question);
         }
 
         [HttpPost]
@@ -75,18 +68,18 @@ namespace AskAMech.Controllers
         public async Task<IActionResult> Edit([Bind("Id,Title,Description")] Question question)
         {
             if (!ModelState.IsValid) return View(question);
-            //await _questionCommands.Update(question, new CancellationToken());
-            return RedirectToAction(nameof(ListUserQuestions));
+            await _questionCommands.UpdateQuestion(question, new CancellationToken());
+            return RedirectToAction(nameof(List));
         }
 
         [HttpGet]
         public async Task<IActionResult> ViewQuestion(int id)
         {
-            //ViewBag.canEdit = _questionCommands.CanUserEditQuestion(id);
-            //var questionWithFullName = await _questionCommands.GetQuestion(id);
-            //questionWithFullName.Author.FullName = questionWithFullName.Author.FullName ?? questionWithFullName.Author.UserName;
+            ViewBag.canEdit = _questionCommands.CanUserEditQuestion(id);
+            var questionWithFullName = await _questionCommands.GetQuestion(id);
+            questionWithFullName.Author.FullName = questionWithFullName.Author.FullName ?? questionWithFullName.Author.UserName;
 
-            return View(/*questionWithFullName*/);
+            return View(questionWithFullName);
         }
     }
 }

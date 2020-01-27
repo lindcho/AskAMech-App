@@ -52,7 +52,9 @@
 <div>
 
     @if (@ViewBag.canEdit)
-    {<a asp-action="Edit" asp-route-id="@Model.Id">Modify Question</a>}
+    {
+        <a asp-action="Edit" asp-route-id="@Model.Id">Modify Question</a>
+    }
     <div>
         <a asp-action="List">Back to List</a>
     </div>

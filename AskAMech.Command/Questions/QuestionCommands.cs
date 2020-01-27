@@ -53,5 +53,60 @@ namespace AskAMech.Command.Questions
                 throw;
             }
         }
+
+        public async Task<Question> UpdateQuestion(Question question, CancellationToken cancellationToken)
+        {
+            var currentUserId = _requestUserProvider.GetUserId();
+            if (string.IsNullOrEmpty(currentUserId))
+            {
+                throw  new  NotFoundException(nameof(ApplicationUser),currentUserId);
+            }
+
+            var quest = GetQuestion(question.Id).Result.DateCreated;
+            if (quest==null)
+            {
+                throw new NotFoundException(nameof(Question),question.Id);
+            }
+            try
+            {
+                question.LastModified = DateTime.Now;
+                question.DateCreated = quest;
+                question.AuthorId = currentUserId;
+                await _questionGateway.Update(question, cancellationToken);
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(e);
+                throw;
+            }
+
+            return question;
+        }
+
+        public Task<Question> GetQuestion(int? id)
+        {
+            var question = _questionGateway.GetQuestion(id);
+            if (question == null)
+            {
+                throw new NotFoundException(nameof(Question), "Question Id");
+            }
+            return question;
+        }
+
+        public bool CanUserEditQuestion(int? id)
+        {
+            var currentUserId = _requestUserProvider.GetUserId();
+            if (string.IsNullOrEmpty(currentUserId))
+            {
+                throw new NotFoundException(nameof(ApplicationUser), currentUserId);
+            }
+            var question = _questionGateway.GetQuestion(id);
+            if (question == null)
+            {
+                throw new NotFoundException(nameof(ApplicationUser), "Question Id");
+            }
+
+            return currentUserId == question.Result.AuthorId;
+        }
     }
 }
