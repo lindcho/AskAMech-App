@@ -85,6 +85,11 @@ namespace AskAMech.Command.Questions
 
         public Task<Question> GetQuestion(int? id)
         {
+            if (id == null)
+            {
+                throw new NotFoundException(nameof(Question),(int?) null);
+            }
+
             var question = _questionGateway.GetQuestion(id);
             if (question == null)
             {
