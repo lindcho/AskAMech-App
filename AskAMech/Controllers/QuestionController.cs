@@ -1,6 +1,6 @@
 ﻿using System.Threading;
 using System.Threading.Tasks;
-using AskAMech.Data.DbGateways;
+using AskAMech.Command.Questions;
 using AskAMech.Domain.Models;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
@@ -9,29 +9,29 @@ namespace AskAMech.Controllers
 {
     public class QuestionController : Controller
     {
-        private readonly IQuestionGateway _questionGateway;
+        private readonly IQuestionCommands _questionCommands;
 
-        public QuestionController(IQuestionGateway questionGateway)
+        public QuestionController(IQuestionCommands questionCommands)
         {
-            _questionGateway = questionGateway;
+            _questionCommands = questionCommands;
         }
 
         [HttpGet]
         public async Task<IActionResult> List()
         {
-            var questionsWithFullName = await _questionGateway.GetAll(new CancellationToken());
-            foreach (var question in questionsWithFullName)
+            var allQuestions = await _questionCommands.GetAllQuestions(new CancellationToken());
+            foreach (var question in allQuestions)
             {
-                    question.Author.FullName = question.Author.FullName ?? question.Author.UserName;
+                question.Author.FullName = question.Author.FullName ?? question.Author.UserName;
             }
-            return View(questionsWithFullName);
+            return View(allQuestions);
         }
-         
+
         [Authorize]
         [HttpGet]
         public async Task<IActionResult> ListUserQuestions()
         {
-            return View(await _questionGateway.GetUserQuestions());
+            return View(/*await _questionCommands.GetUserQuestions()*/);
         }
 
         // GET: Questions/Add
@@ -51,7 +51,7 @@ namespace AskAMech.Controllers
         public async Task<IActionResult> Add([Bind("Id,Title,Description")] Question question)
         {
             if (!ModelState.IsValid) return View(question);
-            await _questionGateway.Add(question, new CancellationToken());
+            await _questionCommands.AskQuestion(question, new CancellationToken());
             return RedirectToAction(nameof(List));
         }
 
@@ -62,12 +62,12 @@ namespace AskAMech.Controllers
             {
                 return NotFound();
             }
-            var question = await _questionGateway.GetQuestion(id);
-            if (question == null)
-            {
-                return NotFound();
-            }
-            return View(question);
+            //var question = await _questionCommands.GetQuestion(id);
+            //if (question == null)
+            //{
+            //    return NotFound();
+            //}
+            return View(/*question*/);
         }
 
         [HttpPost]
@@ -75,18 +75,18 @@ namespace AskAMech.Controllers
         public async Task<IActionResult> Edit([Bind("Id,Title,Description")] Question question)
         {
             if (!ModelState.IsValid) return View(question);
-            await _questionGateway.Update(question, new CancellationToken());
+            //await _questionCommands.Update(question, new CancellationToken());
             return RedirectToAction(nameof(ListUserQuestions));
         }
 
         [HttpGet]
         public async Task<IActionResult> ViewQuestion(int id)
         {
-            ViewBag.canEdit = _questionGateway.CanUserEditQuestion(id);
-            var questionWithFullName = await _questionGateway.GetQuestion(id);
-            questionWithFullName.Author.FullName = questionWithFullName.Author.FullName ?? questionWithFullName.Author.UserName;
+            //ViewBag.canEdit = _questionCommands.CanUserEditQuestion(id);
+            //var questionWithFullName = await _questionCommands.GetQuestion(id);
+            //questionWithFullName.Author.FullName = questionWithFullName.Author.FullName ?? questionWithFullName.Author.UserName;
 
-            return View(questionWithFullName);
+            return View(/*questionWithFullName*/);
         }
     }
 }

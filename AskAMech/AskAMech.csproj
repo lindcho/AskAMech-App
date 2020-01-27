@@ -16,7 +16,6 @@
 
   <ItemGroup>
     <ProjectReference Include="..\AskAMech.Command\AskAMech.Command.csproj" />
-    <ProjectReference Include="..\AskAMech.Data\AskAMech.Data.csproj" />
     <ProjectReference Include="..\AskAMech.Infrastructure\AskAMech.Infrastructure.csproj" />
   </ItemGroup>
 
