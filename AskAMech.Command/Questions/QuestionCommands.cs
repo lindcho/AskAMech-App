@@ -62,15 +62,15 @@ namespace AskAMech.Command.Questions
                 throw  new  NotFoundException(nameof(ApplicationUser),currentUserId);
             }
 
-            var quest = GetQuestion(question.Id).Result.DateCreated;
-            if (quest==null)
+            var questionDateCreated = GetQuestion(question.Id).Result.DateCreated;
+            if (questionDateCreated==null)
             {
                 throw new NotFoundException(nameof(Question),question.Id);
             }
             try
             {
                 question.LastModified = DateTime.Now;
-                question.DateCreated = quest;
+                question.DateCreated = questionDateCreated;
                 question.AuthorId = currentUserId;
                 await _questionGateway.Update(question, cancellationToken);
             }
