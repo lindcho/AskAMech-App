@@ -31,7 +31,7 @@ namespace AskAMech.Controllers
         [HttpGet]
         public async Task<IActionResult> ListUserQuestions()
         {
-            return View(/*await _questionCommands.GetUserQuestions()*/);
+            return View(await _questionCommands.GetUserQuestions());
         }
 
         // GET: Questions/Add

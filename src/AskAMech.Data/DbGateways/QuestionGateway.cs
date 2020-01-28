@@ -1,5 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
@@ -46,14 +45,8 @@ namespace AskAMech.Data.DbGateways
             return question;
         }
 
-        public async Task<List<Question>> GetUserQuestions()
+        public async Task<List<Question>> GetUserQuestions(string currentUserId)
         {
-            var currentUserId = "12323435";
-            if (string.IsNullOrEmpty(currentUserId))
-            {
-                //throw;// new NotFoundException(nameof(ApplicationUser), currentUserId);
-            }
-
             var questions = await GetAll(new CancellationToken());
             return questions.Where(x => x.AuthorId == currentUserId).ToList();
         }

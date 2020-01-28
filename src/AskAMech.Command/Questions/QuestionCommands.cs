@@ -59,13 +59,13 @@ namespace AskAMech.Command.Questions
             var currentUserId = _requestUserProvider.GetUserId();
             if (string.IsNullOrEmpty(currentUserId))
             {
-                throw  new  NotFoundException(nameof(ApplicationUser),currentUserId);
+                throw new NotFoundException(nameof(ApplicationUser), currentUserId);
             }
 
             var questionDateCreated = GetQuestion(question.Id).Result.DateCreated;
-            if (questionDateCreated==null)
+            if (questionDateCreated == null)
             {
-                throw new NotFoundException(nameof(Question),question.Id);
+                throw new NotFoundException(nameof(Question), question.Id);
             }
             try
             {
@@ -87,7 +87,7 @@ namespace AskAMech.Command.Questions
         {
             if (id == null)
             {
-                throw new NotFoundException(nameof(Question),(int?) null);
+                throw new NotFoundException(nameof(Question), (int?)null);
             }
 
             var question = _questionGateway.GetQuestion(id);
@@ -112,6 +112,17 @@ namespace AskAMech.Command.Questions
             }
 
             return currentUserId == question.Result.AuthorId;
+        }
+
+        public async Task<List<Question>> GetUserQuestions()
+        {
+            var currentUserId = _requestUserProvider.GetUserId();
+            if (string.IsNullOrEmpty(currentUserId))
+            {
+                throw new NotFoundException(nameof(ApplicationUser), currentUserId);
+            }
+
+            return await _questionGateway.GetUserQuestions(currentUserId);
         }
     }
 }

@@ -11,6 +11,6 @@ namespace AskAMech.Data.DbGateways
         Task Add(Question question, CancellationToken cancellationToken);
         Task Update(Question question, CancellationToken cancellationToken);
         Task<Question> GetQuestion(int? id);
-        Task<List<Question>> GetUserQuestions();
+        Task<List<Question>> GetUserQuestions(string currentUserId);
     }
 }

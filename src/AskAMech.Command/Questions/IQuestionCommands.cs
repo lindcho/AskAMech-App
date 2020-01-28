@@ -12,5 +12,6 @@ namespace AskAMech.Command.Questions
         Task<Question> UpdateQuestion(Question question, CancellationToken cancellationToken);
         Task<Question> GetQuestion(int? id);
         bool CanUserEditQuestion(int? id);
+        Task<List<Question>> GetUserQuestions();
     }
 }
