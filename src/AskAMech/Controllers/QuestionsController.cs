@@ -59,7 +59,6 @@ namespace AskAMech.Controllers
         public async Task<IActionResult> Edit(int? id)
         {
             var question = await _questionCommands.GetQuestion(id);
-            await _questionCommands.GetQuestion(id);
             return View(question);
         }
 
@@ -73,7 +72,7 @@ namespace AskAMech.Controllers
         }
 
         [HttpGet]
-        public async Task<IActionResult> ViewQuestion(int id)
+        public async Task<IActionResult> Details(int id)
         {
             ViewBag.canEdit = _questionCommands.CanUserEditQuestion(id);
             var questionWithFullName = await _questionCommands.GetQuestion(id);
