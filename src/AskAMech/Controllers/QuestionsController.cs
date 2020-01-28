@@ -7,11 +7,11 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace AskAMech.Controllers
 {
-    public class QuestionController : Controller
+    public class QuestionsController : Controller
     {
         private readonly IQuestionCommands _questionCommands;
 
-        public QuestionController(IQuestionCommands questionCommands)
+        public QuestionsController(IQuestionCommands questionCommands)
         {
             _questionCommands = questionCommands;
         }

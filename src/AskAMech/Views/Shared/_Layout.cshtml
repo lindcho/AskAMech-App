@@ -36,12 +36,12 @@
                             <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Question" asp-action="List">Questions</a>
+                            <a class="nav-link text-dark" asp-area="" asp-controller="Questions" asp-action="List">Questions</a>
                         </li>
                         @if (User.Identity.IsAuthenticated)
                         {
                             <li class="nav-item">
-                                <a class="nav-link text-dark" asp-area="" asp-controller="Question" asp-action="ListUserQuestions">My Questions</a>
+                                <a class="nav-link text-dark" asp-area="" asp-controller="Questions" asp-action="ListUserQuestions">My Questions</a>
                             </li>
                         }
 
