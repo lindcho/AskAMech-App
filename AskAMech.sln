@@ -11,7 +11,9 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AskAMech.Domain", "AskAMech
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AskAMech.Command", "AskAMech.Command\AskAMech.Command.csproj", "{8DE68B32-6B67-4E96-A2FF-B55AD3D260DC}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AskAMech.Data", "AskAMech.Data\AskAMech.Data.csproj", "{10EEB34D-2FA7-468F-9E48-C3FCF5CD6898}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AskAMech.Data", "AskAMech.Data\AskAMech.Data.csproj", "{10EEB34D-2FA7-468F-9E48-C3FCF5CD6898}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AskAmech.Commands.Test", "Commands.Test\AskAmech.Commands.Test.csproj", "{D40BB3BD-F0DF-4D4B-A85A-F62F2A69154D}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -39,6 +41,10 @@ Global
 		{10EEB34D-2FA7-468F-9E48-C3FCF5CD6898}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{10EEB34D-2FA7-468F-9E48-C3FCF5CD6898}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{10EEB34D-2FA7-468F-9E48-C3FCF5CD6898}.Release|Any CPU.Build.0 = Release|Any CPU
+		{D40BB3BD-F0DF-4D4B-A85A-F62F2A69154D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D40BB3BD-F0DF-4D4B-A85A-F62F2A69154D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D40BB3BD-F0DF-4D4B-A85A-F62F2A69154D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D40BB3BD-F0DF-4D4B-A85A-F62F2A69154D}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
