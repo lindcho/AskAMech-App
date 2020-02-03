@@ -9,5 +9,6 @@ namespace AskAMech.Domain.Models
         public string PictureUrl { get; set; }
 
         public ICollection<Question> Questions { get; set; }
+        public ICollection<Answer> Answers { get; set; }
     }
 }
