@@ -12,7 +12,7 @@ namespace AskAMech.Command.Questions
 {
     public class QuestionCommands : IQuestionCommands
     {
-        public readonly IQuestionGateway _questionGateway;
+        private readonly IQuestionGateway _questionGateway;
         private readonly IRequestUserProvider _requestUserProvider;
 
         public QuestionCommands(IQuestionGateway questionGateway, IRequestUserProvider requestUserProvider)
@@ -31,13 +31,14 @@ namespace AskAMech.Command.Questions
             var currentUserId = _requestUserProvider.GetUserId();
             if (string.IsNullOrEmpty(currentUserId))
             {
-                throw new NotFoundException(nameof(ApplicationUser), currentUserId);
+                throw new Exception("User not found");
+
             }
 
             var questions = await _questionGateway.GetAll(cancellationToken);
             if (questions.Any(t => t.Title == question.Title))
             {
-                throw new ArgumentException("Title already exist!");
+                throw new Exception("Title already exist!");
             }
 
             try
@@ -59,13 +60,13 @@ namespace AskAMech.Command.Questions
             var currentUserId = _requestUserProvider.GetUserId();
             if (string.IsNullOrEmpty(currentUserId))
             {
-                throw new NotFoundException(nameof(ApplicationUser), currentUserId);
+                throw new Exception("User not found");
             }
 
             var questionDateCreated = GetQuestion(question.Id).Result.DateCreated;
             if (questionDateCreated == null)
             {
-                throw new NotFoundException(nameof(Question), question.Id);
+                throw new Exception("Date created not found");
             }
             try
             {
@@ -87,13 +88,13 @@ namespace AskAMech.Command.Questions
         {
             if (id == null)
             {
-                throw new NotFoundException(nameof(Question), (int?)null);
+               throw new Exception("Id not found");
             }
 
             var question = _questionGateway.GetQuestion(id);
             if (question == null)
             {
-                throw new NotFoundException(nameof(Question), "Question Id");
+              throw  new Exception("Question Id not found");
             }
             return question;
         }
@@ -108,7 +109,7 @@ namespace AskAMech.Command.Questions
             var question = _questionGateway.GetQuestion(id);
             if (question == null)
             {
-                throw new NotFoundException(nameof(ApplicationUser), "Question Id");
+                throw new Exception("User not found");
             }
 
             return currentUserId == question.Result.AuthorId;
@@ -119,7 +120,7 @@ namespace AskAMech.Command.Questions
             var currentUserId = _requestUserProvider.GetUserId();
             if (string.IsNullOrEmpty(currentUserId))
             {
-                throw new NotFoundException(nameof(ApplicationUser), currentUserId);
+                throw new Exception("User not found");
             }
 
             return await _questionGateway.GetUserQuestions(currentUserId);
