@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 
 namespace AskAMech.Domain.Models
@@ -11,9 +12,9 @@ namespace AskAMech.Domain.Models
         public string Description { get; set; }
         public DateTime DateCreated { get; set; }
         public DateTime LastModified { get; set; }
-
-        //EF relationships should pick this relationship between Question and ApplicationUser tables     
+        public int? AcceptedAnswerId { get; set; }
         public string AuthorId { get; set; }
         public virtual ApplicationUser Author { get; set; }
+        public ICollection<Answer> Answers { get; set; }
     }
 }

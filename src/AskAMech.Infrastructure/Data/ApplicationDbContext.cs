@@ -15,6 +15,14 @@ namespace AskAMech.Infrastructure.Data
             SetDefaultUserQuestions();
         }
 
+        protected override void OnModelCreating(ModelBuilder modelBuilder)
+        {
+            base.OnModelCreating(modelBuilder);
+            modelBuilder.Entity<Question>()
+                .HasIndex(q => q.AcceptedAnswerId)
+                .IsUnique();
+        }
+
         //ToDo to extract method to a new class
         private void SetDefaultUserQuestions()
         {
@@ -80,6 +88,7 @@ namespace AskAMech.Infrastructure.Data
         }
 
         public DbSet<Question> Questions { get; set; }
+        public DbSet<Answer> Answers { get; set; }
 
     }
 }
