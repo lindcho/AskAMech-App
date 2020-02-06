@@ -7,10 +7,11 @@ namespace AskAMech.Domain.Models
     {
         [Key]
         public int AnswerId { get; set; }
-        public int QuestionId { get; set; }
         public string Description { get; set; }
         public DateTime Date { get; set; }
-        public string UserId { get; set; }
-        public virtual ApplicationUser User { get; set; }
+        public string AuthorId { get; set; }
+        public virtual ApplicationUser Author { get; set; }
+        public int QuestionId { get; set; }
+        public virtual Question Question { get; set; }
     }
 }
