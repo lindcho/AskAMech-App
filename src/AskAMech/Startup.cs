@@ -1,6 +1,7 @@
 ﻿using AskAMech.Command.Questions;
 using AskAMech.Command.Services;
 using AskAMech.Data.DbGateways;
+using AskAMech.Data.DbGateways.Answers;
 using AskAMech.Domain.Models;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Identity;
@@ -45,6 +46,8 @@ namespace AskAMech
             // Add application gateways as scoped dependencies so they are shared per every request
             services.AddScoped<IQuestionGateway, QuestionGateway>();
             services.AddScoped<IQuestionCommands, QuestionCommands>();
+
+            services.AddScoped<IAnswerGateway, AnswerGateway>();
 
             // Add application services that are created each time they're requested from the service container.
             services.AddTransient<IRequestUserProvider, RequestUserProvider>();
