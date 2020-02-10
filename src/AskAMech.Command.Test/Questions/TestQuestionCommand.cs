@@ -9,7 +9,7 @@ namespace AskAMech.Command.Test.Questions
     public class TestQuestionCommand
     {
         [Test]
-        public async Task AskQuestion_WithInvalidUserId_ShouldReturnError()
+        public void AskQuestion_WithInvalidUserId_ShouldReturnError()
         {
             // Arrange
             const int questionId = 0;
@@ -23,7 +23,7 @@ namespace AskAMech.Command.Test.Questions
         }
 
         [Test]
-        public async Task GetQuestion_WithValidUserId_ShouldReturnErrorResult()
+        public void GetQuestion_WithValidUserId_ShouldReturnErrorResult()
         {
             // Arrange
             const int questionId = 0;
