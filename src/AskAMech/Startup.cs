@@ -1,4 +1,5 @@
-﻿using AskAMech.Command.Questions;
+﻿using AskAMech.Command.Answers;
+using AskAMech.Command.Questions;
 using AskAMech.Command.Services;
 using AskAMech.Data.DbGateways;
 using AskAMech.Data.DbGateways.Answers;
@@ -48,6 +49,7 @@ namespace AskAMech
             services.AddScoped<IQuestionCommands, QuestionCommands>();
 
             services.AddScoped<IAnswerGateway, AnswerGateway>();
+            services.AddScoped<IAnswersCommand, AnswersCommand>();
 
             // Add application services that are created each time they're requested from the service container.
             services.AddTransient<IRequestUserProvider, RequestUserProvider>();
