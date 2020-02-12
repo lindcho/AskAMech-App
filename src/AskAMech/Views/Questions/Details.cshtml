@@ -4,7 +4,7 @@
     ViewData["Title"] = "Question Details";
 }
 @{
-    
+
 }
 
 
@@ -44,11 +44,37 @@
         <dd class="col-sm-10">
             @Html.DisplayFor(model => model.Author.FullName)
         </dd>
-        @await Component.InvokeAsync("Answers", new { questionId = Model.Id })
+
+        <dd>
+            <br />
+            <br />
+        </dd>
+
+        <dd>
+            <table class="table">
+                @Html.DisplayNameFor(model => model.Answers)
+                <tr>
+                    <th>Description</th>
+                    <th>Date</th>
+                    <th>Author</th>
+                </tr>
+                @foreach (var item in Model.Answers)
+                {
+                    <tr>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Description)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Date)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Author.FullName)
+                        </td>
+                    </tr>
+                }
+            </table>
+        </dd>
     </dl>
-</div>
-<div>
-    @Html.TextAreaFor(model => model.Description, new { cols = 60, @rows = 3 })
 </div>
 
 <div>

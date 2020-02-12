@@ -3,6 +3,7 @@ using System.Threading;
 using AskAMech.Command.Questions;
 using AskAMech.Command.Services;
 using AskAMech.Data.DbGateways;
+using AskAMech.Data.DbGateways.Questions;
 using AskAMech.Domain.Models;
 using NSubstitute;
 using NSubstitute.ReturnsExtensions;

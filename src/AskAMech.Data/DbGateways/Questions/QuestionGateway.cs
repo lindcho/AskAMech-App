@@ -6,7 +6,7 @@ using AskAMech.Domain.Models;
 using AskAMech.Infrastructure.Data;
 using Microsoft.EntityFrameworkCore;
 
-namespace AskAMech.Data.DbGateways
+namespace AskAMech.Data.DbGateways.Questions
 {
 
     public class QuestionGateway : IQuestionGateway

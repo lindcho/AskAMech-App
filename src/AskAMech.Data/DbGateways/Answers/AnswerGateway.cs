@@ -18,7 +18,9 @@ namespace AskAMech.Data.DbGateways.Answers
 
         public async Task<List<Answer>> GetAllAnswers(CancellationToken cancellationToken)
         {
-            return await _context.Answers.ToListAsync(cancellationToken: cancellationToken);
+            return await _context.Answers.
+                Include(x => x.Author)
+                .ToListAsync(cancellationToken: cancellationToken);
         }
     }
 }

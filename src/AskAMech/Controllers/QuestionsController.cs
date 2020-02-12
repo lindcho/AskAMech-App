@@ -1,5 +1,6 @@
 ﻿using System.Threading;
 using System.Threading.Tasks;
+using AskAMech.Command.Answers;
 using AskAMech.Command.Questions;
 using AskAMech.Domain.Models;
 using Microsoft.AspNetCore.Authorization;
@@ -10,10 +11,13 @@ namespace AskAMech.Controllers
     public class QuestionsController : Controller
     {
         private readonly IQuestionCommands _questionCommands;
+        private readonly IAnswersCommand __answersCommand;
 
-        public QuestionsController(IQuestionCommands questionCommands)
+
+        public QuestionsController(IQuestionCommands questionCommands, IAnswersCommand answersCommand)
         {
             _questionCommands = questionCommands;
+            __answersCommand = answersCommand;
         }
 
         [HttpGet]
@@ -75,10 +79,12 @@ namespace AskAMech.Controllers
         public async Task<IActionResult> Details(int id)
         {
             ViewBag.canEdit = _questionCommands.CanUserEditQuestion(id);
-            var questionWithFullName = await _questionCommands.GetQuestion(id);
-            questionWithFullName.Author.FullName = questionWithFullName.Author.FullName ?? questionWithFullName.Author.UserName;
 
-            return View(questionWithFullName);
+            var questionModel = await _questionCommands.GetQuestion(id);
+            questionModel.Author.FullName = questionModel.Author.FullName ?? questionModel.Author.UserName;
+            questionModel.Answers = await __answersCommand.GetAnswersByQuestionId(id, new CancellationToken());
+
+            return View(questionModel);
         }
     }
 }

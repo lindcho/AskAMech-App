@@ -5,7 +5,7 @@ using System.Threading;
 using System.Threading.Tasks;
 using AskAMech.Command.Exceptions;
 using AskAMech.Command.Services;
-using AskAMech.Data.DbGateways;
+using AskAMech.Data.DbGateways.Questions;
 using AskAMech.Domain.Models;
 
 namespace AskAMech.Command.Questions
@@ -104,7 +104,7 @@ namespace AskAMech.Command.Questions
             var currentUserId = _requestUserProvider.GetUserId();
             if (string.IsNullOrEmpty(currentUserId))
             {
-                throw new NotFoundException(nameof(ApplicationUser), currentUserId);
+                return false;
             }
             var question = _questionGateway.GetQuestion(id);
             if (question == null)
