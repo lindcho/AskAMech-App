@@ -1,6 +1,10 @@
 ﻿using System;
+using System.Collections.Generic;
+using System.Threading;
 using System.Threading.Tasks;
+using AskAMech.Command.Test.Builders.Model;
 using AskAMech.Command.Test.Builders.Questions;
+using AskAMech.Domain.Models;
 using NUnit.Framework;
 
 namespace AskAMech.Command.Test.Questions
@@ -9,7 +13,7 @@ namespace AskAMech.Command.Test.Questions
     public class TestQuestionCommand
     {
         [Test]
-        public void AskQuestion_WithInvalidUserId_ShouldReturnError()
+        public async Task AskQuestion_WithInvalidId_ShouldReturnError()
         {
             // Arrange
             const int questionId = 0;
@@ -18,12 +22,15 @@ namespace AskAMech.Command.Test.Questions
                 .WithQuestionId(questionId)
                 .Build();
 
+            // Act
             var notFound = Assert.Throws<Exception>(() => command.GetQuestion(null));
+
+            //Assert
             Assert.That(notFound.Message, Is.EqualTo("Id not found"));
         }
 
         [Test]
-        public void GetQuestion_WithValidUserId_ShouldReturnErrorResult()
+        public async Task GetQuestion_WithInvaliQuestionId_ShouldReturnErrorResult()
         {
             // Arrange
             const int questionId = 0;
@@ -32,8 +39,55 @@ namespace AskAMech.Command.Test.Questions
                 .WithQuestionId(questionId)
                 .Build();
 
+            // Act
             var notFound = Assert.Throws<Exception>(() => command.GetQuestion(questionId));
+
+            //Assert
             Assert.That(notFound.Message, Is.EqualTo("Question Id not found"));
+        }
+
+        [Test]
+        public void AskQuestion_WithInvalidUserId_ShouldReturnErrorResult()
+        {
+            // Arrange
+            const string userId = "";
+
+            var question = new QuestionBuilder().Build();
+
+            var command = new AskQuestionCommandBuilder()
+                .WithUserId(userId)
+                .Build();
+
+            // Act
+            var notFound = Assert.ThrowsAsync<Exception>(() => command.AskQuestion(question, new CancellationToken()));
+
+            //Assert
+            Assert.That(notFound.Message, Is.EqualTo("User not found"));
+        }
+
+        [Test]
+        public void AskQuestion_WithExistingTitle_ShouldReturnErrorResult()
+        {
+            // Arrange
+            const string title = "where to buy a strong";
+            const string userId = "22";
+
+            var question = new QuestionBuilder().WithTitle(title).Build();
+            var questions = new List<Question>
+            {
+                new QuestionBuilder().WithTitle(title).Build(),
+                new QuestionBuilder().WithTitle(title).Build()
+            };
+
+            var command = new AskQuestionCommandBuilder()
+                .WithExistingQuestionTitle(questions).WithUserId(userId)
+                .Build();
+
+            // Act
+            var notFound = Assert.ThrowsAsync<Exception>(() => command.AskQuestion(question, new CancellationToken()));
+
+            //Assert
+            Assert.That(notFound.Message, Is.EqualTo("Title already exist!"));
         }
     }
 }

@@ -1,4 +1,6 @@
-﻿using System.Threading;
+﻿using System;
+using System.Collections.Generic;
+using System.Threading;
 using AskAMech.Command.Questions;
 using AskAMech.Command.Services;
 using AskAMech.Data.DbGateways;
@@ -39,9 +41,9 @@ namespace AskAMech.Command.Test.Builders.Questions
             _requestUserProvider.GetUserId().Returns(userId);
             return this;
         }
-        public AskQuestionCommandBuilder WithExistingQuestionTitle(Question question)
+        public AskQuestionCommandBuilder WithExistingQuestionTitle(List<Question> question)
         {
-            _questionGateway.GetAll(Arg.Any<CancellationToken>());
+            _questionGateway.GetAll(Arg.Any<CancellationToken>()).Returns(question);
             return this;
         }
 
