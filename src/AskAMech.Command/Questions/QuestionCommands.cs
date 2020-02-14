@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using AskAMech.Command.Exceptions;
 using AskAMech.Command.Services;
 using AskAMech.Data.DbGateways.Questions;
+using AskAMech.Domain;
 using AskAMech.Domain.Models;
 
 namespace AskAMech.Command.Questions
@@ -88,13 +89,13 @@ namespace AskAMech.Command.Questions
         {
             if (id == null)
             {
-               throw new Exception("Id not found");
+                throw new Exception("Id not found");
             }
 
             var question = _questionGateway.GetQuestion(id);
             if (question == null)
             {
-              throw  new Exception("Question Id not found");
+                throw new Exception("Question Id not found");
             }
             return question;
         }

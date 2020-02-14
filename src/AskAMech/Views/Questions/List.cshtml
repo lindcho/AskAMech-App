@@ -1,17 +1,11 @@
 ﻿@model X.PagedList.IPagedList<AskAMech.Domain.Models.Question>
 @using X.PagedList.Mvc.Core;
-@{ var isAuthenticated = Context.User.Identity.IsAuthenticated; }
 @{
     ViewData["Title"] = "Index";
 }
 
-<h1>Index</h1>
-@if (isAuthenticated)
-{
-    <p>
-        <a asp-action="Add">Create New</a>
-    </p>
-}
+<h3>This is what we have been asking...</h3>
+
 <table class="table">
     <thead>
         <tr>
@@ -31,6 +25,8 @@
                 <td>
                     <a asp-action="Details" asp-route-id="@item.Id">@Html.DisplayFor(modelItem => item.Title)</a>
                 </td>
+                    @Html.DisplayFor(modelItem => item.Description)
+                </td>*@
                 <td>
                     @Html.DisplayFor(modelItem => item.Author.FullName)
                 </td>
