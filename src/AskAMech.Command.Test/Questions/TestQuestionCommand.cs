@@ -55,7 +55,7 @@ namespace AskAMech.Command.Test.Questions
             var question = new QuestionBuilder().Build();
 
             var command = new AskQuestionCommandBuilder()
-                .WithUserId(userId)
+                .WithInvalidUserId(userId)
                 .Build();
 
             // Act
@@ -80,7 +80,7 @@ namespace AskAMech.Command.Test.Questions
             };
 
             var command = new AskQuestionCommandBuilder()
-                .WithExistingQuestionTitle(questions).WithUserId(userId)
+                .WithExistingQuestionTitle(questions).WithInvalidUserId(userId)
                 .Build();
 
             // Act

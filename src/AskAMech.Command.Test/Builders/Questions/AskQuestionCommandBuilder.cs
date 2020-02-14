@@ -1,5 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Threading;
 using AskAMech.Command.Questions;
 using AskAMech.Command.Services;
@@ -26,7 +25,7 @@ namespace AskAMech.Command.Test.Builders.Questions
             return new QuestionCommands(_questionGateway, _requestUserProvider);
         }
 
-        public AskQuestionCommandBuilder WithUserId(string userId)
+        public AskQuestionCommandBuilder WithInvalidUserId(string userId)
         {
             _requestUserProvider.GetUserId().Returns(userId);
             return this;
@@ -36,22 +35,10 @@ namespace AskAMech.Command.Test.Builders.Questions
             _questionGateway.GetQuestion(questionId).Result.ReturnsNull();
             return this;
         }
-        public AskQuestionCommandBuilder WithValidUserId(string userId)
-        {
-            _requestUserProvider.GetUserId().Returns(userId);
-            return this;
-        }
         public AskQuestionCommandBuilder WithExistingQuestionTitle(List<Question> question)
         {
             _questionGateway.GetAll(Arg.Any<CancellationToken>()).Returns(question);
             return this;
         }
-
-        public AskQuestionCommandBuilder WithNewlyCreatedQuestion(Question question)
-        {
-            _questionGateway.Add(question, Arg.Any<CancellationToken>());
-            return this;
-        }
-
     }
 }
