@@ -83,7 +83,7 @@ namespace AskAMech.Controllers
             var questionModel = await _questionCommands.GetQuestion(id);
             questionModel.Author.FullName = questionModel.Author.FullName ?? questionModel.Author.UserName;
             questionModel.Answers = await __answersCommand.GetAnswersByQuestionId(id, new CancellationToken());
-
+            ViewBag.answerCount = questionModel.Answers.Count;
             return View(questionModel);
         }
     }

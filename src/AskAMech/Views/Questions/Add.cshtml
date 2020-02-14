@@ -4,30 +4,34 @@
     ViewData["Title"] = "Add";
 }
 
-<h1>Create</h1>
-
-<h4>Question</h4>
-<hr />
-<div class="row">
-    <div class="col-md-4">
-        <form asp-action="Add">
-            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-            <div class="form-group">
-                <label asp-for="Title" class="control-label"></label>
+<form asp-action="Add">
+    <div>
+        <h4>Create new Question</h4>
+        <hr />
+        <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+        <div class="form-group">
+            <label asp-for="Title" class="col-md-2 control-label"></label>
+            <div class="col-md-10">
+                <small>Be specific and imagine you’re asking a question to another person</small>
                 <input asp-for="Title" class="form-control" />
-                <span asp-validation-for="Title" class="text-danger"></span>
+                <span asp-validation-for="Title" class="text-danger" />
             </div>
-            <div class="form-group">
-                <label asp-for="Description" class="control-label"></label>
+        </div>
+        <div class="form-group">
+            <label asp-for="Description" class="col-md-2 control-label"></label>
+            <div class="col-md-10">
+                <small>Include all of the details that someone needs to answer your question</small>
                 <textarea asp-for="Description" class="form-control" rows="5"></textarea>
-                <span asp-validation-for="Description" class="text-danger"></span>
+                <span asp-validation-for="Description" class="text-danger" />
             </div>
-            <div class="form-group">
+        </div>
+        <div class="form-group">
+            <div class="col-md-offset-2 col-md-10">
                 <input type="submit" value="Create" class="btn btn-primary" />
             </div>
-        </form>
+        </div>
     </div>
-</div>
+</form>
 
 <div>
     <a asp-action="List">Back to List</a>
