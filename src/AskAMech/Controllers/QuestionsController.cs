@@ -5,7 +5,7 @@ using AskAMech.Command.Questions;
 using AskAMech.Domain.Models;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using PagedList;
+using X.PagedList;
 
 namespace AskAMech.Controllers
 {
@@ -24,7 +24,7 @@ namespace AskAMech.Controllers
         [HttpGet]
         public async Task<IActionResult> List(int? page)
         {
-            var pageSize = 20;
+            var pageSize = 2;
             var pageNumber = (page ?? 1);
 
             var allQuestions = await _questionCommands.GetAllQuestions(new CancellationToken());
@@ -33,8 +33,7 @@ namespace AskAMech.Controllers
                 question.Author.FullName = question.Author.FullName ?? question.Author.UserName;
             }
 
-            var questions = allQuestions.ToPagedList(pageNumber, pageSize);
-            return View(questions);
+            return View(allQuestions.ToPagedList(pageNumber, pageSize));
         }
 
         [Authorize]
