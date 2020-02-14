@@ -13,7 +13,7 @@ namespace AskAMech.Command.Test.Questions
     public class TestQuestionCommand
     {
         [Test]
-        public async Task AskQuestion_WithInvalidId_ShouldReturnError()
+        public async Task GetQuestion_WithInvalidId_ShouldReturnError()
         {
             // Arrange
             const int questionId = 0;
@@ -88,6 +88,25 @@ namespace AskAMech.Command.Test.Questions
 
             //Assert
             Assert.That(notFound.Message, Is.EqualTo("Title already exist!"));
+        }
+
+        [Test]
+        public void UpdateQuestion_WithInvalidUserId_ShouldReturnErrorResult()
+        {
+            // Arrange
+            const string userId = "";
+
+            var question = new QuestionBuilder().Build();
+
+            var command = new AskQuestionCommandBuilder()
+                .WithInvalidUserId(userId)
+                .Build();
+
+            // Act
+            var notFound = Assert.ThrowsAsync<Exception>(() => command.UpdateQuestion(question, new CancellationToken()));
+
+            //Assert
+            Assert.That(notFound.Message, Is.EqualTo("User not found"));
         }
     }
 }
