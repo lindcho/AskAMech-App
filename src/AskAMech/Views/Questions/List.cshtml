@@ -23,10 +23,12 @@
 <br />
 @using (Html.BeginForm("List", "Questions", FormMethod.Get))
 {
-    <p>
-        Title: <input type="text" name="searchString">
-        <input type="submit" value="Search" class="btn btn-primary" />
-    </p>
+<p>
+    Title: <input type="text" name="searchString">
+    <input type="submit" value="Search" class="btn btn-primary" />
+
+    <button onclick="location.href = '@Url.Action("List", "Questions")'" class="btn btn-primary">Back to Questions</button>
+</p>
 }
 
 <table class="table">
