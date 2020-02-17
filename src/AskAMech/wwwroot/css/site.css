@@ -2,55 +2,167 @@
 for details on configuring this project to bundle and minify static web assets. */
 
 a.navbar-brand {
-  white-space: normal;
-  text-align: center;
-  word-break: break-all;
+    white-space: normal;
+    text-align: center;
+    word-break: break-all;
 }
 
 /* Sticky footer styles
 -------------------------------------------------- */
 html {
-  font-size: 14px;
+    font-size: 14px;
 }
+
 @media (min-width: 768px) {
-  html {
-    font-size: 16px;
-  }
+    html {
+        font-size: 16px;
+    }
 }
 
 .border-top {
-  border-top: 1px solid #e5e5e5;
+    border-top: 1px solid #e5e5e5;
 }
+
 .border-bottom {
-  border-bottom: 1px solid #e5e5e5;
+    border-bottom: 1px solid #e5e5e5;
 }
 
 .box-shadow {
-  box-shadow: 0 .25rem .75rem rgba(0, 0, 0, .05);
+    box-shadow: 0 .25rem .75rem rgba(0, 0, 0, .05);
 }
 
 button.accept-policy {
-  font-size: 1rem;
-  line-height: inherit;
+    font-size: 1rem;
+    line-height: inherit;
 }
 
 /* Sticky footer styles
 -------------------------------------------------- */
 html {
-  position: relative;
-  min-height: 100%;
+    position: relative;
+    min-height: 100%;
 }
 
 body {
-  /* Margin bottom by footer height */
-  margin-bottom: 60px;
+    /* Margin bottom by footer height */
+    margin-bottom: 60px;
 }
+
 .footer {
-  position: absolute;
-  bottom: 0;
-  width: 100%;
-  white-space: nowrap;
-  /* Set the fixed height of the footer here */
-  height: 60px;
-  line-height: 60px; /* Vertically center the text there */
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+    white-space: nowrap;
+    /* Set the fixed height of the footer here */
+    height: 60px;
+    line-height: 60px; /* Vertically center the text there */
+}
+
+
+/*Profile picture*/
+.profile-picture img {
+    vertical-align: middle;
+    border-radius: 50%;
+}
+
+/*Navbar*/
+.navbar .profile-picture {
+    line-height: 50px;
+}
+
+/*Articles*/
+.article-summary .profile-picture img {
+    display: block;
+    margin: 0 auto;
+}
+
+.article-summary .col-md-4 {
+    margin-top: 5px;
+}
+
+.article-summary .author-name {
+    margin: 10px 0 0 0;
+}
+
+.article-list {
+    margin-top: 10px;
+}
+
+.article-list,
+.article-details {
+    border-right: 1px solid #eee;
+}
+
+.article-page {
+    margin-top: 20px;
+}
+
+.last-articles {
+    margin-top: 10px;
+    padding-top: 10px;
+}
+
+.last-articles-list blockquote {
+    font-size: 14px;
+}
+
+/* Hide/rearrange for smaller screens */
+@media screen and (max-width: 767px) {
+    /* Hide captions */
+    .carousel-caption {
+        display: none
+    }
+}
+
+.command-list {
+    margin-bottom: 10px;
+}
+
+.question-list .question {
+    border-bottom: 1px solid #CCC;
+}
+
+    .question-list .question:first-child {
+        border-top: 1px solid #CCC;
+    }
+
+    .question-list .question .vote-count,
+    .question-list .question .answer-count,
+    .question-list .question .view-count {
+        padding: 10px 0px 10px 0px;
+        text-align: center;
+    }
+
+        .question-list .question .answer-count.answered {
+            background-color: #dcf2e0;
+            color: blue;
+        }
+
+    .question-list .question .summary h2 {
+        margin: 5px 0px 10px 0px;
+    }
+
+        .question-list .question .summary h3 .question-id {
+            color: #bbb;
+        }
+
+@media (max-width: 767px) {
+    .hidden-xs {
+        display: none !important;
+    }
+}
+
+.col-xs-1, .col-sm-1, .col-md-1, .col-lg-1, .col-xs-2, .col-sm-2, .col-md-2, .col-lg-2, .col-xs-3, .col-sm-3, .col-md-3, .col-lg-3, .col-xs-4, .col-sm-4, .col-md-4, .col-lg-4, .col-xs-5, .col-sm-5, .col-md-5, .col-lg-5, .col-xs-6, .col-sm-6, .col-md-6, .col-lg-6, .col-xs-7, .col-sm-7, .col-md-7, .col-lg-7, .col-xs-8, .col-sm-8, .col-md-8, .col-lg-8, .col-xs-9, .col-sm-9, .col-md-9, .col-lg-9, .col-xs-10, .col-sm-10, .col-md-10, .col-lg-10, .col-xs-11, .col-sm-11, .col-md-11, .col-lg-11, .col-xs-12, .col-sm-12, .col-md-12, .col-lg-12 {
+    position: relative;
+    min-height: 1px;
+    padding-right: 15px;
+    padding-left: 15px;
+}
+
+.col-xs-1, .col-xs-2, .col-xs-3, .col-xs-4, .col-xs-5, .col-xs-6, .col-xs-7, .col-xs-8, .col-xs-9, .col-xs-10, .col-xs-11, .col-xs-12 {
+    float: left;
+}
+
+.col-xs-12 {
+    width: 100%;
 }

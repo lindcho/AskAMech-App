@@ -18,7 +18,6 @@
 </style>
 
 
-<h3>This is what we have been asking...</h3>
 
 <br />
 @using (Html.BeginForm("List", "Questions", FormMethod.Get))
@@ -31,32 +30,67 @@
 </p>
 }
 
-<table class="table">
-    <thead>
-        <tr>
-            <th>
-                Title
-            </th>
-            <th>
-                Author
-            </th>
-            <th></th>
-        </tr>
-    </thead>
-    <tbody>
-        @foreach (var item in Model)
-        {
-            <tr>
-                <td>
-                    <a asp-action="Details" asp-route-id="@item.Id">@Html.DisplayFor(modelItem => item.Title)</a>
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Author.FullName)
-                </td>
-            </tr>
-        }
-    </tbody>
-</table>
+{
+    <div class="alert alert-danger alert-dismissible">
+        <a href="#" class="close" data-dismiss="alert" aria-label="close">×</a>
+        <p><i class="icon fa fa-ban"></i> No Questions </p>
+    </div>
+}
+
+<div class="question-list">
+    @foreach (var Community in Model)
+    {
+        <div class="row question">
+            <div class="vote-count col-sm-1 hidden-xs">
+                <div>1</div>
+                <div>Accepted</div>
+            </div>
+            <div class="answer-count col-sm-1 hidden-xs">
+                <div>2</div>
+                <div>answers</div>
+            </div>
+
+            <div class="summary ">
+                <h3><a href="@Url.Action("Details","Questions",new {id=@Community.Id})"><span class="question-id"></span> @Community.Title</a></h3>
+                <div>
+                    <span>@Community.Author.UserName</span>,
+                    <span class="text-muted">@Community.DateCreated</span>
+                </div>
+            </div>
+        </div>
+    }
+</div>
+
+
+@*@foreach (var item in Model)
+{
+    <div class="row article-summary">
+
+        <div class="col-xs-1" style="padding: 10px 0px 10px 0px;text-align: center;">
+            <div>5</div>
+            <div>answers</div>
+        </div>
+        <div class="col-md-4">
+            <profile-picture profile="@item.Author.PictureUrl" size-px="40" />
+            <p class="text-center author-name">
+                @(item.Author.FullName ?? item.Author.UserName)
+            </p>
+            <p class="text-center">
+                @item.DateCreated.ToString("dd MMM yyyy")
+            </p>
+        </div>
+        <div class="col-md-6">
+            <h4>
+                <a asp-action="Details" asp-route-id="@item.Id">@item.Title</a>
+            </h4>
+            <blockquote>
+                <span>@item.Author.UserName</span>,
+                <span class="text-muted">@item.DateCreated</span>
+            </blockquote>
+        </div>
+
+    </div>
+}*@
 
 <div style="text-align:center;">
     <div id="pageNumber">
