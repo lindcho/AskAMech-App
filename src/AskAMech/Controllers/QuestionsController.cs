@@ -1,4 +1,5 @@
-﻿using System.Threading;
+﻿using System.Linq;
+using System.Threading;
 using System.Threading.Tasks;
 using AskAMech.Command.Answers;
 using AskAMech.Command.Questions;
@@ -22,15 +23,19 @@ namespace AskAMech.Controllers
         }
 
         [HttpGet]
-        public async Task<IActionResult> List(int? pageNumber)
-        {
 
+        public async Task<IActionResult> List(int? pageNumber, string searchString)
+        {
             var allQuestions = await _questionCommands.GetAllQuestions(new CancellationToken());
             foreach (var question in allQuestions)
             {
                 question.Author.FullName = question.Author.FullName ?? question.Author.UserName;
             }
 
+            if (!string.IsNullOrEmpty(searchString))
+            {
+                return View(allQuestions.Where(q => q.Title.Contains(searchString)).ToList().ToPagedList(pageNumber ?? 1, 2));
+            }
             return View(allQuestions.ToPagedList(pageNumber ?? 1, 2));
         }
 

@@ -20,6 +20,15 @@
 
 <h3>This is what we have been asking...</h3>
 
+<br />
+@using (Html.BeginForm("List", "Questions", FormMethod.Get))
+{
+    <p>
+        Title: <input type="text" name="searchString">
+        <input type="submit" value="Search" class="btn btn-primary" />
+    </p>
+}
+
 <table class="table">
     <thead>
         <tr>
