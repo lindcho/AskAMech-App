@@ -22,10 +22,8 @@ namespace AskAMech.Controllers
         }
 
         [HttpGet]
-        public async Task<IActionResult> List(int? page)
+        public async Task<IActionResult> List(int? pageNumber)
         {
-            var pageSize = 2;
-            var pageNumber = (page ?? 1);
 
             var allQuestions = await _questionCommands.GetAllQuestions(new CancellationToken());
             foreach (var question in allQuestions)
@@ -33,7 +31,7 @@ namespace AskAMech.Controllers
                 question.Author.FullName = question.Author.FullName ?? question.Author.UserName;
             }
 
-            return View(allQuestions.ToPagedList(pageNumber, pageSize));
+            return View(allQuestions.ToPagedList(pageNumber ?? 1, 2));
         }
 
         [Authorize]

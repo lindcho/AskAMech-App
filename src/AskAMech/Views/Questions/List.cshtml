@@ -4,6 +4,20 @@
     ViewData["Title"] = "Index";
 }
 
+<style type="text/css">
+    #pageNumber {
+        display: inline-block;
+        padding-right: 10px;
+        text-align: center;
+    }
+
+    #pageLinks {
+        display: inline-block;
+        text-align: center;
+    }
+</style>
+
+
 <h3>This is what we have been asking...</h3>
 
 <table class="table">
@@ -33,11 +47,23 @@
     </tbody>
 </table>
 
-
-<div id="container" style="text-align: center;">
-
-    Page @(Model.PageCount < Model.PageNumber ? 0 : Model.PageNumber)
-    of @Model.PageCount @Html.PagedListPager(Model, page => Url.Action("List", new { page }))
+<div style="text-align:center;">
+    <div id="pageNumber">
+        Page @(Model.PageCount < Model.PageNumber ? 0 : Model.PageNumber)
+        of @Model.PageCount
+    </div>
+    <div id="pageLinks">
+        @Html.PagedListPager(Model, page => Url.Action("List", "Questions", new { pageNumber = page }))
+    </div>
 </div>
+
+
+
+
+
+
+
+
+
 
 
