@@ -31,7 +31,7 @@ namespace AskAMech.Infrastructure.Data
                     Email = "askamech@gmail.com",
                     EmailConfirmed = true,
                     UserName = "askamech@gmail.com",
-                    Id = "1f7999f-28be-4322-bc69-612ef8bbbb5c",
+                    Id = "1f7999f-28be-4322-bc69-612ef8cccc5c",
                     FullName = "khanyisile",
                     PhoneNumber = "0746009500",
                     PhoneNumberConfirmed = true,
@@ -131,7 +131,7 @@ namespace AskAMech.Infrastructure.Data
                 new Answer
                 {
                     AnswerId = 1,
-                    AuthorId = "1f7999f-28be-4322-bc69-612ef8bbbb5c",
+                    AuthorId = "1f7999f-28be-4322-bc69-612ef8cccc5c",
                     QuestionId = 2,
                     Date = DateTime.Now.Subtract(TimeSpan.FromMinutes(16)),
                     Description = "fix it"
@@ -139,7 +139,7 @@ namespace AskAMech.Infrastructure.Data
                 new Answer
                 {
                     AnswerId = 2,
-                    AuthorId = "1f7999f-28be-4322-bc69-612ef8bbbb5c",
+                    AuthorId = "1f7999f-28be-4322-bc69-612ef8cccc5c",
                     QuestionId = 3,
                     Date = DateTime.Now.Subtract(TimeSpan.FromMinutes(16)),
                     Description = "fix it now"
@@ -147,7 +147,7 @@ namespace AskAMech.Infrastructure.Data
                 new Answer
                 {
                     AnswerId = 3,
-                    AuthorId = "1f7999f-28be-4322-bc69-612ef8bbbb5c",
+                    AuthorId = "1f7999f-28be-4322-bc69-612ef8cccc5c",
                     QuestionId = 4,
                     Date = DateTime.Now.Subtract(TimeSpan.FromMinutes(16)),
                     Description = "fix then test it"

@@ -4,14 +4,16 @@ using AskAMech.Infrastructure.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace AskAMech.Infrastructure.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20200217133047_AddAnswers")]
+    partial class AddAnswers
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -46,7 +48,7 @@ namespace AskAMech.Infrastructure.Migrations
                         {
                             AnswerId = 1,
                             AuthorId = "1f7999f-28be-4322-bc69-612ef8bbbb5c",
-                            Date = new DateTime(2020, 2, 17, 15, 24, 58, 197, DateTimeKind.Local).AddTicks(9948),
+                            Date = new DateTime(2020, 2, 17, 15, 14, 46, 959, DateTimeKind.Local).AddTicks(2021),
                             Description = "fix it",
                             QuestionId = 2
                         },
@@ -54,7 +56,7 @@ namespace AskAMech.Infrastructure.Migrations
                         {
                             AnswerId = 2,
                             AuthorId = "1f7999f-28be-4322-bc69-612ef8bbbb5c",
-                            Date = new DateTime(2020, 2, 17, 15, 24, 58, 198, DateTimeKind.Local).AddTicks(1044),
+                            Date = new DateTime(2020, 2, 17, 15, 14, 46, 959, DateTimeKind.Local).AddTicks(3103),
                             Description = "fix it now",
                             QuestionId = 3
                         },
@@ -62,7 +64,7 @@ namespace AskAMech.Infrastructure.Migrations
                         {
                             AnswerId = 3,
                             AuthorId = "1f7999f-28be-4322-bc69-612ef8bbbb5c",
-                            Date = new DateTime(2020, 2, 17, 15, 24, 58, 198, DateTimeKind.Local).AddTicks(1060),
+                            Date = new DateTime(2020, 2, 17, 15, 14, 46, 959, DateTimeKind.Local).AddTicks(3120),
                             Description = "fix then test it",
                             QuestionId = 4
                         },
@@ -70,7 +72,7 @@ namespace AskAMech.Infrastructure.Migrations
                         {
                             AnswerId = 4,
                             AuthorId = "36b2db51-238e-4224-ad1d-fe3077a5e4e4",
-                            Date = new DateTime(2020, 2, 17, 15, 24, 58, 198, DateTimeKind.Local).AddTicks(1062),
+                            Date = new DateTime(2020, 2, 17, 15, 14, 46, 959, DateTimeKind.Local).AddTicks(3122),
                             Description = "You can buy from Continental! but the price is just off the roof.. Very expensive",
                             QuestionId = 1
                         },
@@ -78,7 +80,7 @@ namespace AskAMech.Infrastructure.Migrations
                         {
                             AnswerId = 5,
                             AuthorId = "ffc183dc-78c2-413d-96f8-2091600c0b69",
-                            Date = new DateTime(2020, 2, 17, 15, 24, 58, 198, DateTimeKind.Local).AddTicks(1063),
+                            Date = new DateTime(2020, 2, 17, 15, 14, 46, 959, DateTimeKind.Local).AddTicks(3123),
                             Description = "Super Tyres",
                             QuestionId = 1
                         },
@@ -86,7 +88,7 @@ namespace AskAMech.Infrastructure.Migrations
                         {
                             AnswerId = 6,
                             AuthorId = "1f7999f-28be-4322-bc69-612ef8bbbb5G",
-                            Date = new DateTime(2020, 2, 17, 15, 24, 58, 198, DateTimeKind.Local).AddTicks(1065),
+                            Date = new DateTime(2020, 2, 17, 15, 14, 46, 959, DateTimeKind.Local).AddTicks(3125),
                             Description = "Goodyear Tyres for new tires, but you can also try your new garage for second hand tyres",
                             QuestionId = 1
                         });
@@ -151,7 +153,7 @@ namespace AskAMech.Infrastructure.Migrations
                         {
                             Id = "1f7999f-28be-4322-bc69-612ef8bbbb5G",
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "efbfc8f7-3268-403a-87f6-9d44a7c2e5ed",
+                            ConcurrencyStamp = "9aad1f81-e750-49cd-ad8d-03a2747ccf9b",
                             Email = "lindco@outlook.com",
                             EmailConfirmed = true,
                             FullName = "lindokuhle",
@@ -161,7 +163,7 @@ namespace AskAMech.Infrastructure.Migrations
                             PasswordHash = "AQAAAAEAACcQAAAAEKGJW6gAMtcOK+HH2phjyFSosZjyexbheSbFtgc6IYtspAcTAmPe9MwjitV7xe8gLQ==",
                             PhoneNumber = "0746009500",
                             PhoneNumberConfirmed = true,
-                            SecurityStamp = "345935e6-2dac-4c3a-b155-1d2bc1eab6ea",
+                            SecurityStamp = "2c33362b-5e29-41d4-a063-2bb0daab231f",
                             TwoFactorEnabled = false,
                             UserName = "lindco@outlook.com"
                         },
@@ -169,7 +171,7 @@ namespace AskAMech.Infrastructure.Migrations
                         {
                             Id = "1f7999f-28be-4322-bc69-612ef8bbbb5c",
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "b34e3e6c-964e-4d29-b2e6-f0e2f8f5c7fc",
+                            ConcurrencyStamp = "c8ca99fa-c63d-4687-92a7-a6b8ffd9f3b3",
                             Email = "askamech@gmail.com",
                             EmailConfirmed = true,
                             FullName = "khanyisile",
@@ -179,7 +181,7 @@ namespace AskAMech.Infrastructure.Migrations
                             PasswordHash = "AQAAAAEAACcQAAAAEKGJW6gAMtcOK+HH2phjyFSosZjyexbheSbFtgc6IYtspAcTAmPe9MwjitV7xe8gLQ==",
                             PhoneNumber = "0746009500",
                             PhoneNumberConfirmed = true,
-                            SecurityStamp = "76a4c721-35d6-4587-a6ea-8b5093d298a7",
+                            SecurityStamp = "5ed77261-3744-49d2-a77f-e375a0e316e4",
                             TwoFactorEnabled = false,
                             UserName = "askamech@gmail.com"
                         },
@@ -187,7 +189,7 @@ namespace AskAMech.Infrastructure.Migrations
                         {
                             Id = "36b2db51-238e-4224-ad1d-fe3077a5e4e4",
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "a2bd03b3-d578-450f-88fb-7f8a7a33e880",
+                            ConcurrencyStamp = "e3de6acd-d55d-4f91-a3d6-436e94c6e3b7",
                             Email = "sam@gmail.com",
                             EmailConfirmed = true,
                             FullName = "samkelo",
@@ -197,7 +199,7 @@ namespace AskAMech.Infrastructure.Migrations
                             PasswordHash = "AQAAAAEAACcQAAAAEKGJW6gAMtcOK+HH2phjyFSosZjyexbheSbFtgc6IYtspAcTAmPe9MwjitV7xe8gLQ==",
                             PhoneNumber = "0746009500",
                             PhoneNumberConfirmed = true,
-                            SecurityStamp = "9327a39d-c35d-4e57-8bd4-3db9b470e5b2",
+                            SecurityStamp = "12fda695-a9df-4ee5-a7ba-9b59425196df",
                             TwoFactorEnabled = false,
                             UserName = "sam@gmail.com"
                         },
@@ -205,7 +207,7 @@ namespace AskAMech.Infrastructure.Migrations
                         {
                             Id = "ffc183dc-78c2-413d-96f8-2091600c0b69",
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "596f98dd-fa7f-421a-8342-9349c79a96b5",
+                            ConcurrencyStamp = "340aacde-e683-48b2-9ada-7540eaef63f7",
                             Email = "lindo1@ymail.com",
                             EmailConfirmed = true,
                             FullName = "samkelo",
@@ -215,7 +217,7 @@ namespace AskAMech.Infrastructure.Migrations
                             PasswordHash = "AQAAAAEAACcQAAAAEKGJW6gAMtcOK+HH2phjyFSosZjyexbheSbFtgc6IYtspAcTAmPe9MwjitV7xe8gLQ==",
                             PhoneNumber = "0746009500",
                             PhoneNumberConfirmed = true,
-                            SecurityStamp = "0e99e094-9cf6-41aa-b38c-be7ad1ecec48",
+                            SecurityStamp = "fd68d76c-aa92-4f50-8a00-61242845f3cb",
                             TwoFactorEnabled = false,
                             UserName = "lindo1@ymail.com"
                         });
@@ -254,45 +256,45 @@ namespace AskAMech.Infrastructure.Migrations
                         {
                             Id = 1,
                             AuthorId = "1f7999f-28be-4322-bc69-612ef8bbbb5c",
-                            DateCreated = new DateTime(2020, 2, 17, 14, 40, 58, 196, DateTimeKind.Local).AddTicks(3541),
+                            DateCreated = new DateTime(2020, 2, 17, 14, 30, 46, 957, DateTimeKind.Local).AddTicks(4587),
                             Description = "I need to know where can i buy a strong tire.",
-                            LastModified = new DateTime(2020, 2, 17, 15, 30, 58, 197, DateTimeKind.Local).AddTicks(6301),
+                            LastModified = new DateTime(2020, 2, 17, 15, 20, 46, 958, DateTimeKind.Local).AddTicks(8476),
                             Title = "where to buy a strong tire"
                         },
                         new
                         {
                             Id = 2,
                             AuthorId = "1f7999f-28be-4322-bc69-612ef8bbbb5G",
-                            DateCreated = new DateTime(2020, 2, 17, 12, 40, 58, 197, DateTimeKind.Local).AddTicks(7068),
+                            DateCreated = new DateTime(2020, 2, 17, 12, 30, 46, 958, DateTimeKind.Local).AddTicks(9080),
                             Description = "I just bought a tire but don;t know how to fit it in my car.",
-                            LastModified = new DateTime(2020, 2, 17, 15, 38, 58, 197, DateTimeKind.Local).AddTicks(7081),
+                            LastModified = new DateTime(2020, 2, 17, 15, 28, 46, 958, DateTimeKind.Local).AddTicks(9092),
                             Title = "How to fit a tire"
                         },
                         new
                         {
                             Id = 3,
                             AuthorId = "36b2db51-238e-4224-ad1d-fe3077a5e4e4",
-                            DateCreated = new DateTime(2019, 12, 19, 15, 40, 58, 197, DateTimeKind.Local).AddTicks(7087),
+                            DateCreated = new DateTime(2019, 12, 19, 15, 30, 46, 958, DateTimeKind.Local).AddTicks(9098),
                             Description = "I bought brackpads but don't know how to fix it.",
-                            LastModified = new DateTime(2020, 1, 18, 15, 40, 58, 197, DateTimeKind.Local).AddTicks(7089),
+                            LastModified = new DateTime(2020, 1, 18, 15, 30, 46, 958, DateTimeKind.Local).AddTicks(9100),
                             Title = "How to fit brackes"
                         },
                         new
                         {
                             Id = 4,
                             AuthorId = "ffc183dc-78c2-413d-96f8-2091600c0b69",
-                            DateCreated = new DateTime(2019, 12, 19, 15, 40, 58, 197, DateTimeKind.Local).AddTicks(7091),
+                            DateCreated = new DateTime(2019, 12, 19, 15, 30, 46, 958, DateTimeKind.Local).AddTicks(9102),
                             Description = "my cra is making a noise i think i need to replace cv's.",
-                            LastModified = new DateTime(2020, 2, 17, 15, 30, 58, 197, DateTimeKind.Local).AddTicks(7092),
+                            LastModified = new DateTime(2020, 2, 17, 15, 20, 46, 958, DateTimeKind.Local).AddTicks(9103),
                             Title = "CV problem"
                         },
                         new
                         {
                             Id = 5,
                             AuthorId = "ffc183dc-78c2-413d-96f8-2091600c0b69",
-                            DateCreated = new DateTime(2019, 12, 19, 15, 40, 58, 197, DateTimeKind.Local).AddTicks(7094),
+                            DateCreated = new DateTime(2019, 12, 19, 15, 30, 46, 958, DateTimeKind.Local).AddTicks(9105),
                             Description = "i bought this brakes two months ago but it seams like they are not original.",
-                            LastModified = new DateTime(2020, 2, 17, 15, 24, 58, 197, DateTimeKind.Local).AddTicks(7095),
+                            LastModified = new DateTime(2020, 2, 17, 15, 14, 46, 958, DateTimeKind.Local).AddTicks(9106),
                             Title = "My car brakes are not working"
                         });
                 });

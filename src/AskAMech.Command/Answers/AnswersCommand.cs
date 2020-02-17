@@ -1,8 +1,11 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
+using AskAMech.Command.Services;
 using AskAMech.Data.DbGateways.Answers;
+using AskAMech.Data.DbGateways.Questions;
 using AskAMech.Domain.Models;
 
 namespace AskAMech.Command.Answers
@@ -10,10 +13,14 @@ namespace AskAMech.Command.Answers
     public class AnswersCommand : IAnswersCommand
     {
         private readonly IAnswerGateway _answersGateway;
+        private readonly IQuestionGateway _questionGateway;
+        private readonly IRequestUserProvider _requestUserProvider;
 
-        public AnswersCommand(IAnswerGateway answersGateway)
+        public AnswersCommand(IAnswerGateway answersGateway, IQuestionGateway questionGateway, IRequestUserProvider requestUserProvider)
         {
             _answersGateway = answersGateway;
+            _questionGateway = questionGateway;
+            _requestUserProvider = requestUserProvider;
         }
 
         public async Task<List<Answer>> GetAnswersByQuestionId(int questionId, CancellationToken cancellationToken)
@@ -21,6 +28,24 @@ namespace AskAMech.Command.Answers
             var answers = await _answersGateway.GetAllAnswers(cancellationToken);
             var questionAnswers = answers.Where(x => x.QuestionId == questionId).ToList();
             return questionAnswers;
+        }
+        public async Task AddAnswer(Answer answer, CancellationToken cancellationToken)
+        {
+            var currentUserId = _requestUserProvider.GetUserId();
+            if (string.IsNullOrEmpty(currentUserId))
+            {
+                throw new Exception("User not found");
+
+            }
+            var question = await _questionGateway.GetQuestion(answer.QuestionId);
+            if (question == null)
+            {
+                throw new Exception("Question cannot be found");
+            }
+            answer.AuthorId = currentUserId;
+            answer.Date = DateTime.Now;
+            answer.QuestionId = answer.QuestionId;
+            await _answersGateway.AddAnswer(answer, cancellationToken);
         }
     }
 }

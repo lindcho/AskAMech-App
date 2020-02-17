@@ -1,9 +1,9 @@
-﻿using System.Linq;
-using System.Threading;
-using System.Web.Mvc;
+﻿using System.Threading;
+using System.Threading.Tasks;
 using AskAMech.Command.Answers;
+using AskAMech.Domain.Models;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using Controller = Microsoft.AspNetCore.Mvc.Controller;
 
 namespace AskAMech.Controllers
 {
@@ -16,11 +16,25 @@ namespace AskAMech.Controllers
             _answersCommand = answersCommand;
         }
 
-        [ChildActionOnly]
-        public IActionResult Index(int id)
+        [Authorize]
+        [HttpGet]
+        public IActionResult Add(int questionId)
         {
-            var answers = _answersCommand.GetAnswersByQuestionId(id, new CancellationToken());
-            return PartialView("_Answers",answers.Result.ToList());
+            var answer = new Answer
+            {
+                QuestionId = questionId
+            };
+            return View(answer);
+        }
+
+        [Authorize]
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> Add(Answer answer)
+        {
+            if (!ModelState.IsValid) return View(answer);
+            await _answersCommand.AddAnswer(answer, new CancellationToken());
+            return RedirectToAction("Details", "Questions", new { id = answer.QuestionId });
         }
     }
 }

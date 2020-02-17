@@ -16,6 +16,12 @@ namespace AskAMech.Data.DbGateways.Answers
             _context = context;
         }
 
+        public async Task AddAnswer(Answer answer, CancellationToken cancellationToken)
+        {
+            _context.Answers.Add(answer);
+            await _context.SaveChangesAsync(cancellationToken);
+        }
+
         public async Task<List<Answer>> GetAllAnswers(CancellationToken cancellationToken)
         {
             return await _context.Answers.

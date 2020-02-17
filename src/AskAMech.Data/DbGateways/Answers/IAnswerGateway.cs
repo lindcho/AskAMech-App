@@ -8,5 +8,6 @@ namespace AskAMech.Data.DbGateways.Answers
     public interface IAnswerGateway
     {
         Task<List<Answer>> GetAllAnswers(CancellationToken cancellationToken);
+        Task AddAnswer(Answer answer, CancellationToken cancellationToken);
     }
 }
