@@ -1,33 +1,22 @@
 ﻿@model X.PagedList.IPagedList<AskAMech.Domain.Models.Question>
 @using X.PagedList.Mvc.Core;
+
+<head>
+    <link rel="stylesheet" href="~/css/pagingStyleSheet.css"/>
+</head>
+
 @{
     ViewData["Title"] = "Index";
 }
 
-<style type="text/css">
-    #pageNumber {
-        display: inline-block;
-        padding-right: 10px;
-        text-align: center;
-    }
-
-    #pageLinks {
-        display: inline-block;
-        text-align: center;
-    }
-</style>
-
-
-
 <br />
 @using (Html.BeginForm("List", "Questions", FormMethod.Get))
 {
-<p>
-    Title: <input type="text" name="searchString">
-    <input type="submit" value="Search" class="btn btn-primary" />
-
-    <button onclick="location.href = '@Url.Action("List", "Questions")'" class="btn btn-primary">Back to Questions</button>
-</p>
+    <p>
+        Title: <input type="text" name="searchString">
+        <input type="submit" value="Search" class="btn btn-primary" />
+        <button onclick="location.href = '@Url.Action("List", "Questions")'" class="btn btn-primary">Back to Questions</button>
+    </p>
 }
 
 @if (!Model.Any())
@@ -93,23 +82,10 @@
         </div>
     }*@
 
-<div style="text-align:center;">
-    <div id="pageNumber">
-        Page @(Model.PageCount < Model.PageNumber ? 0 : Model.PageNumber)
-        of @Model.PageCount
-    </div>
-    <div id="pageLinks">
-        @Html.PagedListPager(Model, page => Url.Action("List", "Questions", new { pageNumber = page }))
+<div class="page-container">
+    <div class="inline-block">
+        <div class="page">Page @(Model.PageCount < Model.PageNumber ? 0 : Model.PageNumber)
+            of @Model.PageCount</div>
+        <div class="page">@Html.PagedListPager(Model, page => Url.Action("List", "Questions", new { pageNumber = page }))</div>
     </div>
 </div>
-
-
-
-
-
-
-
-
-
-
-
