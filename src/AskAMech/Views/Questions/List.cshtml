@@ -28,7 +28,7 @@
 }
 
 <div class="question-list">
-    @foreach (var Community in Model)
+    @foreach (var question in Model)
     {
         <div class="row question">
             <div class="vote-count col-sm-1 hidden-xs">
@@ -41,10 +41,10 @@
             </div>
 
             <div class="summary ">
-                <h3><a href="@Url.Action("Details","Questions",new {id=@Community.Id})"><span class="question-id"></span> @Community.Title</a></h3>
+                <h3><a href="@Url.Action("Details","Questions",new {id=question.Id})"><span class="question-id"></span> @question.Title</a></h3>
                 <div>
-                    <span>@Community.Author.UserName</span>,
-                    <span class="text-muted">@Community.DateCreated</span>
+                    <span>@question.Author.UserName</span>,
+                    <span class="text-muted">@question.DateCreated</span>
                 </div>
             </div>
         </div>
