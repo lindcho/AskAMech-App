@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Threading;
-using System.Threading.Tasks;
 using AskAMech.Command.Test.Builders.Model;
 using AskAMech.Command.Test.Builders.Questions;
 using AskAMech.Domain.Models;
@@ -15,41 +14,41 @@ namespace AskAMech.Command.Test.Questions
         [Test]
         public void GetQuestion_WithInvalidId_ShouldReturnError()
         {
-            // Arrange
+            //---------------Arrange----------------------
             const int questionId = 0;
 
             var command = new AskQuestionCommandBuilder()
                 .WithQuestionId(questionId)
                 .Build();
 
-            // Act
+            //---------------Act--------------------------
             var notFound = Assert.Throws<Exception>(() => command.GetQuestion(null));
 
-            //Assert
+            //---------------Assert-----------------------
             Assert.That(notFound.Message, Is.EqualTo("Id not found"));
         }
 
         [Test]
         public void GetQuestion_WithInvaliQuestionId_ShouldReturnErrorResult()
         {
-            // Arrange
+            //---------------Arrange----------------------
             const int questionId = 0;
 
             var command = new AskQuestionCommandBuilder()
                 .WithQuestionId(questionId)
                 .Build();
 
-            // Act
+            //---------------Act--------------------------
             var notFound = Assert.Throws<Exception>(() => command.GetQuestion(questionId));
 
-            //Assert
+            //---------------Assert-----------------------
             Assert.That(notFound.Message, Is.EqualTo("Question Id not found"));
         }
 
         [Test]
         public void AskQuestion_WithInvalidUserId_ShouldReturnErrorResult()
         {
-            // Arrange
+            //---------------Arrange----------------------
             const string userId = "";
 
             var question = new QuestionBuilder().Build();
@@ -58,17 +57,17 @@ namespace AskAMech.Command.Test.Questions
                 .WithInvalidUserId(userId)
                 .Build();
 
-            // Act
+            //---------------Act--------------------------
             var notFound = Assert.ThrowsAsync<Exception>(() => command.AskQuestion(question, new CancellationToken()));
 
-            //Assert
+            //---------------Assert-----------------------
             Assert.That(notFound.Message, Is.EqualTo("User not found"));
         }
 
         [Test]
         public void AskQuestion_WithExistingTitle_ShouldReturnErrorResult()
         {
-            // Arrange
+            //---------------Arrange----------------------
             const string title = "where to buy a strong";
             const string userId = "22";
 
@@ -83,17 +82,17 @@ namespace AskAMech.Command.Test.Questions
                 .WithExistingQuestionTitle(questions).WithInvalidUserId(userId)
                 .Build();
 
-            // Act
+            //---------------Act--------------------------
             var notFound = Assert.ThrowsAsync<Exception>(() => command.AskQuestion(question, new CancellationToken()));
 
-            //Assert
+            //---------------Assert-----------------------
             Assert.That(notFound.Message, Is.EqualTo("Title already exist!"));
         }
 
         [Test]
         public void UpdateQuestion_WithInvalidUserId_ShouldReturnErrorResult()
         {
-            // Arrange
+            //---------------Arrange----------------------
             const string userId = "";
 
             var question = new QuestionBuilder().Build();
@@ -102,10 +101,10 @@ namespace AskAMech.Command.Test.Questions
                 .WithInvalidUserId(userId)
                 .Build();
 
-            // Act
+            //---------------Act--------------------------
             var notFound = Assert.ThrowsAsync<Exception>(() => command.UpdateQuestion(question, new CancellationToken()));
 
-            //Assert
+            //---------------Assert-----------------------
             Assert.That(notFound.Message, Is.EqualTo("User not found"));
         }
     }
