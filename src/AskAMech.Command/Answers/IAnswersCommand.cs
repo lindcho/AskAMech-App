@@ -8,6 +8,6 @@ namespace AskAMech.Command.Answers
     public interface IAnswersCommand
     {
         Task<List<Answer>> GetAnswersByQuestionId( int questionId,CancellationToken cancellationToken);
-        Task AddAnswer(Answer answer, CancellationToken cancellationToken);
+        Task AnswerQuestion(Answer answer, CancellationToken cancellationToken);
     }
 }

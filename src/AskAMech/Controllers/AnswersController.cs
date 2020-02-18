@@ -18,7 +18,7 @@ namespace AskAMech.Controllers
 
         [Authorize]
         [HttpGet]
-        public IActionResult Add(int questionId)
+        public IActionResult AnswerQuestion(int questionId)
         {
             var answer = new Answer
             {
@@ -30,10 +30,10 @@ namespace AskAMech.Controllers
         [Authorize]
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Add(Answer answer)
+        public async Task<IActionResult> AnswerQuestion([Bind("AnswerId,Description,QuestionId")] Answer answer)
         {
             if (!ModelState.IsValid) return View(answer);
-            await _answersCommand.AddAnswer(answer, new CancellationToken());
+            await _answersCommand.AnswerQuestion(answer, new CancellationToken());
             return RedirectToAction("Details", "Questions", new { id = answer.QuestionId });
         }
     }

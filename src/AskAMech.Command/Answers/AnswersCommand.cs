@@ -29,7 +29,7 @@ namespace AskAMech.Command.Answers
             var questionAnswers = answers.Where(x => x.QuestionId == questionId).ToList();
             return questionAnswers;
         }
-        public async Task AddAnswer(Answer answer, CancellationToken cancellationToken)
+        public async Task AnswerQuestion(Answer answer, CancellationToken cancellationToken)
         {
             var currentUserId = _requestUserProvider.GetUserId();
             if (string.IsNullOrEmpty(currentUserId))
@@ -37,15 +37,24 @@ namespace AskAMech.Command.Answers
                 throw new Exception("User not found");
 
             }
+
             var question = await _questionGateway.GetQuestion(answer.QuestionId);
             if (question == null)
             {
-                throw new Exception("Question cannot be found");
+                throw new Exception("Question not found");
             }
-            answer.AuthorId = currentUserId;
-            answer.Date = DateTime.Now;
-            answer.QuestionId = answer.QuestionId;
-            await _answersGateway.AddAnswer(answer, cancellationToken);
+            try
+            {
+                answer.AuthorId = currentUserId;
+                answer.Date = DateTime.Now;
+                await _answersGateway.AddAnswer(answer, cancellationToken);
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(e);
+                throw;
+            }
+
         }
     }
 }
