@@ -3,6 +3,7 @@ using System.Threading;
 using AskAMech.Command.Questions;
 using AskAMech.Command.Services;
 using AskAMech.Data.DbGateways;
+using AskAMech.Data.DbGateways.Answers;
 using AskAMech.Data.DbGateways.Questions;
 using AskAMech.Domain.Models;
 using NSubstitute;
@@ -14,16 +15,18 @@ namespace AskAMech.Command.Test.Builders.Questions
     {
         private readonly IQuestionGateway _questionGateway;
         private readonly IRequestUserProvider _requestUserProvider;
+        private readonly IAnswerGateway _answerGateway;
 
         public AskQuestionCommandBuilder()
         {
             _questionGateway = Substitute.For<IQuestionGateway>();
             _requestUserProvider = Substitute.For<IRequestUserProvider>();
+            _answerGateway = Substitute.For<IAnswerGateway>();
         }
 
         public QuestionCommands Build()
         {
-            return new QuestionCommands(_questionGateway, _requestUserProvider);
+            return new QuestionCommands(_questionGateway, _requestUserProvider, _answerGateway);
         }
 
         public AskQuestionCommandBuilder WithInvalidUserId(string userId)

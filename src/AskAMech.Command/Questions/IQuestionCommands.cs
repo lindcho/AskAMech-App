@@ -13,5 +13,6 @@ namespace AskAMech.Command.Questions
         Task<Question> GetQuestion(int? id);
         bool CanUserEditQuestion(int? id);
         Task<List<Question>> GetUserQuestions();
+        int GetAnswersCount(int questionId);
     }
 }

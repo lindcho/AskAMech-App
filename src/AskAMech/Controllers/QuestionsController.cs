@@ -34,9 +34,9 @@ namespace AskAMech.Controllers
 
             if (!string.IsNullOrEmpty(searchString))
             {
-                return View(allQuestions.Where(q => q.Title.Contains(searchString)).ToList().ToPagedList(pageNumber ?? 1, 2));
+                return View(allQuestions.Where(q => q.Title.Contains(searchString)).ToList().ToPagedList(pageNumber ?? 1, 4));
             }
-            return View(allQuestions.ToPagedList(pageNumber ?? 1, 2));
+            return View(allQuestions.ToPagedList(pageNumber ?? 1, 4));
         }
 
         [Authorize]
@@ -91,7 +91,7 @@ namespace AskAMech.Controllers
             var questionModel = await _questionCommands.GetQuestion(id);
             questionModel.Author.FullName = questionModel.Author.FullName ?? questionModel.Author.UserName;
             questionModel.Answers = await __answersCommand.GetAnswersByQuestionId(id, new CancellationToken());
-            ViewBag.answerCount = questionModel.Answers.Count;
+            ViewBag.answerCount = _questionCommands.GetAnswersCount(id);
             return View(questionModel);
         }
     }

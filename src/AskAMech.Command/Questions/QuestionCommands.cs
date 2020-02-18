@@ -3,10 +3,9 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
-using AskAMech.Command.Exceptions;
 using AskAMech.Command.Services;
+using AskAMech.Data.DbGateways.Answers;
 using AskAMech.Data.DbGateways.Questions;
-using AskAMech.Domain;
 using AskAMech.Domain.Models;
 
 namespace AskAMech.Command.Questions
@@ -14,12 +13,14 @@ namespace AskAMech.Command.Questions
     public class QuestionCommands : IQuestionCommands
     {
         private readonly IQuestionGateway _questionGateway;
+        private readonly IAnswerGateway _answersGateway;
         private readonly IRequestUserProvider _requestUserProvider;
 
-        public QuestionCommands(IQuestionGateway questionGateway, IRequestUserProvider requestUserProvider)
+        public QuestionCommands(IQuestionGateway questionGateway, IRequestUserProvider requestUserProvider, IAnswerGateway answerGateway)
         {
             _questionGateway = questionGateway;
             _requestUserProvider = requestUserProvider;
+            _answersGateway = answerGateway;
         }
 
         public Task<List<Question>> GetAllQuestions(CancellationToken cancellationToken)
@@ -125,6 +126,12 @@ namespace AskAMech.Command.Questions
             }
 
             return await _questionGateway.GetUserQuestions(currentUserId);
+        }
+
+        public int GetAnswersCount(int questionId)
+        {
+            var count = _answersGateway.GetAllAnswers(new CancellationToken()).Result.Count(x => x.QuestionId == questionId);
+            return count;
         }
     }
 }
