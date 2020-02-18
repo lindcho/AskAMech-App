@@ -13,7 +13,7 @@ namespace AskAMech.Command.Test.Questions
     public class TestQuestionCommand
     {
         [Test]
-        public async Task GetQuestion_WithInvalidId_ShouldReturnError()
+        public void GetQuestion_WithInvalidId_ShouldReturnError()
         {
             // Arrange
             const int questionId = 0;
@@ -30,7 +30,7 @@ namespace AskAMech.Command.Test.Questions
         }
 
         [Test]
-        public async Task GetQuestion_WithInvaliQuestionId_ShouldReturnErrorResult()
+        public void GetQuestion_WithInvaliQuestionId_ShouldReturnErrorResult()
         {
             // Arrange
             const int questionId = 0;
