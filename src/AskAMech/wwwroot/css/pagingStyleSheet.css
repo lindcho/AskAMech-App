@@ -8,11 +8,11 @@
   }
 
   .pagination li {
-    background-color: lightblue;
+    /*background-color: lightblue;*/
     display: inline-block;
     padding: 3px;
     color: black;
-    border: 1px solid blue;
+    border: 1px solid lightgrey;
     border-radius: 2px;
     font-size: 15px;
     text-decoration: none;
