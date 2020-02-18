@@ -2,7 +2,7 @@
 @using X.PagedList.Mvc.Core;
 
 <head>
-    <link rel="stylesheet" href="~/css/pagingStyleSheet.css"/>
+    <link rel="stylesheet" href="~/css/pagingStyleSheet.css" />
 </head>
 
 @{
@@ -12,12 +12,11 @@
 <br />
 @using (Html.BeginForm("List", "Questions", FormMethod.Get))
 {
-    <p>
-        Title: <input type="text" name="searchString">
-        <input type="submit" value="Search" class="btn btn-primary" />
-        <button onclick="location.href = '@Url.Action("List", "Questions")'" class="btn btn-primary">Back to Questions</button>
-    </p>
+    <input type="submit" id="searchButton" value="Search" class="btn btn-primary" />
+    @Html.TextBox("searchString", null, new { placeholder = "Title", type = "search", required = "required" })
+    <button type="reset" id="backButton" onclick="location.href = '@Url.Action("List", "Questions")'" class="btn btn-primary" hidden>Clear Filter</button>
 }
+
 
 @if (!Model.Any())
 {
@@ -84,8 +83,10 @@
 
 <div class="page-container">
     <div class="inline-block">
-        <div class="page">Page @(Model.PageCount < Model.PageNumber ? 0 : Model.PageNumber)
-            of @Model.PageCount</div>
+        <div class="page">
+            Page @(Model.PageCount < Model.PageNumber ? 0 : Model.PageNumber)
+            of @Model.PageCount
+        </div>
         <div class="page">@Html.PagedListPager(Model, page => Url.Action("List", "Questions", new { pageNumber = page }))</div>
     </div>
 </div>
