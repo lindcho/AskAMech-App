@@ -9,7 +9,9 @@ namespace AskAMech.Domain.Models
         [Key]
         public int Id { get; set; }
         public string Title { get; set; }
+        [DataType(DataType.MultilineText)]
         public string Description { get; set; }
+        [DisplayFormat(ApplyFormatInEditMode = true)]
         public DateTime DateCreated { get; set; }
         public DateTime LastModified { get; set; }
         public int? AcceptedAnswerId { get; set; }
