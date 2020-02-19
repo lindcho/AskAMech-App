@@ -26,60 +26,36 @@
     </div>
 }
 
-<div class="question-list">
-    @foreach (var question in Model)
-    {
-        <div class="row question">
-            <div class="vote-count col-sm-1 hidden-xs">
-                <div>1</div>
-                <div>Accepted</div>
-            </div>
-            <div class="answer-count col-sm-1 hidden-xs">
-                <div>2</div>
-                <div>answers</div>
-            </div>
+<table class="table">
+    <thead>
+        <tr>
+            <th></th>
+            <th>Title</th>
+            <th>Replies</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td></td>
+                <td>
+                    <a href="@Url.Action("Details","Questions",new {id=item.Id})"><span class="question-id"></span> @item.Title</a>
+                    <div>
+                        <small>
+                            <span>Create by @item.Author.UserName</span>.
+                            <span class="text-muted">@item.DateCreated.ToString("dd-MMM-yyyy HH:mm tt")</span>
+                        </small>
+                    </div>
+                </td>
+                <td>
+                    1
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
 
-            <div class="summary ">
-                <h3><a href="@Url.Action("Details","Questions",new {id=question.Id})"><span class="question-id"></span> @question.Title</a></h3>
-                <div>
-                    <span>@question.Author.UserName</span>,
-                    <span class="text-muted">@question.DateCreated</span>
-                </div>
-            </div>
-        </div>
-    }
-</div>
-
-
-@*@foreach (var item in Model)
-    {
-        <div class="row article-summary">
-
-            <div class="col-xs-1" style="padding: 10px 0px 10px 0px;text-align: center;">
-                <div>5</div>
-                <div>answers</div>
-            </div>
-            <div class="col-md-4">
-                <profile-picture profile="@item.Author.PictureUrl" size-px="40" />
-                <p class="text-center author-name">
-                    @(item.Author.FullName ?? item.Author.UserName)
-                </p>
-                <p class="text-center">
-                    @item.DateCreated.ToString("dd MMM yyyy")
-                </p>
-            </div>
-            <div class="col-md-6">
-                <h4>
-                    <a asp-action="Details" asp-route-id="@item.Id">@item.Title</a>
-                </h4>
-                <blockquote>
-                    <span>@item.Author.UserName</span>,
-                    <span class="text-muted">@item.DateCreated</span>
-                </blockquote>
-            </div>
-
-        </div>
-    }*@
 
 <div class="page-container">
     <div class="inline-block">
