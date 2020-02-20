@@ -142,9 +142,9 @@ body {
         margin: 5px 0px 10px 0px;
     }
 
-        .question-list .question .summary h3 .question-id {
-            color: #bbb;
-        }
+    .question-list .question .summary h3 .question-id {
+        color: #bbb;
+    }
 
 @media (max-width: 767px) {
     .hidden-xs {
@@ -165,4 +165,41 @@ body {
 
 .col-xs-12 {
     width: 100%;
+}
+
+.starFade {
+    background-image: url('../images/StarFade.gif');
+    min-width: 30px;
+    min-height: 30px;
+    display: inline-block;
+    cursor: pointer;
+}
+
+.starFadeN {
+    background-image: url('../images/StarFade.gif');
+    min-width: 30px;
+    min-height: 30px;
+    display: inline-block;
+}
+
+.starGlow {
+    background-image: url('/Images/starglow.gif');
+    min-width: 30px;
+    min-height: 30px;
+    display: inline-block;
+    cursor: pointer;
+}
+
+.starGlowN {
+    background-image: url('/Images/starglow.gif');
+    min-width: 30px;
+    min-height: 30px;
+    display: inline-block;
+}
+
+.table th, .table td {
+    padding: 0.5rem;
+    vertical-align: middle;
+    border-top: 1px solid #dee2e6;
+    border-bottom: 1px solid #dee2e6;
 }

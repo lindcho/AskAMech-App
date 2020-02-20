@@ -1,0 +1,119 @@
+﻿@model X.PagedList.IPagedList<AskAMech.Domain.QuestionsListGroupViewModel>
+@using X.PagedList.Mvc.Core;
+
+<head>
+    <link rel="stylesheet" href="~/css/pagingStyleSheet.css" />
+</head>
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+<br />
+@using (Html.BeginForm("Index", "Questions", FormMethod.Get))
+{
+    <input type="submit" id="searchButton" value="Search" class="btn btn-primary" />
+    @Html.TextBox("searchString", null, new { placeholder = "Title", type = "search", required = "required" })
+    <button type="reset" id="backButton" onclick="location.href = '@Url.Action("Index", "Questions")'" class="btn btn-primary" hidden>Clear Filter</button>
+}
+
+
+@if (!Model.Any())
+{
+    <div class="alert alert-danger alert-dismissible">
+        <a href="#" class="close" data-dismiss="alert" aria-label="close">×</a>
+        <p><i class="icon fa fa-ban"></i> No Questions </p>
+    </div>
+}
+
+
+<table class="table">
+    <thead>
+        <tr>
+            <th></th>
+            <th>Title</th>
+            <th>Replies</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @if (item.AcceptedAnswerId.HasValue)
+                    {
+                        <span class="starGlowN"></span>
+                    }
+                    else
+                    {
+                        <span class="starFadeN"></span>
+                    }
+                </td>
+                <td>
+                    <a href="@Url.Action("Details","Questions",new {id=item.QuestionId})"><span class="question-id"></span> @item.Title</a>
+                    <div>
+                        <small>
+                            <span>Created by @item.AuthorName</span>.
+                            <span class="text-muted">@item.DateCreated.ToString("dd-MMM-yyyy HH:mm tt")</span>
+                        </small>
+                    </div>
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.AnswerCount)
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
+
+
+<div class="page-container">
+    <div class="inline-block">
+        <div class="page">
+            Page @(Model.PageCount < Model.PageNumber ? 0 : Model.PageNumber)
+            of @Model.PageCount
+        </div>
+        <div class="page">@Html.PagedListPager(Model, page => Url.Action("Index", "Questions", new { pageNumber = page }))</div>
+    </div>
+</div>
+
+@*<table class="table">
+        <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Title)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.DateCreated)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.AuthorName)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.AnswerCount)
+            </th>
+            <th></th>
+        </tr>
+        </thead>
+        <tbody>
+        @foreach (var item in Model) {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Title)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.DateCreated)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.AuthorName)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.AnswerCount)
+                </td>
+                <td>
+                    <a href="@Url.Action("Details","Questions",new {id=item.QuestionId})">Go to</a>
+                </td>
+            </tr>
+        }
+        </tbody>
+    </table>*@
