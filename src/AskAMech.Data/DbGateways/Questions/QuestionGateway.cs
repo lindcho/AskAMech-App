@@ -2,6 +2,7 @@
 using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
+using AskAMech.Domain;
 using AskAMech.Domain.Models;
 using AskAMech.Infrastructure.Data;
 using Microsoft.EntityFrameworkCore;
@@ -33,8 +34,8 @@ namespace AskAMech.Data.DbGateways.Questions
 
         public async Task Update(Question question, CancellationToken cancellationToken)
         {
-                _context.Questions.Update(question);
-                await _context.SaveChangesAsync(cancellationToken);
+            _context.Questions.Update(question);
+            await _context.SaveChangesAsync(cancellationToken);
         }
 
         public async Task<Question> GetQuestion(int? id)
@@ -49,6 +50,26 @@ namespace AskAMech.Data.DbGateways.Questions
         {
             var questions = await GetAll(new CancellationToken());
             return questions.Where(x => x.AuthorId == currentUserId).ToList();
+        }
+
+        public IQueryable<QuestionsListGroupViewModel> GetQuestionList()
+        {
+            var queryable = from question in _context.Questions
+                            join answer in _context.Answers on question.Id equals answer.QuestionId into combined
+                            from subList in combined.DefaultIfEmpty()
+                            group question by new { question.Id, question.Title, question.DateCreated, question.Author.UserName, question.Answers.Count, question.AcceptedAnswerId };
+
+            var data = from groupCount in queryable
+                       select new QuestionsListGroupViewModel()
+                       {
+                           QuestionId = groupCount.Key.Id,
+                           Title = groupCount.Key.Title,
+                           AuthorName = groupCount.Key.UserName,
+                           DateCreated = groupCount.Key.DateCreated,
+                           AcceptedAnswerId = groupCount.Key.AcceptedAnswerId,
+                           AnswerCount = groupCount.Key.Count
+                       };
+            return data.OrderByDescending(x => x.QuestionId);
         }
     }
 }

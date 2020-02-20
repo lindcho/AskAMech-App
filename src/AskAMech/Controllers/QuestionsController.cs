@@ -94,5 +94,17 @@ namespace AskAMech.Controllers
             ViewBag.answerCount = _questionCommands.GetAnswersCount(id);
             return View(questionModel);
         }
+
+        public IActionResult Index(int? pageNumber, string searchString)
+        {
+            var allQuestions = _questionCommands.GetQuestionList().ToList();
+
+            if (!string.IsNullOrEmpty(searchString))
+            {
+                return View(allQuestions.Where(q => q.Title.Contains(searchString, System.StringComparison.OrdinalIgnoreCase)).ToList().ToPagedList(pageNumber ?? 1, 4));
+            }
+
+            return View(allQuestions.ToPagedList(pageNumber ?? 1, 4));
+        }
     }
 }

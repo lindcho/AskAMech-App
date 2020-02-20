@@ -1,6 +1,8 @@
 ﻿using System.Collections.Generic;
+using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
+using AskAMech.Domain;
 using AskAMech.Domain.Models;
 
 namespace AskAMech.Command.Questions
@@ -14,5 +16,6 @@ namespace AskAMech.Command.Questions
         bool CanUserEditQuestion(int? id);
         Task<List<Question>> GetUserQuestions();
         int GetAnswersCount(int questionId);
+        IQueryable<QuestionsListGroupViewModel> GetQuestionList();
     }
 }

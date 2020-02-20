@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using AskAMech.Command.Services;
 using AskAMech.Data.DbGateways.Answers;
 using AskAMech.Data.DbGateways.Questions;
+using AskAMech.Domain;
 using AskAMech.Domain.Models;
 
 namespace AskAMech.Command.Questions
@@ -132,6 +133,11 @@ namespace AskAMech.Command.Questions
         {
             var count = _answersGateway.GetAllAnswers(new CancellationToken()).Result.Count(x => x.QuestionId == questionId);
             return count;
+        }
+
+        public IQueryable<QuestionsListGroupViewModel> GetQuestionList()
+        {
+            return _questionGateway.GetQuestionList();
         }
     }
 }
