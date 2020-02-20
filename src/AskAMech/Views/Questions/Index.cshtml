@@ -12,9 +12,13 @@
 <br />
 @using (Html.BeginForm("Index", "Questions", FormMethod.Get))
 {
-    <input type="submit" id="searchButton" value="Search" class="btn btn-primary" />
+    <input type="submit" value="Search" class="btn btn-primary" />
     @Html.TextBox("searchString", null, new { placeholder = "Title", type = "search", required = "required" })
-    <button type="reset" id="backButton" onclick="location.href = '@Url.Action("Index", "Questions")'" class="btn btn-primary" hidden>Clear Filter</button>
+    if(ViewBag.Searching == true)
+
+    {
+        <button type="reset" id="backButton" onclick="location.href = '@Url.Action("Index", "Questions")'" class="btn btn-primary" >Back to Questions</button>
+    }
 }
 
 

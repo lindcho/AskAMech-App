@@ -101,6 +101,7 @@ namespace AskAMech.Controllers
 
             if (!string.IsNullOrEmpty(searchString))
             {
+                ViewBag.Searching = true;
                 return View(allQuestions.Where(q => q.Title.Contains(searchString, System.StringComparison.OrdinalIgnoreCase)).ToList().ToPagedList(pageNumber ?? 1, 4));
             }
 
