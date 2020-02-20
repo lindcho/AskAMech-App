@@ -1,8 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Threading;
+using System.Threading.Tasks;
 using AskAMech.Command.Test.Builders.Model;
 using AskAMech.Command.Test.Builders.Questions;
+using AskAMech.Data.DbGateways.Questions;
 using AskAMech.Domain.Models;
 using NUnit.Framework;
 
@@ -11,15 +13,13 @@ namespace AskAMech.Command.Test.Questions
     [TestFixture]
     public class TestQuestionCommand
     {
+        private readonly IQuestionGateway _questionGateway;
         [Test]
-        public void GetQuestion_WithInvalidId_ShouldReturnError()
+        public void GetQuestion_WithInvalidId_ShouldReturnErrorResult()
         {
             //---------------Arrange----------------------
-            const int questionId = 0;
 
-            var command = new AskQuestionCommandBuilder()
-                .WithQuestionId(questionId)
-                .Build();
+            var command = new AskQuestionCommandBuilder().Build();
 
             //---------------Act--------------------------
             var notFound = Assert.Throws<Exception>(() => command.GetQuestion(null));
@@ -29,7 +29,7 @@ namespace AskAMech.Command.Test.Questions
         }
 
         [Test]
-        public void GetQuestion_WithInvaliQuestionId_ShouldReturnErrorResult()
+        public void GetQuestion_WithInvalidQuestionId_ShouldReturnErrorResult()
         {
             //---------------Arrange----------------------
             const int questionId = 0;
@@ -49,12 +49,11 @@ namespace AskAMech.Command.Test.Questions
         public void AskQuestion_WithInvalidUserId_ShouldReturnErrorResult()
         {
             //---------------Arrange----------------------
-            const string userId = "";
 
             var question = new QuestionBuilder().Build();
 
             var command = new AskQuestionCommandBuilder()
-                .WithInvalidUserId(userId)
+                .WithInvalidUserId("")
                 .Build();
 
             //---------------Act--------------------------
@@ -93,12 +92,10 @@ namespace AskAMech.Command.Test.Questions
         public void UpdateQuestion_WithInvalidUserId_ShouldReturnErrorResult()
         {
             //---------------Arrange----------------------
-            const string userId = "";
 
             var question = new QuestionBuilder().Build();
-
             var command = new AskQuestionCommandBuilder()
-                .WithInvalidUserId(userId)
+                .WithInvalidUserId("")
                 .Build();
 
             //---------------Act--------------------------
@@ -106,6 +103,27 @@ namespace AskAMech.Command.Test.Questions
 
             //---------------Assert-----------------------
             Assert.That(notFound.Message, Is.EqualTo("User not found"));
+        }
+
+        [Ignore("Need to fix the test")]
+        [Test]
+        public  void AskQuestion_WithNewCreatedQuestion_ShouldReturnOkStatusCodeResult()
+        {
+
+            //---------------Arrange----------------------
+
+            var voidTaskType = typeof(Task<>).MakeGenericType(Type.GetType("System.Threading.Tasks.VoidTaskResult"));
+            var question = new QuestionBuilder().Build();
+
+            var command = new AskQuestionCommandBuilder()
+                .WithQuestionCreated(question)
+                .Build();
+
+            //---------------Act--------------------------
+            //---------------Assert-----------------------
+
+            //Assert.That(command.AskQuestion(question, new CancellationToken()), Is.TypeOf<Task<Task>>());
+            Assert.That(command.AskQuestion(question, new CancellationToken()), Is.EqualTo(voidTaskType));
         }
     }
 }

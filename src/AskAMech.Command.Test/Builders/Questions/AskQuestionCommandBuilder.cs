@@ -2,7 +2,6 @@
 using System.Threading;
 using AskAMech.Command.Questions;
 using AskAMech.Command.Services;
-using AskAMech.Data.DbGateways;
 using AskAMech.Data.DbGateways.Answers;
 using AskAMech.Data.DbGateways.Questions;
 using AskAMech.Domain.Models;
@@ -42,6 +41,11 @@ namespace AskAMech.Command.Test.Builders.Questions
         public AskQuestionCommandBuilder WithExistingQuestionTitle(List<Question> question)
         {
             _questionGateway.GetAll(Arg.Any<CancellationToken>()).Returns(question);
+            return this;
+        }
+        public AskQuestionCommandBuilder WithQuestionCreated(Question question)
+        {
+            _questionGateway.Add(question, Arg.Any<CancellationToken>());
             return this;
         }
     }
