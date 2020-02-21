@@ -33,6 +33,11 @@ namespace AskAMech.Command.Test.Builders.Questions
             _requestUserProvider.GetUserId().Returns(userId);
             return this;
         }
+        public AskQuestionCommandBuilder WithValidUserId(string userId)
+        {
+            _requestUserProvider.GetUserId().Returns(userId);
+            return this;
+        }
         public AskQuestionCommandBuilder WithQuestionId(int questionId)
         {
             _questionGateway.GetQuestion(questionId).Result.ReturnsNull();
@@ -46,6 +51,16 @@ namespace AskAMech.Command.Test.Builders.Questions
         public AskQuestionCommandBuilder WithQuestionCreated(Question question)
         {
             _questionGateway.Add(question, Arg.Any<CancellationToken>());
+            return this;
+        }
+        public AskQuestionCommandBuilder WithNewUpdatedQuestiond(Question question)
+        {
+            _questionGateway.Update(question, Arg.Any<CancellationToken>());
+            return this;
+        }
+        public AskQuestionCommandBuilder WithQuestionToUpdate(int questionId, Question question)
+        {
+            _questionGateway.GetQuestion(questionId).Returns(question);
             return this;
         }
     }

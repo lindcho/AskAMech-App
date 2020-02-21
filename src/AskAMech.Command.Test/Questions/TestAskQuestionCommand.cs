@@ -88,23 +88,6 @@ namespace AskAMech.Command.Test.Questions
             Assert.That(notFound.Message, Is.EqualTo("Title already exist!"));
         }
 
-        [Test]
-        public void UpdateQuestion_WithInvalidUserId_ShouldReturnErrorResult()
-        {
-            //---------------Arrange----------------------
-
-            var question = new QuestionBuilder().Build();
-            var command = new AskQuestionCommandBuilder()
-                .WithInvalidUserId("")
-                .Build();
-
-            //---------------Act--------------------------
-            var notFound = Assert.ThrowsAsync<Exception>(() => command.UpdateQuestion(question, new CancellationToken()));
-
-            //---------------Assert-----------------------
-            Assert.That(notFound.Message, Is.EqualTo("User not found"));
-        }
-
         [Ignore("Need to fix the test")]
         [Test]
         public  void AskQuestion_WithNewCreatedQuestion_ShouldReturnOkStatusCodeResult()
