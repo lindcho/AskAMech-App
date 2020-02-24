@@ -55,9 +55,9 @@
         {
             <div class="card w-100 bg-light" style="margin-bottom: 0.5rem;">
                 <div class="card-body" >
-                    <h5 class="card-title">@item.Author.UserName</h5>
-                    <h6 class="card-subtitle mb-2 text-muted">@item.Date.ToLongDateString()</h6>
-                    <p class="card-text">@item.Description</p>
+                    <h6 class="card-title">@item.Author.UserName</h6>
+                    <p class="card-subtitle mb-2 text-muted">@item.Date.ToLongDateString()</p>
+                    <p class="card-text">@Html.Raw(item.Description)</p>
                     @if (@Model.AcceptedAnswerId.HasValue && @Model.AcceptedAnswerId.Value == item.AnswerId)
                     {
                         <a class="badge badge-success">Accepted</a>
