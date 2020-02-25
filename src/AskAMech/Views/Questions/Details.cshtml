@@ -4,7 +4,7 @@
     ViewData["Title"] = "Question Details";
 }
 @{
-
+    var isQuestionAuthor = @ViewBag.isAuthor;
 }
 
 <div>
@@ -47,35 +47,43 @@
         <div>
             <h1>Answers</h1>
             <ul id="TopBreadcrumb" class="breadcrumb">
-                <li class="breadcrumb-item"><a asp-controller="" asp-action="" asp-route-pageNumber="">Questions</a></li>
+                <li class="breadcrumb-item"><a asp-controller="Questions" asp-action="Index" asp-route-pageNumber="">Questions</a></li>
                 <li class="breadcrumb-item text-muted">Answers</li>
             </ul>
         </div>
         @foreach (var item in Model.Answers)
         {
             <div class="card w-100 bg-light" style="margin-bottom: 0.5rem;">
-                <div class="card-body" >
+                <div class="card-body">
                     <h6 class="card-title">@item.Author.UserName</h6>
                     <p class="card-subtitle mb-2 text-muted">@item.Date.ToLongDateString()</p>
                     <p class="card-text">@Html.Raw(item.Description)</p>
-                    @if (@Model.AcceptedAnswerId.HasValue && @Model.AcceptedAnswerId.Value == item.AnswerId)
+
+                    @{
+                        var hasValue = @Model.AcceptedAnswerId.HasValue && @Model.AcceptedAnswerId.Value == item.AnswerId;
+                    }
+                    @if ( hasValue)
                     {
                         <a class="badge badge-success">Accepted</a>
                     }
+                    else if(isQuestionAuthor)
+                    {
+                        <a href="@Url.Action("AcceptAnswer","Answers",new {answerId=@item.AnswerId,questionId=@item.QuestionId})">Mark as Accepted</a>
+                    }
+
                 </div>
             </div>
         }
     </table>
 
     <div>
-
-        @if (@ViewBag.canEdit)
+        @if (isQuestionAuthor)
         {
             <a asp-action="Edit" asp-route-id="@Model.Id">Modify Question</a>
         }
         <div>
             <a href="@Url.Action("AnswerQuestion","Answers",new { questionId=Model.Id})">Answer Question</a><br />
-            <a asp-action="List">Back to List</a>
+            <a asp-action="Index" asp-controller="Questions">Back to List</a>
         </div>
     </div>
 </div>

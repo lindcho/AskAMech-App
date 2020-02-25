@@ -56,5 +56,21 @@ namespace AskAMech.Command.Answers
             }
 
         }
+
+        public async Task AcceptAnswer(int answerId, CancellationToken cancellationToken)
+        {
+            var answer = await _answersGateway.GetOneAnswer(answerId);
+            if (answer == null) throw new Exception("No matching answer found");
+
+            var question = _questionGateway.GetQuestion(answer.QuestionId).Result;
+            if (question == null) throw new Exception("Question not found");
+
+            var currentUserId = _requestUserProvider.GetUserId();
+            if (question.AuthorId != currentUserId) throw new Exception("Only the question author can accept answer");
+
+            question.AcceptedAnswerId = answerId;
+            await _answersGateway.AcceptAnswer(question, cancellationToken);
+        }
+
     }
 }

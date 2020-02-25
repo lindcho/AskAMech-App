@@ -9,5 +9,7 @@ namespace AskAMech.Data.DbGateways.Answers
     {
         Task<List<Answer>> GetAllAnswers(CancellationToken cancellationToken);
         Task AddAnswer(Answer answer, CancellationToken cancellationToken);
+        Task AcceptAnswer(Question question, CancellationToken cancellationToken);
+        Task<Answer> GetOneAnswer(int id);
     }
 }

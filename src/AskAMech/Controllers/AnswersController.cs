@@ -41,5 +41,12 @@ namespace AskAMech.Controllers
             await _answersCommand.AnswerQuestion(answer, new CancellationToken());
             return RedirectToAction("Details", "Questions", new { id = answer.QuestionId });
         }
+
+        [HttpGet]
+        public async Task<IActionResult> AcceptAnswer(int answerId, int questionId)
+        {
+            await _answersCommand.AcceptAnswer(answerId, new CancellationToken());
+            return RedirectToAction("Details", "Questions", new { id = questionId });
+        }
     }
 }

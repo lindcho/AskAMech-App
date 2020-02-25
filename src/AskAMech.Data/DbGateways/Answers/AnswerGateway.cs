@@ -22,6 +22,17 @@ namespace AskAMech.Data.DbGateways.Answers
             await _context.SaveChangesAsync(cancellationToken);
         }
 
+        public async Task AcceptAnswer(Question question, CancellationToken cancellationToken)
+        {
+            _context.Questions.Update(question);
+            await _context.SaveChangesAsync(cancellationToken);
+        }
+
+        public async Task<Answer> GetOneAnswer(int id)
+        {
+            return await _context.Answers.FindAsync(id);
+        }
+
         public async Task<List<Answer>> GetAllAnswers(CancellationToken cancellationToken)
         {
             return await _context.Answers.
