@@ -69,7 +69,7 @@ namespace AskAMech.Controllers
         [HttpGet]
         public async Task<IActionResult> Details(int id)
         {
-            ViewBag.canEdit = _questionCommands.CanUserEditQuestion(id);
+            ViewBag.isAuthor = _questionCommands.CanUserEditQuestion(id);
 
             var questionModel = await _questionCommands.GetQuestion(id);
             questionModel.Author.FullName = questionModel.Author.FullName ?? questionModel.Author.UserName;
