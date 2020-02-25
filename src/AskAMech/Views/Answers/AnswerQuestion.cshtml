@@ -3,55 +3,41 @@
 @{
     ViewData["Title"] = "Add";
 }
-<div>
-    <dl class="row">
-        <dt class="col-sm-2">
-            @Html.DisplayNameFor(model => model.Question.Title)
-        </dt>
-        <dd class="col-sm-10">
-            @Html.DisplayFor(model => model.Question.Title)
-        </dd>
-        <dt class="col-sm-2">
-            @Html.DisplayNameFor(model => model.Question.Description)
-        </dt>
-        <dd class="col-sm-10">
-            @Html.DisplayFor(model => model.Question.Description)
-        </dd>
-        <dt class="col-sm-2">
-            @Html.DisplayNameFor(model => model.Question.DateCreated)
-        </dt>
-        <dd class="col-sm-10">
-            @Html.DisplayFor(model => model.Question.DateCreated)
-        </dd>
-    </dl>
+<br/>
+<div class="card w-100 bg-light" style="margin-bottom: 0.5rem;">
+    <div class="card-body">
+        <h6 class="card-title">@Model.Question.Title</h6>
+        <p class="card-subtitle mb-2 text-muted">@Model.Question.DateCreated.ToString("yyyy MMMM dd HH:mm:tt")</p>
+        <p class="card-text">@Html.Raw(Model.Question.Description)</p>
+    </div>
 </div>
 
-    <form asp-action="AnswerQuestion">
-        <div>
-            <h4>Answer Question</h4>
-            <hr />
-            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-            @Html.HiddenFor(model=>model.QuestionId)
-            <div class="form-group">
-                <label asp-for="Description" class="col-md-2 control-label"></label>
-                <div class="col-md-10">
-                    <small>Include all of the details that someone needs to solve their question</small>
-                    <textarea asp-for="Description" class="form-control" rows="5"></textarea>
-                    <span asp-validation-for="Description" class="text-danger" />
-                </div>
-            </div>
-            <div class="form-group">
-                <div class="col-md-offset-2 col-md-10">
-                    <input type="submit" value="Create" class="btn btn-primary" />
-                </div>
+
+<form asp-action="AnswerQuestion">
+    <div>
+        <hr />
+        <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+        @Html.HiddenFor(model => model.QuestionId)
+        <div class="form-group">
+            <label asp-for="Description" class="col-md-2 control-label"></label>
+            <div class="col-md-10">
+                <small>Include all of the details that someone needs to solve their question</small>
+                <textarea asp-for="Description" class="form-control" rows="5"></textarea>
+                <span asp-validation-for="Description" class="text-danger" />
             </div>
         </div>
-    </form>
-
-    <div>
-        <a asp-action="Index">Back to List</a>
+        <div class="form-group">
+            <div class="col-md-offset-2 col-md-10">
+                <input type="submit" value="Create" class="btn btn-primary" />
+            </div>
+        </div>
     </div>
+</form>
 
-    @section Scripts {
-        @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
-    }
+<div>
+    <a asp-action="Details" asp-controller="Questions" asp-ro="@Model.QuestionId"}>Back to List</a>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}
