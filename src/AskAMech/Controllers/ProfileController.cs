@@ -32,7 +32,7 @@ namespace AskAMech.Controllers
                   }
             }
 
-            return RedirectToAction(nameof(ProfilePicture));
+            return Redirect("/Identity/Account/Manage");
         }
     }
 }

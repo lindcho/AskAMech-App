@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
-using System.Net.Mime;
 using System.Threading;
 using System.Threading.Tasks;
 using AskAMech.Command.Services;
@@ -12,9 +11,6 @@ using AskAMech.Domain;
 using AskAMech.Domain.Models;
 using AskAMech.Infrastructure.Data;
 using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
-using Remotion.Linq.Clauses;
 
 namespace AskAMech.Command.Questions
 {

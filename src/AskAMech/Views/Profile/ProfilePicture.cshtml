@@ -3,19 +3,23 @@
     ViewData["Title"] = "ProfilePicture";
 }
 
-<h1>Profile Picture</h1>
+<h2>Manage your account</h2>
+<h4>Change your profile picture</h4>
+<hr/>
 
 <form new{ enctype="multipart/form-data"} method="post" asp-controller="Profile" asp-action="ProfilePicture">
 
     <div class="form-group">
-        @Html.LabelFor(model => model.UserPhoto)
+
+
+        @Html.LabelFor(model => model.UserPhoto,"Photo")
         <input type="file" name="file" id="ImageData" onchange="fileCheck(this);" required />
         @Html.ValidationMessageFor(model => model.UserPhoto, "", new { @class = "text-danger" })
     </div>
     <div class="row">
         <div class="col-md-4">
             <div class="form-group">
-                <input type="submit" value="Create" class="btn btn-primary" onclick="this.form.submit(); this.disabled=true; this.value='Sending…';" />
+                <input type="submit" value="Save" class="btn btn-primary" onclick="this.form.submit(); this.disabled=true; this.value='Sending…';" />
             </div>
         </div>
     </div>
