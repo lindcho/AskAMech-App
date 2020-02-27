@@ -4,6 +4,7 @@ using System.Threading;
 using System.Threading.Tasks;
 using AskAMech.Domain;
 using AskAMech.Domain.Models;
+using Microsoft.AspNetCore.Http;
 
 namespace AskAMech.Command.Questions
 {
@@ -17,5 +18,6 @@ namespace AskAMech.Command.Questions
         Task<List<Question>> GetUserQuestions();
         int GetAnswersCount(int questionId);
         IQueryable<QuestionsListGroupViewModel> GetQuestionList();
+        Task UploadImage(IFormFile file);
     }
 }

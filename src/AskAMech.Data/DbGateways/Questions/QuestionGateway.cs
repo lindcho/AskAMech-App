@@ -71,5 +71,11 @@ namespace AskAMech.Data.DbGateways.Questions
                        };
             return data.OrderByDescending(x => x.QuestionId);
         }
+
+        public async Task UploadUserPhoto(ApplicationUser user)
+        {  
+            _context.Users.Update(user);
+            await _context.SaveChangesAsync();
+        }
     }
 }

@@ -15,5 +15,6 @@ namespace AskAMech.Data.DbGateways.Questions
         Task<Question> GetQuestion(int? id);
         Task<List<Question>> GetUserQuestions(string currentUserId);
         IQueryable<QuestionsListGroupViewModel> GetQuestionList();
+        Task UploadUserPhoto(ApplicationUser user);
     }
 }

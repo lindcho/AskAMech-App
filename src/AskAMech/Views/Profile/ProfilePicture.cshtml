@@ -1,34 +1,23 @@
-﻿@model AskAMech.Controllers.ProfileController.EmailForm
+﻿@model AskAMech.Domain.Models.ApplicationUser
 @{
     ViewData["Title"] = "ProfilePicture";
 }
 
-<h1>ProfilePicture</h1>
+<h1>Profile Picture</h1>
 
-<form enctype="multipart/form-data" asp-action="ProfilePicture" method="post">
+<form new{ enctype="multipart/form-data"} method="post" asp-controller="Profile" asp-action="ProfilePicture">
 
-    <div class="form-group form-group-lg form-group-sm row ">
-        <div class="col-sm-12 col-md-10 col-lg-10 uploadDiv" style="display: flex !important">
-            <label asp-for="FileName" class="col-sm-12 col-md-10 col-lg-10" style="font-size: 15px; max-width: fit-content ">File Name :</label>
-            <input asp-for="FileName" class="form form-control fileName"
-                   type="text"
-                   placeholder="Enter your file name" />
-            <!--File upload control-->
-            <label asp-for="FileName" class="col-sm-12 col-md-10 col-lg-10" style="font-size: 15px; max-width: fit-content ">Attachment :</label>
-            <input asp-for="File" required class="form-control" type="file" placeholder="File Name" />
+    <div class="form-group">
+        @Html.LabelFor(model => model.UserPhoto)
+        <input type="file" name="file" id="ImageData" onchange="fileCheck(this);" required />
+        @Html.ValidationMessageFor(model => model.UserPhoto, "", new { @class = "text-danger" })
+    </div>
+    <div class="row">
+        <div class="col-md-4">
+            <div class="form-group">
+                <input type="submit" value="Create" class="btn btn-primary" onclick="this.form.submit(); this.disabled=true; this.value='Sending…';" />
+            </div>
         </div>
     </div>
-    <div class=" form-group form-group-lg form-group-sm row">
-        <span asp-validation-for="FileName" class="text-danger"></span>
-    </div>
-    <div class=" form-group form-group-lg form-group-sm row">
-        <small>Please upload .xls or .xlxs or json or xml formatted files only</small>
-    </div>
-    <div class="form-group form-group-lg form-group-sm row">
-        <div class="col-sm-12 col-md-10 col-lg-10">
-            <input type="submit" class="btn btn-primary" name="submit"  value="Upload" />
-            <input type="reset" class="btn btn-secondary" name="result" id="resetButton" value="Reset" />
-        </div>
-    </div>
-    @*<a asp-action="DownloadTemplate" asp-controller="Download" title="Click to download template">Import Batch Transactions Template</a>*@
-</form>
+
+    </form>

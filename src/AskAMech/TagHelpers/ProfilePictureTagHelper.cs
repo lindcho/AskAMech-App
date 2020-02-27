@@ -22,7 +22,7 @@ namespace AskAMech.TagHelpers
 
         public ApplicationUser Profile { get; set; }
         public int? SizePx { get; set; }
-        private bool IsDefaultPicture =>  String.IsNullOrWhiteSpace(this.Profile.PictureUrl);
+        private bool IsDefaultPicture => String.IsNullOrWhiteSpace(this.GetPictureUrl());
         private IUrlHelper UrlHelper => this.urlHelperFactory.GetUrlHelper(this.actionAccessor.ActionContext);
 
         public override void Process(TagHelperContext context, TagHelperOutput output)
@@ -40,17 +40,18 @@ namespace AskAMech.TagHelpers
 
             //Add inner img element
             var img = new TagBuilder("img");
-            img.TagRenderMode = TagRenderMode.SelfClosing;            
+            img.TagRenderMode = TagRenderMode.SelfClosing;
             img.Attributes.Add("title", this.GetAlternateText());
             img.Attributes.Add("src", this.GetPictureUrl());
-            if (this.IsDefaultPicture && this.SizePx.HasValue) {
+            if (this.IsDefaultPicture && this.SizePx.HasValue)
+            {
                 img.Attributes.Add("style", $"height:{this.SizePx.Value}px;width:{this.SizePx.Value}px");
             }
-            output.Content.SetHtmlContent(img);          
+            output.Content.SetHtmlContent(img);
         }
 
         private string GetAlternateText()
-        {            
+        {
             return this.Profile.FullName ?? this.Profile.UserName;
         }
 
@@ -61,7 +62,7 @@ namespace AskAMech.TagHelpers
                 return this.UrlHelper.Content("~/images/placeholder.png");
             }
 
-            var imgUriBuilder = new UriBuilder(this.Profile.PictureUrl);
+            var imgUriBuilder = new UriBuilder(this.GetPictureUrl());
             if (this.SizePx.HasValue)
             {
                 var query = QueryString.FromUriComponent(imgUriBuilder.Query);

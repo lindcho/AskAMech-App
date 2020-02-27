@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
+using System.Net.Mime;
 using System.Threading;
 using System.Threading.Tasks;
 using AskAMech.Command.Services;
@@ -8,6 +10,11 @@ using AskAMech.Data.DbGateways.Answers;
 using AskAMech.Data.DbGateways.Questions;
 using AskAMech.Domain;
 using AskAMech.Domain.Models;
+using AskAMech.Infrastructure.Data;
+using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
+using Remotion.Linq.Clauses;
 
 namespace AskAMech.Command.Questions
 {
@@ -16,12 +23,14 @@ namespace AskAMech.Command.Questions
         private readonly IQuestionGateway _questionGateway;
         private readonly IAnswerGateway _answersGateway;
         private readonly IRequestUserProvider _requestUserProvider;
+        private readonly ApplicationDbContext _context;
 
-        public QuestionCommands(IQuestionGateway questionGateway, IRequestUserProvider requestUserProvider, IAnswerGateway answerGateway)
+        public QuestionCommands(IQuestionGateway questionGateway, IRequestUserProvider requestUserProvider, IAnswerGateway answerGateway, ApplicationDbContext context)
         {
             _questionGateway = questionGateway;
             _requestUserProvider = requestUserProvider;
             _answersGateway = answerGateway;
+            _context = context;
         }
 
         public Task<List<Question>> GetAllQuestions(CancellationToken cancellationToken)
@@ -138,6 +147,33 @@ namespace AskAMech.Command.Questions
         public IQueryable<QuestionsListGroupViewModel> GetQuestionList()
         {
             return _questionGateway.GetQuestionList();
+        }
+        public Task UploadImage(IFormFile file)
+        {
+            var user = new ApplicationUser();
+            var currentUserId = _requestUserProvider.GetUserId();
+            if (string.IsNullOrEmpty(currentUserId))
+            {
+                throw new Exception("User not found");
+            }
+
+            var currentUser = _context.Users.Find(currentUserId);
+            user.UserPhoto = ConvertToBytes(file);
+
+            if (currentUser != null)
+            {
+                currentUser.UserPhoto = user.UserPhoto;
+            }
+
+            return _questionGateway.UploadUserPhoto(currentUser);
+        }
+
+        private byte[] ConvertToBytes(IFormFile image)
+        {
+            byte[] imageBytes = null;
+            BinaryReader reader = new BinaryReader(image.OpenReadStream());
+            imageBytes = reader.ReadBytes((int)image.Length);
+            return imageBytes;
         }
     }
 }
