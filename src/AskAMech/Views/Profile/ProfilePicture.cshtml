@@ -7,14 +7,12 @@
 <h4>Change your profile picture</h4>
 <hr />
 
-
-
 <div class="row">
     <div class="col-md-6">
         <form new{ enctype="multipart/form-data" } method="post" asp-controller="Profile" asp-action="ProfilePicture">
             <div class="form-group">
                 @Html.LabelFor(model => model.UserPhoto, "Photo")
-                <input type="file" name="file" id="ImageData"  accept=".jpeg,.jpg,.png"  onchange="fileCheck(this);" required />
+                <input type="file" name="file" id="ImageData" accept=".jpeg,.jpg,.png" onchange="fileCheck(this);" required />
                 @Html.ValidationMessageFor(model => model.UserPhoto, "", new { @class = "text-danger" })
             </div>
             <div class="row">
@@ -41,8 +39,8 @@
                     reader.onload = function (e) {
                         $('#image_preview')
                             .attr('src', e.target.result)
-                            .width(400)
-                            .height(400);
+                            .width(500)
+                            .height(500);
 
                     };
 

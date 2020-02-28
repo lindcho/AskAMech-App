@@ -4,7 +4,7 @@ using System.IO;
 using System.Text.RegularExpressions;
 using Microsoft.AspNetCore.Http;
 
-namespace AskAMech.FormExtensions
+namespace AskAMech.Helpers
 {
     public static class FormFileExtensions
     {
@@ -74,7 +74,7 @@ namespace AskAMech.FormExtensions
 
             try
             {
-                using (var bitmap = new Bitmap(postedFile.OpenReadStream()))
+                using (new Bitmap(postedFile.OpenReadStream()))
                 {
                 }
             }
