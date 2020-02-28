@@ -8,22 +8,21 @@
     {
         var userProfile = await UserManager.GetUserAsync(User);
         <li class="nav-item">
-            <p class="nav-link text-dark" asp-area="Identity" >Hello @(String.IsNullOrWhiteSpace(userProfile.FullName) ? userProfile.UserName : userProfile.FullName)!</p>
+            <a class="nav-link text-dark" asp-area="Identity" asp-page="/Account/Manage/Index" title="Manage">Hello @(String.IsNullOrWhiteSpace(userProfile.FullName) ? userProfile.UserName : userProfile.FullName)!</a>
         </li>
 
         if (@userProfile.UserPhoto == null)
          {
-             <img style="border-radius: 50%;" src="~/images/DefaultUserPhoto.jpg" width="50" alt="Profile picture" />
+             <li>
+                 <img style="border-radius: 50%;" src="~/images/Placeholder.png" width="50" alt="Profile picture" />
+             </li>
          }
          else
          {
              <li>
-                 <img style="border-radius: 50%;" src="data:image;base64,@System.Convert.ToBase64String(@userProfile.UserPhoto)" width="40" height="40" alt="Profile picture"/>
+                 <img src="data:image;base64,@System.Convert.ToBase64String(@userProfile.UserPhoto)" width="40" height="40" alt="Profile picture"/>
              </li>
          }
-
-       
-       
 
         <li class="nav-item">
             <form class="form-inline" asp-area="Identity" asp-page="/Account/Logout" asp-route-returnUrl="@Url.Action("Index", "Home", new { area = "" })">
@@ -32,9 +31,6 @@
         </li>
         <li class="nav-item">
             <profile-picture profile="@userProfile" size-px="40" />
-        </li>
-        <li class="nav-item">
-            <a class="nav-link text-dark" asp-area="Identity" asp-page="/Account/Manage/Index" title="Manage">My Account</a>
         </li>
     }
     else

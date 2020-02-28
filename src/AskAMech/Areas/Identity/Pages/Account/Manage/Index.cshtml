@@ -55,11 +55,11 @@
             var userProfile = await UserManager.GetUserAsync(User);
             if (@userProfile.UserPhoto == null)
             {
-                <img style="width: 400px; height: 400px; border-radius: 50%;" src="~/images/DefaultUserPhoto.jpg" alt="Profile Picture" />
+                <img style="width: 400px; height: 400px;" src="~/images/Placeholder.png" alt="Profile Picture" />
             }
             else
             {
-                <img style="width: 400px; height: 400px; border-radius: 50%;" src="data:image;base64,@System.Convert.ToBase64String(@userProfile.UserPhoto)" alt="Profile Picture" />
+                <img style="width: 400px; height: 400px; " src="data:image;base64,@System.Convert.ToBase64String(@userProfile.UserPhoto)" alt="Profile Picture" />
             }
         }
     </div>
