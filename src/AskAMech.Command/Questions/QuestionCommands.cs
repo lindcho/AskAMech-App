@@ -19,14 +19,12 @@ namespace AskAMech.Command.Questions
         private readonly IQuestionGateway _questionGateway;
         private readonly IAnswerGateway _answersGateway;
         private readonly IRequestUserProvider _requestUserProvider;
-        private readonly ApplicationDbContext _context;
 
-        public QuestionCommands(IQuestionGateway questionGateway, IRequestUserProvider requestUserProvider, IAnswerGateway answerGateway, ApplicationDbContext context)
+        public QuestionCommands(IQuestionGateway questionGateway, IRequestUserProvider requestUserProvider, IAnswerGateway answerGateway)
         {
-            _questionGateway = questionGateway;
-            _requestUserProvider = requestUserProvider;
-            _answersGateway = answerGateway;
-            _context = context;
+            _questionGateway = questionGateway ?? throw new NullReferenceException("QuestionGateway value cannot be null");
+            _requestUserProvider = requestUserProvider ?? throw new NullReferenceException("RequestUserProvider value cannot be null");
+            _answersGateway = answerGateway ?? throw new NullReferenceException("AnswerGateway value cannot be null");
         }
 
         public Task<List<Question>> GetAllQuestions(CancellationToken cancellationToken)
@@ -136,7 +134,8 @@ namespace AskAMech.Command.Questions
 
         public int GetAnswersCount(int questionId)
         {
-            var count = _answersGateway.GetAllAnswers(new CancellationToken()).Result.Count(x => x.QuestionId == questionId);
+            var count = _answersGateway.GetAllAnswers(new CancellationToken())
+                .Result.Count(x => x.QuestionId == questionId);
             return count;
         }
 
@@ -146,28 +145,19 @@ namespace AskAMech.Command.Questions
         }
         public Task UploadImage(IFormFile file)
         {
-            var user = new ApplicationUser();
-            var currentUserId = _requestUserProvider.GetUserId();
-            if (string.IsNullOrEmpty(currentUserId))
-            {
-                throw new Exception("User not found");
-            }
+            var currentUser = _requestUserProvider.GetCurrentUserAsync().Result;
 
-            var currentUser = _context.Users.Find(currentUserId);
-            user.UserPhoto = ConvertToBytes(file);
+            if (currentUser == null) throw new Exception("User not found");
 
-            if (currentUser != null)
-            {
-                currentUser.UserPhoto = user.UserPhoto;
-            }
+            currentUser.UserPhoto = ConvertToBytes(file);
 
             return _questionGateway.UploadUserPhoto(currentUser);
         }
 
-        private byte[] ConvertToBytes(IFormFile image)
+        private static byte[] ConvertToBytes(IFormFile image)
         {
             byte[] imageBytes = null;
-            BinaryReader reader = new BinaryReader(image.OpenReadStream());
+            var reader = new BinaryReader(image.OpenReadStream());
             imageBytes = reader.ReadBytes((int)image.Length);
             return imageBytes;
         }
