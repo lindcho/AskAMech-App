@@ -10,7 +10,7 @@ using X.PagedList;
 
 namespace AskAMech.Controllers
 {
-    public class QuestionsController : Controller
+    public class QuestionsController : BaseController
     {
         private readonly IQuestionCommands _questionCommands;
         private readonly IAnswersCommand __answersCommand;
@@ -47,6 +47,7 @@ namespace AskAMech.Controllers
         {
             if (!ModelState.IsValid) return View(question);
             await _questionCommands.AskQuestion(question, new CancellationToken());
+            Success($"<b>{question.Title}</b> was successfully posted to the forum.", true);
             return RedirectToAction(nameof(Index));
         }
 
@@ -63,6 +64,7 @@ namespace AskAMech.Controllers
         {
             if (!ModelState.IsValid) return View(question);
             await _questionCommands.UpdateQuestion(question, new CancellationToken());
+            Success($"<b>{question.Title}</b> was successfully updated.", true);
             return RedirectToAction(nameof(Index));
         }
 

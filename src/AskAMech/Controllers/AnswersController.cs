@@ -8,7 +8,7 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace AskAMech.Controllers
 {
-    public class AnswersController : Controller
+    public class AnswersController : BaseController
     {
         public readonly IAnswersCommand _answersCommand;
         public readonly IQuestionCommands _questionCommands;
@@ -39,6 +39,7 @@ namespace AskAMech.Controllers
         {
             if (!ModelState.IsValid) return View(answer);
             await _answersCommand.AnswerQuestion(answer, new CancellationToken());
+            Success("<b>Answer</b> was successfully posted for the question.", true);
             return RedirectToAction("Details", "Questions", new { id = answer.QuestionId });
         }
 

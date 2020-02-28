@@ -44,7 +44,7 @@ namespace AskAMech.Controllers
             if (file.Length > 0)
             {
                 await _questionCommands.UploadImage(file);
-                Success(string.Format("<b>{0}</b> was successfully added to the database.", "Image"), true);
+                Success("<b>Image</b> was successfully added to the database.", true);
             }
 
 
