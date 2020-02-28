@@ -13,7 +13,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AskAMech.Command", "AskAMec
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AskAMech.Data", "AskAMech.Data\AskAMech.Data.csproj", "{10EEB34D-2FA7-468F-9E48-C3FCF5CD6898}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AskAMech.Command.Test", "AskAMech.Command.Test\AskAMech.Command.Test.csproj", "{B7C71A70-EDDA-40E5-97BD-E3856F559542}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AskAMech.Command.Test", "AskAMech.Command.Test\AskAMech.Command.Test.csproj", "{B7C71A70-EDDA-40E5-97BD-E3856F559542}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

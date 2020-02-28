@@ -8,9 +8,9 @@
     {
         var userProfile = await UserManager.GetUserAsync(User);
         <li class="nav-item">
-            <a class="nav-link text-dark" asp-area="Identity" asp-page="/Account/Manage/Index" title="Manage">Hello @(String.IsNullOrWhiteSpace(userProfile.FullName) ? userProfile.UserName : userProfile.FullName)!</a>
+            <p class="nav-link text-dark" asp-area="Identity" >Hello @(String.IsNullOrWhiteSpace(userProfile.FullName) ? userProfile.UserName : userProfile.FullName)!</p>
         </li>
-
+       
         <li><img style="border-radius: 50%;" src="data:image;base64,@System.Convert.ToBase64String(@userProfile.UserPhoto)" width="40" height="40" /></li>
 
         <li class="nav-item">
@@ -20,6 +20,9 @@
         </li>
         <li class="nav-item">
             <profile-picture profile="@userProfile" size-px="40" />
+        </li>
+        <li class="nav-item">
+            <a class="nav-link text-dark" asp-area="Identity" asp-page="/Account/Manage/Index" title="Manage">My Account</a>
         </li>
     }
     else
