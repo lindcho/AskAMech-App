@@ -1,16 +1,12 @@
-﻿using System;
-using System.Drawing;
-using System.IO;
-using System.Text.RegularExpressions;
-using System.Threading.Tasks;
+﻿using System.Threading.Tasks;
 using AskAMech.Command.Questions;
-using AskAMech.FormExtensions;
+using AskAMech.Helpers;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
 namespace AskAMech.Controllers
 {
-    public class ProfileController : Controller
+    public class ProfileController : BaseController
     {
         private readonly IQuestionCommands _questionCommands;
 
@@ -48,6 +44,7 @@ namespace AskAMech.Controllers
             if (file.Length > 0)
             {
                 await _questionCommands.UploadImage(file);
+                Success(string.Format("<b>{0}</b> was successfully added to the database.", "Image"), true);
             }
 
 
