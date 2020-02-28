@@ -1,0 +1,26 @@
+﻿@page
+@model AskAMech.Areas.Identity.Pages.Account.Manage.UploadUserProfilePictureModel
+@*@{
+    IEnumerable<ApplicationUser> applicationUsers = ViewData["UserProfilePicture"] as IEnumerable<ApplicationUser>;
+}
+
+
+<form new{ enctype="multipart/form-data" } method="post" asp-action="" asp-page="UploadUserProfilePictureModel">
+<table class="table table-hover">
+    <thead>
+        <tr>
+            <th>Photo</th>
+        </tr>
+    </thead>
+    @foreach (ApplicationUser user in applicationUsers)
+    {
+        <tbody id="items">
+            <label asp-for="@user.UserPhoto"></label>
+            <input type="file" name="file" id="ImageData" onchange="fileCheck(this);" required />
+        <tr>
+            <td><input type="submit" value="Save" class="btn btn-primary" onclick="this.form.submit();this.disabled = true;this.value = 'Sending…';"/></td>
+        </tr>
+        </tbody>
+    }
+</table>
+</form>*@
