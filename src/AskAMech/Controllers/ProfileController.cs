@@ -1,5 +1,10 @@
-﻿using System.Threading.Tasks;
+﻿using System;
+using System.Drawing;
+using System.IO;
+using System.Text.RegularExpressions;
+using System.Threading.Tasks;
 using AskAMech.Command.Questions;
+using AskAMech.FormExtensions;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
@@ -24,15 +29,31 @@ namespace AskAMech.Controllers
         [ValidateAntiForgeryToken]
         public async Task<ActionResult> ProfilePicture(IFormFile file)
         {
-            if (ModelState.IsValid)
+            if (file == null || file.Length == 0)
             {
-                  if (file != null && file.Length > 0)
-                  {
-                        await _questionCommands.UploadImage(file);
-                  }
+                ModelState.AddModelError("", "Uploaded file is empty or null.");
+                return View();
             }
+
+            var isImage = file.IsImage();
+
+            if (!isImage)
+            {
+                ModelState.AddModelError("", "This photo extension is not allowed!");
+                return View();
+            }
+                 
+            if (!ModelState.IsValid)
+                return Redirect("/Identity/Account/Manage");
+            if (file.Length > 0)
+            {
+                await _questionCommands.UploadImage(file);
+            }
+
 
             return Redirect("/Identity/Account/Manage");
         }
     }
+
+  
 }

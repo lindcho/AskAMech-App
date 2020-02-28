@@ -5,23 +5,51 @@
 
 <h2>Manage your account</h2>
 <h4>Change your profile picture</h4>
-<hr/>
-
-<form new{ enctype="multipart/form-data"} method="post" asp-controller="Profile" asp-action="ProfilePicture">
-
-    <div class="form-group">
+<hr />
 
 
-        @Html.LabelFor(model => model.UserPhoto,"Photo")
-        <input type="file" name="file" id="ImageData" onchange="fileCheck(this);" required />
-        @Html.ValidationMessageFor(model => model.UserPhoto, "", new { @class = "text-danger" })
-    </div>
-    <div class="row">
-        <div class="col-md-4">
+
+<div class="row">
+    <div class="col-md-6">
+        <form new{ enctype="multipart/form-data" } method="post" asp-controller="Profile" asp-action="ProfilePicture">
             <div class="form-group">
-                <input type="submit" value="Save" class="btn btn-primary" onclick="this.form.submit(); this.disabled=true; this.value='Sending…';" />
+                @Html.LabelFor(model => model.UserPhoto, "Photo")
+                <input type="file" name="file" id="ImageData"  accept=".jpeg,.jpg,.png"  onchange="fileCheck(this);" required />
+                @Html.ValidationMessageFor(model => model.UserPhoto, "", new { @class = "text-danger" })
             </div>
-        </div>
-    </div>
+            <div class="row">
+                <div class="col-md-4">
+                    <div class="form-group">
+                        <input type="submit" value="Save" class="btn btn-primary" onclick="this.form.submit(); this.disabled=true; this.value='Sending…';" />
+                    </div>
+                </div>
+            </div>
 
-    </form>
+        </form>
+    </div>
+    <div class="col-md-6">
+        <div class="col-md-6">
+            <img id="image_preview" src="#" alt="" />
+        </div>
+
+        <script type="text/javascript">
+            //image preview
+            function fileCheck(input) {
+                if (input.files && input.files[0]) {
+                    var reader = new FileReader();
+
+                    reader.onload = function (e) {
+                        $('#image_preview')
+                            .attr('src', e.target.result)
+                            .width(400)
+                            .height(400);
+
+                    };
+
+                    reader.readAsDataURL(input.files[0]);
+                }
+            }
+        </script>
+    </div>
+</div>
+
