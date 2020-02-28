@@ -50,12 +50,18 @@
         </form>
     </div>
     <div class="col-md-6">
-            @if (SignInManager.IsSignedIn(User))
+        @if (SignInManager.IsSignedIn(User))
+        {
+            var userProfile = await UserManager.GetUserAsync(User);
+            if (@userProfile.UserPhoto == null)
             {
-                var userProfile = await UserManager.GetUserAsync(User);
-
+                <img style="width: 400px; height: 400px; border-radius: 50%;" src="~/images/DefaultUserPhoto.jpg" alt="Profile Picture" />
+            }
+            else
+            {
                 <img style="width: 400px; height: 400px; border-radius: 50%;" src="data:image;base64,@System.Convert.ToBase64String(@userProfile.UserPhoto)" alt="Profile Picture" />
             }
+        }
     </div>
 </div>
 

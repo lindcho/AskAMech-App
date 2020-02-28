@@ -10,8 +10,20 @@
         <li class="nav-item">
             <p class="nav-link text-dark" asp-area="Identity" >Hello @(String.IsNullOrWhiteSpace(userProfile.FullName) ? userProfile.UserName : userProfile.FullName)!</p>
         </li>
+
+        if (@userProfile.UserPhoto == null)
+         {
+             <img style="border-radius: 50%;" src="~/images/DefaultUserPhoto.jpg" width="50" alt="Profile picture" />
+         }
+         else
+         {
+             <li>
+                 <img style="border-radius: 50%;" src="data:image;base64,@System.Convert.ToBase64String(@userProfile.UserPhoto)" width="40" height="40" alt="Profile picture"/>
+             </li>
+         }
+
        
-        <li><img style="border-radius: 50%;" src="data:image;base64,@System.Convert.ToBase64String(@userProfile.UserPhoto)" width="40" height="40" /></li>
+       
 
         <li class="nav-item">
             <form class="form-inline" asp-area="Identity" asp-page="/Account/Logout" asp-route-returnUrl="@Url.Action("Index", "Home", new { area = "" })">
