@@ -7,6 +7,7 @@ namespace AskAMech.Domain.Models
     {
         [Key]
         public int AnswerId { get; set; }
+        [Required]
         [DataType(DataType.MultilineText)]
         public string Description { get; set; }
         public DateTime Date { get; set; }
