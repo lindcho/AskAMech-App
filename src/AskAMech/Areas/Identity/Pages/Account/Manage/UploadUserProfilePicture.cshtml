@@ -1,8 +1,52 @@
 ﻿@page
 @model AskAMech.Areas.Identity.Pages.Account.Manage.UploadUserProfilePictureModel
+@{
+    ViewData["Title"] = "Profile Picture";
+    ViewData["ActivePage"] = ManageNavPages.UploadUserProfilePicture;
+}
 
-<form enctype="multipart/form-data" method="post" asp-page="UploadUserProfilePictureModel">
-    <label asp-for="Input.UserPhoto"> Profile Picture</label>
-    <input type="file" name="file" onchange="fileCheck(this);" required />
-    <input type="submit" value="Save" class="btn btn-primary" onclick="this.form.submit();this.disabled = true;this.value = 'Sending…';" />
-</form>
+<h4>@ViewData["Title"]</h4>
+<partial name="_StatusMessage" for="StatusMessage" />
+
+<div class="row">
+    <div class="col-md-6">
+        <form enctype="multipart/form-data" method="post" asp-page="UploadUserProfilePictureModel">
+            <div class="form-group">
+                <label asp-for="Input.UserPhoto"> Photo</label>
+                <input type="file" name="file" accept=".jpeg,.jpg,.png" onchange="fileCheck(this);" required />
+                @Html.ValidationMessageFor(model => model.Input.UserPhoto, "", new { @class = "text-danger" })
+            </div>
+
+            <div class="row">
+                <div class="col-md-4">
+                    <div class="form-group">
+                        <input type="submit" value="Save" class="btn btn-primary" onclick="this.form.submit();this.disabled = true;this.value = 'Sending…';" />
+                    </div>
+                </div>
+            </div>
+        </form>
+    </div>
+    <div class="col-md-6">
+        <div class="col-md-6">
+            <img id="image_preview" src="#" alt="" />
+        </div>
+
+        <script type="text/javascript">
+            //image preview
+            function fileCheck(input) {
+                if (input.files && input.files[0]) {
+                    var reader = new FileReader();
+
+                    reader.onload = function (e) {
+                        $('#image_preview')
+                            .attr('src', e.target.result)
+                            .width(400)
+                            .height(400);
+                    };
+
+                    reader.readAsDataURL(input.files[0]);
+                }
+            }
+        </script>
+    </div>
+</div>
