@@ -11,5 +11,6 @@ namespace AskAMech.Data.DbGateways.Answers
         Task AddAnswer(Answer answer, CancellationToken cancellationToken);
         Task AcceptAnswer(Question question, CancellationToken cancellationToken);
         Task<Answer> GetOneAnswer(int id);
+        Task<List<Answer>> GetUserAnswers(string currentUserId);
     }
 }

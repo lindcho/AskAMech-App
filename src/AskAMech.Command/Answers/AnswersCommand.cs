@@ -33,6 +33,8 @@ namespace AskAMech.Command.Answers
             return questionAnswers;
         }
 
+
+
         public async Task AnswerQuestion(Answer answer, CancellationToken cancellationToken)
         {
             var currentUserId = _requestUserProvider.GetUserId();
@@ -76,5 +78,14 @@ namespace AskAMech.Command.Answers
             await _answersGateway.AcceptAnswer(question, cancellationToken);
         }
 
+        public async Task<List<Answer>> GetCurrentUserAnswers()
+        {
+            var currentUserId = _requestUserProvider.GetUserId();
+            if (string.IsNullOrEmpty(currentUserId))
+            {
+                throw new Exception("User not found");
+            }
+            return await _answersGateway.GetUserAnswers(currentUserId);
+        }
     }
 }

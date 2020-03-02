@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
 using AskAMech.Domain.Models;
@@ -38,6 +39,16 @@ namespace AskAMech.Data.DbGateways.Answers
             return await _context.Answers.
                 Include(x => x.Author)
                 .ToListAsync(cancellationToken: cancellationToken);
+        }
+        public async Task<List<Answer>> GetUserAnswers(string currentUserId)
+        {
+            var answers = GetAllAnswers();
+            return answers.Where(a => a.AuthorId == currentUserId).ToList();
+        }
+
+        private List<Answer> GetAllAnswers()
+        {
+            return _context.Answers.ToList();
         }
     }
 }
