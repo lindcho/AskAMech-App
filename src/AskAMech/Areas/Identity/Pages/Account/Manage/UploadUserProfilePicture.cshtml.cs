@@ -53,7 +53,7 @@ namespace AskAMech.Areas.Identity.Pages.Account.Manage
             if (file.Length > 0)
             {
                 await _questionCommands.UploadImage(file);
-                StatusMessage = "Your profile picture has been updated";
+                StatusMessage = "Your profile picture has been uploaded successfully";
             }
             return Redirect("/Identity/Account/Manage");
         }
