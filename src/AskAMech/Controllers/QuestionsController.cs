@@ -84,13 +84,10 @@ namespace AskAMech.Controllers
         {
             var allQuestions = _questionCommands.GetQuestionList().ToList();
 
-            if (!string.IsNullOrEmpty(searchString))
-            {
-                ViewBag.Searching = true;
-                return View(allQuestions.Where(q => q.Title.Contains(searchString, System.StringComparison.OrdinalIgnoreCase)).ToList().ToPagedList(pageNumber ?? 1, 10));
-            }
+            if (string.IsNullOrEmpty(searchString)) return View(allQuestions.ToPagedList(pageNumber ?? 1, 10));
+            ViewBag.Searching = true;
+            return View(allQuestions.Where(q => q.Title.Contains(searchString, System.StringComparison.OrdinalIgnoreCase)).ToList().ToPagedList(pageNumber ?? 1, 10));
 
-            return View(allQuestions.ToPagedList(pageNumber ?? 1, 10));
         }
     }
 }
