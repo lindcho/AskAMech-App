@@ -1,6 +1,5 @@
 using System.Threading.Tasks;
 using AskAMech.Command.Questions;
-using AskAMech.Controllers;
 using AskAMech.Helpers;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;

@@ -53,7 +53,7 @@
         @if (SignInManager.IsSignedIn(User))
         {
             var userProfile = await UserManager.GetUserAsync(User);
-            if (@userProfile.UserPhoto == null)
+            if (userProfile.UserPhoto == null)
             {
                 <img style="width: 400px; height: 400px;" src="~/images/Placeholder.png" alt="Profile Picture" />
             }
