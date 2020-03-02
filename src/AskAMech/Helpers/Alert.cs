@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-
-namespace AskAMech.Helpers
+﻿namespace AskAMech.Helpers
 {
     public class Alert
     {
@@ -11,7 +6,7 @@ namespace AskAMech.Helpers
 
         public string AlertStyle { get; set; }
         public string Message { get; set; }
-        public bool Dismissable { get; set; }
+        public bool Dismissible { get; set; }
     }
 
     public static class AlertStyles

@@ -27,7 +27,7 @@ namespace AskAMech.Controllers
             AddAlert(AlertStyles.Danger, message, dismissable);
         }
 
-        private void AddAlert(string alertStyle, string message, bool dismissable)
+        private void AddAlert(string alertStyle, string message, bool dismissible)
         {
             var alerts = TempData.ContainsKey(Alert.TempDataKey)
                 ? (List<Alert>)TempData[Alert.TempDataKey]
@@ -37,7 +37,7 @@ namespace AskAMech.Controllers
             {
                 AlertStyle = alertStyle,
                 Message = message,
-                Dismissable = dismissable
+                Dismissible = dismissible
             });
 
             TempData[Alert.TempDataKey] = JsonConvert.SerializeObject(alerts);

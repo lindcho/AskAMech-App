@@ -12,9 +12,9 @@
 
     foreach (var alert in alerts)
     {
-        var dismissableClass = alert.Dismissable ? "alert-dismissable" : null;
-        <div class="alert alert-@alert.AlertStyle @dismissableClass">
-            @if (alert.Dismissable)
+        var dismissalClass = alert.Dismissible ? "alert-dismissible" : null;
+        <div class="alert alert-@alert.AlertStyle @dismissalClass">
+            @if (alert.Dismissible)
             {
                 <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
             }
