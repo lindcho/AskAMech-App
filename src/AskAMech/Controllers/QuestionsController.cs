@@ -90,7 +90,7 @@ namespace AskAMech.Controllers
                 return View(allQuestions.Where(q => q.Title.Contains(searchString, System.StringComparison.OrdinalIgnoreCase)).ToList().ToPagedList(pageNumber ?? 1, 10));
             }
 
-            return View(allQuestions.ToPagedList(pageNumber ?? 1, 4));
+            return View(allQuestions.ToPagedList(pageNumber ?? 1, 10));
         }
     }
 }
