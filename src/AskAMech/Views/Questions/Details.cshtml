@@ -1,4 +1,5 @@
-﻿@using AskAMech.Domain.Models
+﻿@using System.Net.Http
+@using AskAMech.Domain.Models
 @model AskAMech.Domain.Models.Question
 
 @{
@@ -41,46 +42,73 @@
         </ul>
     </div>
 
-    <div class="card mb-3">
-        <div class="card-header">
-            @*TODO Link to user profile*@
-            <small> <b>Solution by</b> <a href="@Url.Action("Details", "Questions", new {id = acceptedAnswer.AuthorId})" class="mb-1">@acceptedAnswer.Author.UserName</a> @acceptedAnswer.Date.ToLongDateString() : @acceptedAnswer.Date.ToShortTimeString()</small>
-            <div style="float: right">
-                <img src="~/images/unnamed.png" style="width: 25px; height: 25px" alt="Accepted Answer"/>
+    @if (acceptedAnswer != null)
+    {
+        <div class="card mb-3 border-success">
+            <div class="card-header">
+                @*TODO Link to user profile*@
+                <small> <b>Solution by</b> <a href="@Url.Action("Details", "Questions", new {id = acceptedAnswer.AuthorId})" class="mb-1">@acceptedAnswer.Author.UserName</a> @acceptedAnswer.Date.ToLongDateString() : @acceptedAnswer.Date.ToShortTimeString()</small>
+                <div style="float: right">
+                    <img src="~/images/unnamed.png" style="width: 25px; height: 25px" alt="Accepted Answer" />
+                </div>
+            </div>
+            <div class="card-body">
+                <p class="card-text mb-1">@Html.Raw(@acceptedAnswer.Description)</p>
+
             </div>
         </div>
-        <div class="card-body">
-            <p class="card-text mb-1">@Html.Raw(@acceptedAnswer.Description)</p>
+    }
 
-        </div>
-    </div>
 
     <hr />
     @foreach (var item in Model.Answers)
     {
-        <div class="card mb-3">
-            <div class="card-header">
-                @*TODO Link to user profile*@
-                <small> <b>Solution by</b> <a href="@Url.Action("Details", "Questions", new {id = @item.AuthorId})" class="mb-1">@item.Author.UserName</a> @item.Date.ToLongDateString() : @item.Date.ToShortTimeString()</small>
-                <div style="float: right">
+        @if (item.Author.UserName == User.Identity.Name)
+        {
+            <div class="card mb-3 border-info">
+                <div class="card-header">
+                    @*TODO Link to user profile*@
+                    <small> <b>Solution by</b> <a href="@Url.Action("Details", "Questions", new {id = @item.AuthorId})" class="mb-1">@item.Author.UserName</a> @item.Date.ToLongDateString() : @item.Date.ToShortTimeString()</small>
+                    <div style="float: right">
 
-                    @{
-                        var hasValue = @Model.AcceptedAnswerId.HasValue && @Model.AcceptedAnswerId.Value == item.AnswerId;
-                    }
-                    @if (hasValue)
-                    {
-                        <a class="badge badge-success">Accepted</a>
-                    }
-                    else if (isQuestionAuthor)
-                    {
+                        @if (@Model.AcceptedAnswerId.HasValue && @Model.AcceptedAnswerId.Value == item.AnswerId)
+                        {
+                            <a class="badge badge-success">Accepted</a>
+                        }
                         <a href="@Url.Action("AcceptAnswer", "Answers", new {answerId = @item.AnswerId, questionId = @item.QuestionId})"><small>Mark as Accepted</small></a>
-                    }
+
+                    </div>
+                </div>
+                <div class="card-body">
+                    <p class="card-text mb-1">@Html.Raw(@item.Description)</p>
                 </div>
             </div>
-            <div class="card-body">
-                <p class="card-text mb-1">@Html.Raw(@item.Description)</p>
-            </div>
-        </div>
+        }
+        else
+        {
+            <div class="card mb-3">
+                <div class="card-header">
+                    @*TODO Link to user profile*@
+                    <small> <b>Solution by</b> <a href="@Url.Action("Details", "Questions", new {id = @item.AuthorId})" class="mb-1">@item.Author.UserName</a> @item.Date.ToLongDateString() : @item.Date.ToShortTimeString()</small>
+                    <div style="float: right">
 
+                        @{
+                            var hasValue = @Model.AcceptedAnswerId.HasValue && @Model.AcceptedAnswerId.Value == item.AnswerId;
+                        }
+                        @if (hasValue)
+                        {
+                            <a class="badge badge-success">Accepted</a>
+                        }
+                        else if (isQuestionAuthor)
+                        {
+                            <a href="@Url.Action("AcceptAnswer", "Answers", new {answerId = @item.AnswerId, questionId = @item.QuestionId})"><small>Mark as Accepted</small></a>
+                        }
+                    </div>
+                </div>
+                <div class="card-body">
+                    <p class="card-text mb-1">@Html.Raw(@item.Description)</p>
+                </div>
+            </div>
+        }
     }
 </table>
