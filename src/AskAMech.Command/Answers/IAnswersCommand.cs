@@ -11,5 +11,6 @@ namespace AskAMech.Command.Answers
         Task AnswerQuestion(Answer answer, CancellationToken cancellationToken);
         Task AcceptAnswer(int answerId, CancellationToken cancellationToken);
         Task<List<Answer>> GetCurrentUserAnswers();
+        Task<List<Answer>> GetAcceptedAnswerByQuestionId(int questionId, CancellationToken cancellationToken);
     }
 }

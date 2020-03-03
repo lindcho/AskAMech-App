@@ -1,4 +1,5 @@
-﻿@model AskAMech.Domain.Models.Question
+﻿@using AskAMech.Domain.Models
+@model AskAMech.Domain.Models.Question
 
 @{
     ViewData["Title"] = "Question Details";
@@ -8,58 +9,70 @@
 }
 
 
-<br />
-<div class="card w-100 bg-light" style="margin-bottom: 0.5rem;">
-    <div class="card-body">
-        <h6 class="card-title">@Model.Title</h6>
-        <p class="card-subtitle mb-2 text-muted">@Model.DateCreated.ToString("yyyy MMMM dd HH:mm:tt")</p>
-        <p class="card-text">@Html.Raw(Model.Description)</p>
-    </div>
-</div>
-
-<div class="form-group row">
-    <div class="col-sm-12 col-md-10 col-lg-10">
-
-        <input type="submit" class="btn btn-primary" name="submit" value="Answer Question" onclick='window.location = "@Url.Action("AnswerQuestion","Answers",new { questionId=Model.Id})"' />
-        <input type="reset" class="btn btn-secondary" name="reset" value="Back to List" onclick='window.location = "@Url.Action("Index","Questions")"' />
-        @if (isQuestionAuthor)
-        {
-            <input type="submit" class="btn btn-info" name="edit" value="Modify Question" onclick='window.location = "@Url.Action("Edit","Questions",new { id=Model.Id})"' />
-        }
-    </div>
-</div>
-
-
-<table class="table table-hover">
-    <div>
-        <h5>@ViewBag.answerCount Answers</h5>
-        <ul id="TopBreadcrumb" class="breadcrumb">
-            <li class="breadcrumb-item"><a asp-controller="Questions" asp-action="Index" asp-route-pageNumber="">Questions</a></li>
-            <li class="breadcrumb-item text-muted">Answers</li>
-        </ul>
-    </div>
-    @foreach (var item in Model.Answers)
-    {
-        <div class="card w-100 bg-light" style="margin-bottom: 0.5rem;">
-            <div class="card-body">
-                <h6 class="card-title">@item.Author.UserName</h6>
-                <p class="card-subtitle mb-2 text-muted">@item.Date.ToLongDateString()</p>
-                <p class="card-text">@Html.Raw(item.Description)</p>
-
-                @{
-                    var hasValue = @Model.AcceptedAnswerId.HasValue && @Model.AcceptedAnswerId.Value == item.AnswerId;
-                }
-                @if (hasValue)
-                {
-                    <a class="badge badge-success">Accepted</a>
-                }
-                else if (isQuestionAuthor)
-                {
-                    <a href="@Url.Action("AcceptAnswer","Answers",new {answerId=@item.AnswerId,questionId=@item.QuestionId})">Mark as Accepted</a>
-                }
-
-            </div>
+    <br />
+    <div class="card w-100 bg-light" style="margin-bottom: 0.5rem;">
+        <div class="card-body">
+            <h6 class="card-title">@Model.Title</h6>
+            <p class="card-subtitle mb-2 text-muted">@Model.DateCreated.ToString("yyyy MMMM dd HH:mm:tt")</p>
+            <p class="card-text">@Html.Raw(Model.Description)</p>
         </div>
-    }
-</table>
+    </div>
+
+    <div class="form-group row">
+        <div class="col-sm-12 col-md-10 col-lg-10">
+
+            <input type="submit" class="btn btn-primary" name="submit" value="Answer Question" onclick='window.location = "@Url.Action("AnswerQuestion","Answers",new { questionId=Model.Id})"' />
+            <input type="reset" class="btn btn-secondary" name="reset" value="Back to List" onclick='window.location = "@Url.Action("Index","Questions")"' />
+            @if (isQuestionAuthor)
+            {
+                <input type="submit" class="btn btn-info" name="edit" value="Modify Question" onclick='window.location = "@Url.Action("Edit","Questions",new { id=Model.Id})"' />
+            }
+        </div>
+    </div>
+
+
+    <table class="table table-hover">
+        <div>
+            <h5>@ViewBag.answerCount Answers</h5>
+            <ul id="TopBreadcrumb" class="breadcrumb">
+                <li class="breadcrumb-item"><a asp-controller="Questions" asp-action="Index" asp-route-pageNumber="">Questions</a></li>
+                <li class="breadcrumb-item text-muted">Answers</li>
+            </ul>
+        </div>
+        @foreach (var item in (List<Answer>)ViewBag.AcceptedAnswer)
+        {
+            <div class="card w-100 bg-light" style="margin-bottom: 0.5rem;">
+                <div class="card-body">
+                    <h6 class="card-title">@item.Author.UserName</h6>
+                    <p class="card-subtitle mb-2 text-muted">@item.Date.ToLongDateString()</p>
+                    <p class="card-text">@Html.Raw(item.Description)</p>
+                    <a class="badge badge-success">Accepted</a>
+                </div>
+                </div>
+        }
+        <hr/>
+        @foreach (var item in Model.Answers)
+        {
+            <div class="card w-100 bg-light" style="margin-bottom: 0.5rem;">
+                <div class="card-body">
+                    <h6 class="card-title">@item.Author.UserName</h6>
+                    <p class="card-subtitle mb-2 text-muted">@item.Date.ToLongDateString()</p>
+                    <p class="card-text">@Html.Raw(item.Description)</p>
+
+                    @{
+                        var hasValue = @Model.AcceptedAnswerId.HasValue && @Model.AcceptedAnswerId.Value == item.AnswerId;
+                    }
+                    @if (hasValue)
+                    {
+                        <a class="badge badge-success">Accepted</a>
+                    }
+                    else if (isQuestionAuthor)
+                    {
+                        <a href="@Url.Action("AcceptAnswer","Answers",new {answerId=@item.AnswerId,questionId=@item.QuestionId})">Mark as Accepted</a>
+                    }
+
+                </div>
+            </div>
+        }
+    </table>
 
