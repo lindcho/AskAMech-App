@@ -19,7 +19,7 @@ namespace AskAMech.Areas.Identity.Pages.Account.Manage
             _answersCommand = answersCommand;
         }
         
-        public async Task<IActionResult> OnGet(int id)
+        public async Task<IActionResult> OnGet()
         {
             var questions = await _questionCommands.GetUserQuestions();
             ViewData["Questions"] = questions ?? throw new Exception("You don't have any questions yet");

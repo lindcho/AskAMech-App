@@ -51,6 +51,7 @@ namespace AskAMech.Data.DbGateways.Answers
             var data = from grouping in queryable
                        select new AnswersListViewModel
                        {
+                           QuestionId = grouping.Key.QuestionId,
                            AnswerDescription = grouping.Key.Description,
                            DateAnswered = grouping.Key.Date
                        };

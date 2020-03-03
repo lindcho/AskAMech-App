@@ -41,8 +41,8 @@
                             <tr>
                                 <td>@question.Title</td>
                                 <td>@question.Description</td>
-                                <td>@question.DateCreated</td>
-                                <td>@question.LastModified</td>
+                                <td>@question.DateCreated.ToString("yyyy/MM/dd")</td>
+                                <td>@question.LastModified.ToString("yyyy/MM/dd")</td>
                             </tr>
                             </tbody>
                         }
@@ -71,10 +71,10 @@
 
                         @foreach (Question question in enumQuestions)
                         {
-
+                           
                             <tbody id="items">
                                 <tr>
-                                    <td>@question.Description</td>
+                                    <td  style="background-color: lightgray">@question.Description</td>
                                 </tr>
                             </tbody>
                             <thead>
@@ -85,17 +85,17 @@
                             </thead>
                             foreach (var answer in answersListViewModels)
                             {
-                                <tbody id="items">
+                                if (answer.QuestionId == question.Id)
+                                {
+                                    <tbody id="items">
                                     <tr>
-                                        <td>@answer.AnswerDescription</td>
-                                        <td>@answer.DateAnswered</td>
+                                        <td >@answer.AnswerDescription</td>
+                                        <td >@answer.DateAnswered.ToString("yyyy/MM/dd")</td>
                                     </tr>
-                                </tbody>
+                                    </tbody>
+                                }
                             }
-
                         }
-
-
 
                     </table>   
 
