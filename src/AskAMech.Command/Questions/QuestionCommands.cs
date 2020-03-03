@@ -112,13 +112,13 @@ namespace AskAMech.Command.Questions
             {
                 return false;
             }
-            var question = _questionGateway.GetQuestion(id);
+            var question = _questionGateway.GetQuestion(id).Result;
             if (question == null)
             {
                 throw new Exception("User not found");
             }
 
-            return currentUserId == question.Result.AuthorId;
+            return currentUserId == question.AuthorId;
         }
 
         public async Task<List<Question>> GetUserQuestions()

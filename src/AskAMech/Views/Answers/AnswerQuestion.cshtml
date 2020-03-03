@@ -3,7 +3,7 @@
 @{
     ViewData["Title"] = "Add";
 }
-<br/>
+<br />
 <div class="card w-100 bg-light" style="margin-bottom: 0.5rem;">
     <div class="card-body">
         <h6 class="card-title">@Model.Question.Title</h6>
@@ -26,17 +26,16 @@
                 <span asp-validation-for="Description" class="text-danger"></span>
             </div>
         </div>
-        <div class="form-group">
-            <div class="col-md-offset-2 col-md-10">
-                <input type="submit" value="Create" class="btn btn-primary" />
+        <div class="form-group row">
+            <div class="col-sm-12 col-md-10 col-lg-10">
+
+                <input type="submit" class="btn btn-primary" name="submit" value="Create"/>
+                <input type="reset" class="btn btn-secondary" name="reset" value="Back to List"  onclick='window.location = "@Url.Action("Details","Questions",new { id=Model.QuestionId})"' />
             </div>
         </div>
     </div>
 </form>
 
-<div>
-    <a asp-action="Details" asp-controller="Questions" asp-ro="@Model.QuestionId"}>Back to List</a>
-</div>
 
 @section Scripts {
     @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
