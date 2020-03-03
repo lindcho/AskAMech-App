@@ -2,6 +2,7 @@
 using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
+using AskAMech.Domain;
 using AskAMech.Domain.Models;
 using AskAMech.Infrastructure.Data;
 using Microsoft.EntityFrameworkCore;
@@ -40,15 +41,20 @@ namespace AskAMech.Data.DbGateways.Answers
                 Include(x => x.Author)
                 .ToListAsync(cancellationToken: cancellationToken);
         }
-        public async Task<List<Answer>> GetUserAnswers(string currentUserId)
+        public IQueryable<AnswersListViewModel> GetUserAnswers(string currentUserId)
         {
-            var answers = GetAllAnswers();
-            return answers.Where(a => a.AuthorId == currentUserId).ToList();
-        }
+            var queryable = from question in _context.Questions
+                            join answer in _context.Answers on question.Id equals answer.QuestionId into combined
+                            from subList in combined.DefaultIfEmpty().Where(q => currentUserId == question.AuthorId && question.Id == q.QuestionId)
+                            group question by new { subList.QuestionId, subList.Description, subList.Date };
 
-        private List<Answer> GetAllAnswers()
-        {
-            return _context.Answers.ToList();
+            var data = from grouping in queryable
+                       select new AnswersListViewModel
+                       {
+                           AnswerDescription = grouping.Key.Description,
+                           DateAnswered = grouping.Key.Date
+                       };
+            return data;
         }
     }
 }

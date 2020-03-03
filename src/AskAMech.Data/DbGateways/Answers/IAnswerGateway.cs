@@ -1,6 +1,8 @@
 ﻿using System.Collections.Generic;
+using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
+using AskAMech.Domain;
 using AskAMech.Domain.Models;
 
 namespace AskAMech.Data.DbGateways.Answers
@@ -11,6 +13,6 @@ namespace AskAMech.Data.DbGateways.Answers
         Task AddAnswer(Answer answer, CancellationToken cancellationToken);
         Task AcceptAnswer(Question question, CancellationToken cancellationToken);
         Task<Answer> GetOneAnswer(int id);
-        Task<List<Answer>> GetUserAnswers(string currentUserId);
+        IQueryable<AnswersListViewModel> GetUserAnswers(string currentUserId);
     }
 }

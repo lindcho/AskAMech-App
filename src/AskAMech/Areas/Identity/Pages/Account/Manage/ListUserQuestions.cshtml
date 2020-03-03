@@ -1,8 +1,11 @@
 ﻿@page
+@using AskAMech.Domain
 @model AskAMech.Areas.Identity.Pages.Account.Manage.ListUserQuestionsModel
 @{
     IEnumerable<Question> questions = ViewData["Questions"] as IEnumerable<Question>;
-    IEnumerable<Answer> answers = ViewData["Answers"] as IEnumerable<Answer>;
+    var enumQuestions = questions as Question[] ?? (questions ?? throw new InvalidOperationException("Questions not found")).ToArray();
+    IEnumerable<AnswersListViewModel> answers = ViewData["Answers"] as IEnumerable<AnswersListViewModel>;
+    var answersListViewModels = answers as AnswersListViewModel[] ?? (answers ?? throw new InvalidOperationException("answers not found")).ToArray();
 }
 
 @{
@@ -16,8 +19,7 @@
     <div class="row col-lg-9">
         <ul class="nav nav-tabs" id="myTab">
             <li class="active"><a href="#home" data-toggle="tab">Home</a></li>
-            <li><a href="#answers" data-toggle="tab">Messages</a></li>
-            <li><a href="#settings" data-toggle="tab">Settings</a></li>
+            <li><a href="#answers" data-toggle="tab">Answers</a></li>
         </ul>
 
         <div class="tab-content">
@@ -32,7 +34,8 @@
                             <th>LastModified</th>
                         </tr>
                         </thead>
-                        @foreach (Question question in questions)
+
+                        @foreach (Question question in enumQuestions)
                         {
                             <tbody id="items">
                             <tr>
@@ -57,38 +60,47 @@
         
 
         <div class="tab-content">
-            <div class="tab-pane active" id="answers">
+            <div class="tab-pane" id="answers">
                 <div class="table-responsive">
                     <table class="table table-hover">
                         <thead>
-                        <tr>
-                            <th>Answer Description</th>
-                        </tr>
+                            <tr>
+                                <th>Questions I have Asked</th>
+                            </tr>
                         </thead>
 
-                        @{
-                            var answerQuestion = answers as Answer[] ?? (answers ?? throw new InvalidOperationException("answers not found")).ToArray();
-                        }
-                        
-                    @*@foreach (Question question  in questions)
-                    {
-
-                    }*@
-                        @foreach (var answer in answerQuestion)
+                        @foreach (Question question in enumQuestions)
                         {
+
                             <tbody id="items">
-                            <tr>
-                                <td>@answer.Description</td>
-                            </tr>
+                                <tr>
+                                    <td>@question.Description</td>
+                                </tr>
                             </tbody>
+                            <thead>
+                                <tr>
+                                    <th>Answer/s</th>
+                                    <th>Date answered</th>
+                                </tr>
+                            </thead>
+                            foreach (var answer in answersListViewModels)
+                            {
+                                <tbody id="items">
+                                    <tr>
+                                        <td>@answer.AnswerDescription</td>
+                                        <td>@answer.DateAnswered</td>
+                                    </tr>
+                                </tbody>
+                            }
+
                         }
+
+
+
                     </table>   
 
                 </div>
             </div>
         </div> 
-        
-       
-
     </div>
 </div>

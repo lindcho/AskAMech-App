@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using AskAMech.Command.Services;
 using AskAMech.Data.DbGateways.Answers;
 using AskAMech.Data.DbGateways.Questions;
+using AskAMech.Domain;
 using AskAMech.Domain.Models;
 
 namespace AskAMech.Command.Answers
@@ -90,14 +91,15 @@ namespace AskAMech.Command.Answers
             await _answersGateway.AcceptAnswer(question, cancellationToken);
         }
 
-        public async Task<List<Answer>> GetCurrentUserAnswers()
+        public IQueryable<AnswersListViewModel> GetQuestionsWithAnswers()
         {
             var currentUserId = _requestUserProvider.GetUserId();
             if (string.IsNullOrEmpty(currentUserId))
             {
                 throw new Exception("User not found");
             }
-            return await _answersGateway.GetUserAnswers(currentUserId);
+            return  _answersGateway.GetUserAnswers(currentUserId);
         }
+       
     }
 }
