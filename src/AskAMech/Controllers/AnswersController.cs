@@ -39,7 +39,7 @@ namespace AskAMech.Controllers
         {
             if (!ModelState.IsValid) return View(answer);
             await _answersCommand.AnswerQuestion(answer, new CancellationToken());
-            Success("<b>Answer</b> was successfully posted for the question.", true);
+            Success("Your <b>answer</b> was successfully posted for the question.", true);
             return RedirectToAction("Details", "Questions", new { id = answer.QuestionId });
         }
 

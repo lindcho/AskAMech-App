@@ -76,6 +76,7 @@ namespace AskAMech.Controllers
             var questionModel = await _questionCommands.GetQuestion(id);
             questionModel.Author.FullName = questionModel.Author.FullName ?? questionModel.Author.UserName;
             questionModel.Answers = await _answersCommand.GetAnswersByQuestionId(id, new CancellationToken());
+
             ViewBag.AcceptedAnswer = await _answersCommand.GetAcceptedAnswerByQuestionId(id, new CancellationToken());
             ViewBag.answerCount = _questionCommands.GetAnswersCount(id);
             return View(questionModel);

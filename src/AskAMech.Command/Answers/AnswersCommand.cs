@@ -23,16 +23,14 @@ namespace AskAMech.Command.Answers
             _requestUserProvider = requestUserProvider;
         }
 
-        public async Task<List<Answer>> GetAcceptedAnswerByQuestionId(int questionId,
+        public async Task<Answer> GetAcceptedAnswerByQuestionId(int questionId,
             CancellationToken cancellationToken)
         {
             var question = _questionGateway.GetQuestion(questionId).Result;
             var answers = await _answersGateway.GetAllAnswers(cancellationToken);
             var questionAnswers = answers
                 .Where(x => x.QuestionId == questionId)
-                .Where(q => q.AnswerId == question.AcceptedAnswerId)
-                .OrderByDescending(x => x.AnswerId)
-                .ToList();
+                .FirstOrDefault(q => q.AnswerId == question.AcceptedAnswerId);
             return questionAnswers;
         }
 
