@@ -24,8 +24,8 @@ namespace AskAMech.Areas.Identity.Pages.Account.Manage
             var questions = await _questionCommands.GetUserQuestions();
             ViewData["Questions"] = questions ?? throw new Exception("You don't have any questions yet");
 
-            var questionModel = _answersCommand.GetQuestionsWithAnswers();
-            ViewData["Answers"] = questionModel;
+            var answerModel = _answersCommand.GetQuestionsWithAnswers();
+            ViewData["Answers"] = answerModel;
             return Page();
         }
     }
