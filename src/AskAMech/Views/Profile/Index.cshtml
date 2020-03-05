@@ -4,7 +4,10 @@
 @{
     var questions = ViewData["Questions"] as IEnumerable<Question>;
     var answers = ViewData["Answers"] as IEnumerable<AnswersListViewModel>;
+    
+    var questionsList = (questions ?? throw new InvalidOperationException()).ToList();
 }
+
 
 @{
     ViewData["Title"] = "User Questions";
@@ -12,9 +15,10 @@
 
 <h4>@ViewData["Title"]</h4>
 
-
 <div>
     <ul class="nav nav-tabs">
+    @if (User.Identity.IsAuthenticated)
+    {
         <li class="nav-item">
             <a href="#home" class="nav-link active" data-toggle="tab">Questions</a>
         </li>
@@ -22,78 +26,91 @@
         <li class="nav-item">
             <a href="#messages" class="nav-link" data-toggle="tab">Answers</a>
         </li>
+    }
+    else
+    {
+        <li class="nav-item">
+            <a href="#home" class="nav-link active" data-toggle="tab">Questions</a>
+        </li>
+    }
+
+       
     </ul>
     <br />
     <div class="tab-content">
-        <div class="tab-pane fade show active" id="home">
-            <h5 class="mt-2"> <strong>Questions I have asked</strong></h5>
-            <br />
-            <table class="table table-hover">
-                <thead>
-                    <tr>
-                        <th>Title</th>
-                        <th>Description</th>
-                        <th>Date Created</th>
-                        <th>Last Modified</th>
-                    </tr>
-                </thead>
-
-
-                @{
-                    var questionsList = (questions ?? throw new InvalidOperationException()).ToList();
-                }
-                @foreach (var question in questionsList)
-                {
-                    <tbody id="items">
-                        <tr>
-                            <td>@question.Title</td>
-                            <td>@question.Description</td>
-                            <td>@question.DateCreated.ToString("yyyy/MM/dd")</td>
-                            <td>@question.LastModified.ToString("yyyy/MM/dd")</td>
-                        </tr>
-                    </tbody>
-                }
-            </table>
-            <hr>
-        </div>
-
+    <div class="tab-pane fade show active" id="home">
+        <h5 class="mt-2"> <strong>Questions I have asked</strong></h5>
+        <br />
+        <table class="table table-hover">
+            <thead>
+            <tr>
+                <th>Title</th>
+                <th>Description</th>
+                <th>Date Created</th>
+                <th>Last Modified</th>
+            </tr>
+            </thead>
+            
+            @foreach (var question in questionsList)
+            {
+                <tbody id="items">
+                <tr>
+                    <td>@question.Title</td>
+                    <td>@question.Description</td>
+                    <td>@question.DateCreated.ToString("yyyy/MM/dd")</td>
+                    <td>@question.LastModified.ToString("yyyy/MM/dd")</td>
+                </tr>
+                </tbody>
+            }
+        </table>
+        <hr>
+    </div>
+    
+    @if (User.Identity.IsAuthenticated)
+    {
+       
         <div class="tab-pane fade" id="messages">
             <h5 class="mt-2"> <strong>Questions and answers</strong></h5>
-            <br />
+            <br/>
             <table class="table table-hover">
                 <thead>
-                    <tr></tr>
+                <tr></tr>
                 </thead>
 
                 @foreach (var question in questionsList)
                 {
-
-                    <tbody id="items">
+                        <tbody id="items">
                         <tr>
                             <td style="background-color: lightgray">@question.Description</td>
                         </tr>
-                    </tbody>
-                    <thead>
+                        </tbody>
+                        <thead>
                         <tr>
                             <th>Answer/s</th>
                             <th>Date Answered</th>
                         </tr>
-                    </thead>
-                    foreach (var answer in answers)
-                    {
-                        if (answer.QuestionId == question.Id)
+                        </thead>
+
+                        foreach (var answer in answers)
                         {
-                            <tbody id="items">
+
+                            if (answer.QuestionId == question.Id)
+                            {
+                                <tbody id="items">
                                 <tr>
                                     <td>@answer.AnswerDescription</td>
                                     <td>@answer.DateAnswered.ToString("yyyy/MM/dd")</td>
                                 </tr>
-                            </tbody>
+                                </tbody>
+                            }
                         }
                     }
+
                 }
+
 
             </table>
         </div>
+    }
     </div>
 </div>
