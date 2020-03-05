@@ -16,11 +16,8 @@
     <div class="card-body">
         <h6 class="card-title">
             @Model.Title
-            <div style="float: right">
-                <div class="text-muted">By @Model.Author.UserName</div>
-            </div>
         </h6>
-        <p class="card-subtitle mb-2 text-muted">By @Model.Author.UserName  on @Model.DateCreated.ToString("yyyy MMMM dd HH:mm:tt")</p>
+        <p class="card-subtitle mb-2 text-muted">By <a href="@Url.Action("Index", "Profile", new {userId = Model.AuthorId})" class="mb-1">@Model.Author.UserName</a>  on @Model.DateCreated.ToString("yyyy MMMM dd HH:mm:tt")</p>
         <p class="card-text">@Html.Raw(Model.Description)</p>
     </div>
 </div>
@@ -51,8 +48,7 @@
     {
         <div class="card mb-3 border-success">
             <div class="card-header">
-                @*TODO Link to user profile*@
-                <small> <b>Solution by</b> <a href="@Url.Action("Details", "Questions", new {id = acceptedAnswer.AuthorId})" class="mb-1">@acceptedAnswer.Author.UserName</a> @acceptedAnswer.Date.ToLongDateString() : @acceptedAnswer.Date.ToShortTimeString()</small>
+                <small> <b>Solution by</b> <a href="@Url.Action("Index", "Profile", new {userId = @acceptedAnswer.AuthorId})" class="mb-1">@acceptedAnswer.Author.UserName</a> @acceptedAnswer.Date.ToLongDateString() : @acceptedAnswer.Date.ToShortTimeString()</small>
                 <div style="float: right">
                     <img src="~/images/unnamed.png" style="width: 25px; height: 25px" alt="Accepted Answer" />
                 </div>
@@ -72,7 +68,6 @@
         {
             <div class="card mb-3 border-info">
                 <div class="card-header">
-                    @*TODO Link to user profile*@
                     <small> <b>Solution by</b> <a href="@Url.Action("Index", "Profile", new {userId = @item.AuthorId})" class="mb-1">@item.Author.UserName</a> @item.Date.ToLongDateString() : @item.Date.ToShortTimeString()</small>
                     <div style="float: right">
                         @{
@@ -99,7 +94,6 @@
         {
             <div class="card mb-3">
                 <div class="card-header">
-                    @*TODO Link to user profile*@
                     <small> <b>Solution by</b> <a href="@Url.Action("Index", "Profile", new {userId = @item.AuthorId})" class="mb-1">@item.Author.UserName</a> @item.Date.ToLongDateString() : @item.Date.ToShortTimeString()</small>
                     <div style="float: right">
 

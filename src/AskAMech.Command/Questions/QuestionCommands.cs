@@ -9,7 +9,6 @@ using AskAMech.Data.DbGateways.Answers;
 using AskAMech.Data.DbGateways.Questions;
 using AskAMech.Domain;
 using AskAMech.Domain.Models;
-using AskAMech.Infrastructure.Data;
 using Microsoft.AspNetCore.Http;
 
 namespace AskAMech.Command.Questions
