@@ -21,13 +21,6 @@ namespace AskAMech.Controllers
             _answersCommand = answersCommand;
         }
 
-        //[Authorize]
-        [HttpGet]
-        public async Task<IActionResult> ListUserQuestions(string userId)
-        {
-            return View(await _questionCommands.GetUserQuestions(userId));
-        }
-
         // GET: Questions/Add
         [Authorize]
         [HttpGet]
