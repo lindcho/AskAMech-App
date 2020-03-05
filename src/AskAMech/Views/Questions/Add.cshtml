@@ -3,7 +3,6 @@
 @{
     ViewData["Title"] = "Add";
 }
-
 <form asp-action="Add">
     <div>
         <h4>Create new Question</h4>
@@ -21,8 +20,9 @@
             <label asp-for="Description" class="col-md-2 control-label"></label>
             <div class="col-md-10">
                 <small>Include all of the details that someone needs to answer your question</small>
-                <textarea asp-for="Description" class="form-control" rows="5"></textarea>
-                <span asp-validation-for="Description" class="text-danger"></span>
+                @Html.TextAreaFor(model => model.Description, new { @id = "FullDescription", @class = "form-control", @rows = "10" }) @Html.ValidationMessageFor(model => model.Description, "", new { @class = "text-danger" })
+                <script type="text/javascript">CKEDITOR.replace('FullDescription');</script>
+                @Html.ValidationMessageFor(model => model.Description, "", new { @class = "text-danger" })
             </div>
         </div>
         <div class="row">
