@@ -3,6 +3,8 @@
 @{
     ViewData["Title"] = "Add";
 }
+
+<script src="js/ckeditor/ckeditor.js"></script>
 <br />
 <div class="card w-100 bg-light" style="margin-bottom: 0.5rem;">
     <div class="card-body">
@@ -19,24 +21,26 @@
         <div asp-validation-summary="ModelOnly" class="text-danger"></div>
         @Html.HiddenFor(model => model.QuestionId)
         <div class="form-group">
-            <label asp-for="Description" class="col-md-2 control-label"></label>
-            <div class="col-md-10">
-                <small>Include all of the details that someone needs to solve their question</small>
-                <textarea asp-for="Description" class="form-control" rows="5"></textarea>
-                <span asp-validation-for="Description" class="text-danger"></span>
+            <div class="form-group">
+                @Html.LabelFor(model => model.Description, htmlAttributes: new { @class = "control-label col-md-2" })
+                <div ass="col-md-10">
+                    @Html.TextAreaFor(model => model.Description, new { @id = "FullDescription", @class = "form-control", @rows = "10" }) @Html.ValidationMessageFor(model => model.Description, "", new { @class = "text-danger" })
+                    <script type="text/javascript">CKEDITOR.replace('FullDescription');</script> 
+                    @*@Html.EditorFor(model => model.Description, new { htmlAttributes = new { @class = "form-control" } }) @Html.ValidationMessageFor(model => model.Description, "", new { @class = "text-danger" })*@
+                </div>
             </div>
         </div>
         <div class="form-group row">
             <div class="col-sm-12 col-md-10 col-lg-10">
 
-                <input type="submit" class="btn btn-primary" name="submit" value="Create"/>
-                <input type="reset" class="btn btn-secondary" name="reset" value="Back to List"  onclick='window.location = "@Url.Action("Details","Questions",new { id=Model.QuestionId})"' />
+                <input type="submit" class="btn btn-primary" name="submit" value="Create" />
+                <input type="reset" class="btn btn-secondary" name="reset" value="Back to List" onclick='window.location = "@Url.Action("Details","Questions",new { id=Model.QuestionId})"' />
             </div>
         </div>
     </div>
 </form>
 
-
+<script type="text/javascript">CKEDITOR.replace('FullDescription');</script>
 @section Scripts {
     @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
 }
