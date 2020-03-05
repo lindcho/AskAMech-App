@@ -121,15 +121,14 @@ namespace AskAMech.Command.Questions
             return currentUserId == question.AuthorId;
         }
 
-        public async Task<List<Question>> GetUserQuestions()
+        public async Task<List<Question>> GetUserQuestions(string userId)
         {
-            var currentUserId = _requestUserProvider.GetUserId();
-            if (string.IsNullOrEmpty(currentUserId))
+            if (string.IsNullOrEmpty(userId))
             {
                 throw new Exception("User not found");
             }
 
-            return await _questionGateway.GetUserQuestions(currentUserId);
+            return await _questionGateway.GetUserQuestions(userId);
         }
 
         public int GetAnswersCount(int questionId)

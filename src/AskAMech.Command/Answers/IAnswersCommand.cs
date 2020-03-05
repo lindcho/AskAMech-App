@@ -12,7 +12,7 @@ namespace AskAMech.Command.Answers
         Task<List<Answer>> GetAnswersByQuestionId(int questionId, CancellationToken cancellationToken);
         Task AnswerQuestion(Answer answer, CancellationToken cancellationToken);
         Task AcceptAnswer(int answerId, CancellationToken cancellationToken);
-        IQueryable<AnswersListViewModel> GetQuestionsWithAnswers();
+        IQueryable<AnswersListViewModel> GetQuestionsWithAnswers(string userId);
         Task<Answer> GetAcceptedAnswerByQuestionId(int questionId, CancellationToken cancellationToken);
     }
 }

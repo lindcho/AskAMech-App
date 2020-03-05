@@ -18,14 +18,15 @@ namespace AskAMech.Areas.Identity.Pages.Account.Manage
             _questionCommands = questionCommands;
             _answersCommand = answersCommand;
         }
-        
-        public async Task<IActionResult> OnGet()
+
+        public async Task<IActionResult> OnGet(string userId)
         {
-            var questions = await _questionCommands.GetUserQuestions();
+            var questions = await _questionCommands.GetUserQuestions(userId);
             ViewData["Questions"] = questions ?? throw new Exception("You don't have any questions yet");
 
-            var answerModel = _answersCommand.GetQuestionsWithAnswers();
+            var questionModel = _answersCommand.GetQuestionsWithAnswers(userId);
             ViewData["Answers"] = answerModel;
+            ViewData["Answers"] = questionModel;
             return Page();
         }
     }

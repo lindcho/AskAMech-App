@@ -13,7 +13,7 @@ namespace AskAMech.Data.DbGateways.Questions
         Task Add(Question question, CancellationToken cancellationToken);
         Task Update(Question question, CancellationToken cancellationToken);
         Task<Question> GetQuestion(int? id);
-        Task<List<Question>> GetUserQuestions(string currentUserId);
+        Task<List<Question>> GetUserQuestions(string userId);
         IQueryable<QuestionsListGroupViewModel> GetQuestionList();
         Task UploadUserPhoto(ApplicationUser user);
     }

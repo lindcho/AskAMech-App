@@ -15,7 +15,7 @@ namespace AskAMech.Command.Questions
         Task<Question> UpdateQuestion(Question question, CancellationToken cancellationToken);
         Task<Question> GetQuestion(int? id);
         bool CanUserEditQuestion(int? id);
-        Task<List<Question>> GetUserQuestions();
+        Task<List<Question>> GetUserQuestions(string userId);
         int GetAnswersCount(int questionId);
         IQueryable<QuestionsListGroupViewModel> GetQuestionList();
         Task UploadImage(IFormFile file);

@@ -15,18 +15,17 @@ namespace AskAMech.Controllers
         private readonly IQuestionCommands _questionCommands;
         private readonly IAnswersCommand _answersCommand;
 
-
         public QuestionsController(IQuestionCommands questionCommands, IAnswersCommand answersCommand)
         {
             _questionCommands = questionCommands;
             _answersCommand = answersCommand;
         }
 
-        [Authorize]
+        //[Authorize]
         [HttpGet]
-        public async Task<IActionResult> ListUserQuestions()
+        public async Task<IActionResult> ListUserQuestions(string userId)
         {
-            return View(await _questionCommands.GetUserQuestions());
+            return View(await _questionCommands.GetUserQuestions(userId));
         }
 
         // GET: Questions/Add

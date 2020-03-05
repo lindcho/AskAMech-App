@@ -46,10 +46,10 @@ namespace AskAMech.Data.DbGateways.Questions
             return question;
         }
 
-        public async Task<List<Question>> GetUserQuestions(string currentUserId)
+        public async Task<List<Question>> GetUserQuestions(string userId)
         {
             var questions = await GetAll(new CancellationToken());
-            return questions.Where(x => x.AuthorId == currentUserId).ToList();
+            return questions.Where(x => x.AuthorId == userId).ToList();
         }
 
         public IQueryable<QuestionsListGroupViewModel> GetQuestionList()

@@ -91,15 +91,14 @@ namespace AskAMech.Command.Answers
             await _answersGateway.AcceptAnswer(question, cancellationToken);
         }
 
-        public IQueryable<AnswersListViewModel> GetQuestionsWithAnswers()
+        public IQueryable<AnswersListViewModel> GetQuestionsWithAnswers(string userId)
         {
-            var currentUserId = _requestUserProvider.GetUserId();
-            if (string.IsNullOrEmpty(currentUserId))
+            if (string.IsNullOrEmpty(userId))
             {
                 throw new Exception("User not found");
             }
-            return  _answersGateway.GetUserAnswers(currentUserId);
+            return _answersGateway.GetUserAnswers(userId);
         }
-       
+
     }
 }
