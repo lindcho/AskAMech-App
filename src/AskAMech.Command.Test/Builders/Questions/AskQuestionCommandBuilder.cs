@@ -53,7 +53,7 @@ namespace AskAMech.Command.Test.Builders.Questions
             _questionGateway.Add(question, Arg.Any<CancellationToken>());
             return this;
         }
-        public AskQuestionCommandBuilder WithNewUpdatedQuestiond(Question question)
+        public AskQuestionCommandBuilder WithNewUpdatedQuestionId(Question question)
         {
             _questionGateway.Update(question, Arg.Any<CancellationToken>());
             return this;

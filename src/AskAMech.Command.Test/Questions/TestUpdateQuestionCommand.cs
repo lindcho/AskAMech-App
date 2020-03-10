@@ -48,7 +48,7 @@ namespace AskAMech.Command.Test.Questions
                 .Build();
 
             var command = new AskQuestionCommandBuilder()
-                .WithNewUpdatedQuestiond(question)
+                .WithNewUpdatedQuestionId(question)
                 .WithQuestionToUpdate(5, oldQuestion)
                 .WithValidUserId("12")
                 .Build();
