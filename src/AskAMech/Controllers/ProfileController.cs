@@ -1,9 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
+﻿using System.Threading.Tasks;
 using AskAMech.Command.Answers;
 using AskAMech.Command.Questions;
+using AskAMech.Command.Services;
+using AskAMech.Domain.ViewModels;
 using Microsoft.AspNetCore.Mvc;
 
 namespace AskAMech.Controllers
@@ -12,22 +11,29 @@ namespace AskAMech.Controllers
     {
         private readonly IQuestionCommands _questionCommands;
         private readonly IAnswersCommand _answersCommand;
+        private readonly IRequestUserProvider _requestUserProvider;
 
-        public ProfileController(IQuestionCommands questionCommands, IAnswersCommand answersCommand)
+        public ProfileController(IQuestionCommands questionCommands, IAnswersCommand answersCommand, IRequestUserProvider requestUserProvider)
         {
             _questionCommands = questionCommands;
             _answersCommand = answersCommand;
+            _requestUserProvider = requestUserProvider;
         }
 
         [HttpGet]
         public async Task<IActionResult> Index(string userId)
         {
-            var userQuestions =await _questionCommands.GetUserQuestions(userId);
-            ViewData["Questions"] = userQuestions ?? throw new Exception("You don't have any questions yet");
+            var currentUserId = _requestUserProvider.GetUserId();
+            ViewBag.UserId = currentUserId;
 
-            var questionModel = _answersCommand.GetQuestionsWithAnswers(userId);
-            ViewData["Answers"] = questionModel;
-            return View();
+            var questions = await _questionCommands.GetUserQuestions(userId);
+            var questionAnswers = _answersCommand.GetQuestionsWithAnswers(userId);
+            var vm = new ProfileDetailsViewModel
+            {
+                AskedQuestions = questions,
+                QuestionAnswers = questionAnswers,
+            };
+            return View(vm);
         }
     }
 }

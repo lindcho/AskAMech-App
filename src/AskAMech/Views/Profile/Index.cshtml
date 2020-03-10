@@ -1,116 +1,71 @@
-﻿@using AskAMech.Domain
-@using AskAMech.Domain.Models
-@model AskAMech.Areas.Identity.Pages.Account.Manage.ListUserQuestionsModel
+﻿@model AskAMech.Domain.ViewModels.ProfileDetailsViewModel
+<head>
+    <link rel="stylesheet" href="~/css/site.css" />
+</head>
+
 @{
-    var questions = ViewData["Questions"] as IEnumerable<Question>;
-    var answers = ViewData["Answers"] as IEnumerable<AnswersListViewModel>;
-    
-    var questionsList = (questions ?? throw new InvalidOperationException()).ToList();
+    var currentUserId = ViewBag.UserId;
 }
 
 
-@{
-    ViewData["Title"] = "User Questions";
-}
-
-<h4>@ViewData["Title"]</h4>
-
-<div>
-    <ul class="nav nav-tabs">
-    @if (User.Identity.IsAuthenticated)
+@if (User.Identity.IsAuthenticated)
+{
+    <h4>User Questions</h4>
+    <hr />
+    if (Model.AskedQuestions.Any())
     {
-        <li class="nav-item">
-            <a href="#home" class="nav-link active" data-toggle="tab">Questions</a>
-        </li>
+        foreach (var question in @Model.AskedQuestions)
+        {
+            <div class="question_row">
+                <div class="row">
+                    <div class="col-sm-10">
+                        <p> @question.Description </p>
+                    </div>
+                </div>
+            </div>
 
-        <li class="nav-item">
-            <a href="#messages" class="nav-link" data-toggle="tab">Answers</a>
-        </li>
-    }
-    else
-    {
-        <li class="nav-item">
-            <a href="#home" class="nav-link active" data-toggle="tab">Questions</a>
-        </li>
-    }
-
-       
-    </ul>
-    <br />
-    <div class="tab-content">
-    <div class="tab-pane fade show active" id="home">
-        <h5 class="mt-2"> <strong>Questions I have asked</strong></h5>
-        <br />
-        <table class="table table-hover">
-            <thead>
-            <tr>
-                <th>Title</th>
-                <th>Description</th>
-                <th>Date Created</th>
-                <th>Last Modified</th>
-            </tr>
-            </thead>
-            
-            @foreach (var question in questionsList)
+            if (Model.QuestionAnswers.Any())
             {
-                <tbody id="items">
-                <tr>
-                    <td>@question.Title</td>
-                    <td>@question.Description</td>
-                    <td>@question.DateCreated.ToString("yyyy/MM/dd")</td>
-                    <td>@question.LastModified.ToString("yyyy/MM/dd")</td>
-                </tr>
-                </tbody>
-            }
-        </table>
-        <hr>
-    </div>
-    
-    @if (User.Identity.IsAuthenticated)
-    {
-       
-        <div class="tab-pane fade" id="messages">
-            <h5 class="mt-2"> <strong>Questions and answers</strong></h5>
-            <br/>
-            <table class="table table-hover">
-                <thead>
-                <tr></tr>
-                </thead>
-
-                @foreach (var question in questionsList)
+                foreach (var answer in @Model.QuestionAnswers)
                 {
-                        <tbody id="items">
-                        <tr>
-                            <td style="background-color: lightgray">@question.Description</td>
-                        </tr>
-                        </tbody>
-                        <thead>
-                        <tr>
-                            <th>Answer/s</th>
-                            <th>Date Answered</th>
-                        </tr>
-                        </thead>
-
-                        foreach (var answer in answers)
+                    if (question.Id == answer.QuestionId)
+                    {
+                        if (question.Author.Id == currentUserId)
                         {
 
-                            if (answer.QuestionId == question.Id)
-                            {
-                                <tbody id="items">
-                                <tr>
-                                    <td>@answer.AnswerDescription</td>
-                                    <td>@answer.DateAnswered.ToString("yyyy/MM/dd")</td>
-                                </tr>
-                                </tbody>
-                            }
+                            <div class="card">
+                                <div class="card-body">
+                                    <p> @answer.AnswerDescription </p>
+                                </div>
+                            </div>
                         }
                     }
-
                 }
-
-
-            </table>
-        </div>
+            }
+        }
     }
-    </div>
-</div>
+}
+
+else
+{
+    <h4>User Questions</h4>
+    <hr />
+    if (Model.AskedQuestions.Any())
+    {
+        foreach (var question in @Model.AskedQuestions)
+        {
+            <div>
+                <div class="question_row">
+                    <div class="row">
+                        <div class="col-sm-10">
+                            <p> @question.Description </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        }
+    }
+}
+
+
+

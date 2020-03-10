@@ -203,3 +203,10 @@ body {
     border-top: 1px solid #dee2e6;
     border-bottom: 1px solid #dee2e6;
 }
+.question_row {
+    border: 1px solid whitesmoke;
+    border-radius: 5px;
+    margin: 25px 0px;
+    padding: 10px;
+    background: lightgrey;
+}
