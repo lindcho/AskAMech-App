@@ -63,9 +63,30 @@ else
                     </div>
                 </div>
             </div>
+            <br />
         }
     }
 }
+<h4>User Profile</h4>
+<hr />
+<br />
+<table>
+    <tr>
+        <th>UserName</th>
+        <th>User Profile Photo</th>
+    </tr>
+    <tr>
+        <td>@Model.User.UserName</td>
+        @if (@Model.User.UserPhoto == null)
+        {
+            <td> <img style="width: 40px; height: 40px;" src="~/images/Placeholder.png" alt="Profile Picture" /> </td>
+        }
+        else
+        {
+            <td><img src="data:image;base64,@System.Convert.ToBase64String(@Model.User.UserPhoto)" width="40" height="40" alt="Profile picture" /></td>
+        }
+    </tr>
+</table>
 
 
 

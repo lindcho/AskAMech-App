@@ -1,8 +1,10 @@
 ﻿using AskAMech.Command.Answers;
 using AskAMech.Command.Questions;
 using AskAMech.Command.Services;
+using AskAMech.Command.User;
 using AskAMech.Data.DbGateways.Answers;
 using AskAMech.Data.DbGateways.Questions;
+using AskAMech.Data.DbGateways.User;
 using AskAMech.Domain.Models;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Identity;
@@ -50,6 +52,9 @@ namespace AskAMech
 
             services.AddScoped<IAnswerGateway, AnswerGateway>();
             services.AddScoped<IAnswersCommand, AnswersCommand>();
+
+            services.AddScoped<IUserGateway, UserGateway>();
+            services.AddScoped<IUserCommand, UserCommand>();
 
             // Add application services that are created each time they're requested from the service container.
             services.AddTransient<IRequestUserProvider, RequestUserProvider>();

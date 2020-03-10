@@ -2,6 +2,7 @@
 using AskAMech.Command.Answers;
 using AskAMech.Command.Questions;
 using AskAMech.Command.Services;
+using AskAMech.Command.User;
 using AskAMech.Domain.ViewModels;
 using Microsoft.AspNetCore.Mvc;
 
@@ -12,12 +13,14 @@ namespace AskAMech.Controllers
         private readonly IQuestionCommands _questionCommands;
         private readonly IAnswersCommand _answersCommand;
         private readonly IRequestUserProvider _requestUserProvider;
+        private readonly IUserCommand _userCommand;
 
-        public ProfileController(IQuestionCommands questionCommands, IAnswersCommand answersCommand, IRequestUserProvider requestUserProvider)
+        public ProfileController(IQuestionCommands questionCommands, IAnswersCommand answersCommand, IRequestUserProvider requestUserProvider, IUserCommand userCommand)
         {
             _questionCommands = questionCommands;
             _answersCommand = answersCommand;
             _requestUserProvider = requestUserProvider;
+            _userCommand = userCommand;
         }
 
         [HttpGet]
@@ -28,12 +31,14 @@ namespace AskAMech.Controllers
 
             var questions = await _questionCommands.GetUserQuestions(userId);
             var questionAnswers = _answersCommand.GetQuestionsWithAnswers(userId);
-            var vm = new ProfileDetailsViewModel
+            var user = await _userCommand.GetUserProfile(userId);
+            var viewModel = new ProfileDetailsViewModel
             {
                 AskedQuestions = questions,
                 QuestionAnswers = questionAnswers,
+                User = user
             };
-            return View(vm);
+            return View(viewModel);
         }
     }
 }
