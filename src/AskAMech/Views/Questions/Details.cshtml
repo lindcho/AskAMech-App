@@ -1,6 +1,5 @@
-﻿@using System.Net.Http
-@using AskAMech.Domain.Models
-@model AskAMech.Domain.Models.Question
+﻿@using AskAMech.Domain.Models
+@model AskAMech.Domain.QuestionAndAnswersViewModel
 
 @{
     ViewData["Title"] = "Question Details";
@@ -15,21 +14,21 @@
 <div class="card w-100 bg-light" style="margin-bottom: 0.5rem;">
     <div class="card-body">
         <h6 class="card-title">
-            @Model.Title
+            @Model.Question.Title
         </h6>
-        <p class="card-subtitle mb-2 text-muted">By <a href="@Url.Action("Index", "Profile", new {userId = Model.AuthorId})" class="mb-1">@Model.Author.UserName</a>  on @Model.DateCreated.ToString("yyyy MMMM dd HH:mm:tt")</p>
-        <p class="card-text">@Html.Raw(Model.Description)</p>
+        <p class="card-subtitle mb-2 text-muted">By <a href="@Url.Action("Index", "Profile", new {userId = Model.Question.AuthorId})" class="mb-1">@Model.Question.Author.UserName</a>  on @Model.Question.DateCreated.ToString("yyyy MMMM dd HH:mm:tt")</p>
+        <p class="card-text">@Html.Raw(Model.Question.Description)</p>
     </div>
 </div>
 
 <div class="form-group row">
     <div class="col-sm-12 col-md-10 col-lg-10">
 
-        <input type="submit" class="btn btn-primary" name="submit" value="Answer Question" onclick='window.location = "@Url.Action("AnswerQuestion","Answers",new { questionId=Model.Id})"' />
+        <input type="submit" class="btn btn-primary" name="submit" value="Answer Question" onclick='window.location = "@Url.Action("AnswerQuestion","Answers",new { questionId=Model.Question.Id})"' />
         <input type="reset" class="btn btn-secondary" name="reset" value="Back to List" onclick='window.location = "@Url.Action("Index","Questions")"' />
         @if (isQuestionAuthor)
         {
-            <input type="submit" class="btn btn-info" name="edit" value="Modify Question" onclick='window.location = "@Url.Action("Edit","Questions",new { id=Model.Id})"' />
+            <input type="submit" class="btn btn-info" name="edit" value="Modify Question" onclick='window.location = "@Url.Action("Edit","Questions",new { id=Model.Question.Id})"' />
         }
     </div>
 </div>
@@ -43,6 +42,9 @@
             <li class="breadcrumb-item text-muted small">Answers</li>
         </ul>
     </div>
+    
+    
+
 
     @if (acceptedAnswer != null)
     {
@@ -60,60 +62,135 @@
         </div>
     }
 
+    
+    
 
     <hr />
-    @foreach (var item in Model.Answers)
+    @if (Model.QuestionAnswers.Any())
     {
-        @if (item.Author.UserName == User.Identity.Name)
-        {
-            <div class="card mb-3 border-info">
-                <div class="card-header">
-                    <small> <b>Solution by</b> <a href="@Url.Action("Index", "Profile", new {userId = @item.AuthorId})" class="mb-1">@item.Author.UserName</a> @item.Date.ToLongDateString() : @item.Date.ToShortTimeString()</small>
-                    <div style="float: right">
-                        @{
-                            var hasValue = @Model.AcceptedAnswerId.HasValue && @Model.AcceptedAnswerId.Value == item.AnswerId;
-                        }
-                        @if (hasValue)
-                        {
-                            <a class="badge badge-success">Accepted</a>
-                        }
-                        else if (isQuestionAuthor)
-                        {
-                            <a href="@Url.Action("AcceptAnswer", "Answers", new {answerId = @item.AnswerId, questionId = @item.QuestionId})"><small>Mark as Accepted</small></a>
-                        }
-                        
 
+        @foreach (var item in Model.QuestionAnswers)
+        {
+            @if (item.Author.UserName == User.Identity.Name)
+            {
+                <div class="card mb-3 border-info">
+                    <div class="card-header">
+                        <small> <b>Solution by</b> <a href="@Url.Action("Index", "Profile", new {userId = @item.AuthorId})" class="mb-1">@item.Author.UserName</a> @item.Date.ToLongDateString() : @item.Date.ToShortTimeString()</small>
+                        <div style="float: right">
+                            @{
+                                var hasValue = @Model.Question.AcceptedAnswerId.HasValue && @Model.Question.AcceptedAnswerId.Value == item.AnswerId;
+                            }
+                            @if (hasValue)
+                            {
+                                <a class="badge badge-success">Accepted</a>
+                            }
+                            else if (isQuestionAuthor)
+                            {
+                                <a href="@Url.Action("AcceptAnswer", "Answers", new {answerId = @item.AnswerId, questionId = @item.QuestionId})"><small>Mark as Accepted</small></a>
+                            }
+
+
+                        </div>
+                    </div>
+                    <div class="card-body">
+                        <p class="card-text mb-1">@Html.Raw(@item.Description)</p>
                     </div>
                 </div>
-                <div class="card-body">
-                    <p class="card-text mb-1">@Html.Raw(@item.Description)</p>
-                </div>
-            </div>
-        }
-        else
-        {
-            <div class="card mb-3">
-                <div class="card-header">
-                    <small> <b>Solution by</b> <a href="@Url.Action("Index", "Profile", new {userId = @item.AuthorId})" class="mb-1">@item.Author.UserName</a> @item.Date.ToLongDateString() : @item.Date.ToShortTimeString()</small>
-                    <div style="float: right">
+            }
+            else
+            {
+                <div class="card mb-3">
+                    <div class="card-header">
+                        <small> <b>Solution by</b> <a href="@Url.Action("Index", "Profile", new {userId = @item.AuthorId})" class="mb-1">@item.Author.UserName</a> @item.Date.ToLongDateString() : @item.Date.ToShortTimeString()</small>
+                        <div style="float: right">
 
-                        @{
-                            var hasValue = @Model.AcceptedAnswerId.HasValue && @Model.AcceptedAnswerId.Value == item.AnswerId;
-                        }
-                        @if (hasValue)
-                        {
-                            <a class="badge badge-success">Accepted</a>
-                        }
-                        else if (isQuestionAuthor)
-                        {
-                            <a href="@Url.Action("AcceptAnswer", "Answers", new {answerId = @item.AnswerId, questionId = @item.QuestionId})"><small>Mark as Accepted</small></a>
-                        }
+                            @{
+                                var hasValue = @Model.Question.AcceptedAnswerId.HasValue && @Model.Question.AcceptedAnswerId.Value == item.AnswerId;
+                            }
+                            @if (hasValue)
+                            {
+                                <a class="badge badge-success">Accepted</a>
+                            }
+                            else if (isQuestionAuthor)
+                            {
+                                <a href="@Url.Action("AcceptAnswer", "Answers", new {answerId = @item.AnswerId, questionId = @item.QuestionId})"><small>Mark as Accepted</small></a>
+                            }
+                        </div>
+                    </div>
+                    <div class="card-body">
+                        <p class="card-text mb-1">@Html.Raw(@item.Description)</p>
                     </div>
                 </div>
-                <div class="card-body">
-                    <p class="card-text mb-1">@Html.Raw(@item.Description)</p>
-                </div>
-            </div>
+            }
         }
     }
 </table>
+
+
+<br />
+<br />
+
+@if (User.Identity.IsAuthenticated)
+{
+    <h5>Your Answer</h5>
+    <hr />
+    <textarea class="form-control" name="comment" id="comment" rows="5"></textarea><br />
+    <script type="text/javascript">CKEDITOR.replace('comment');</script>
+
+    <input type="submit" class="btn btn-primary" name="submit" id="btnAddAnswer" value="Post Your Answer" />
+}
+
+<div id="target">
+    Loading....
+</div>
+
+@section Scripts{
+
+    <script>
+        var postId = @Model.Question.Id;
+        $(document).ready(function() {
+            RefreshComment();
+        });
+
+        $('#btnAddAnswer').click(function (e){
+            e.preventDefault();
+            var comment = $('#comment').val().trim();
+            var editorText = CKEDITOR.instances.comment.getData();
+
+            editorText = $(editorText).text().trim();//remove white spaces
+
+            if (editorText === '' || editorText == undefined) {
+                alert('please fill in all fields');
+                return;
+            }
+
+            var data = {
+                id: postId,
+                comment: editorText
+            };
+
+            $.post("/Answers/AddAnswer",
+                data,
+                (res) => {
+                    if (res) {
+                        RefreshComment();
+                        CKEDITOR.instances.comment.setData('');
+                        alert("Comment Added Successfully");
+                        location.reload(true);
+                        return;
+                    }
+                    alert("An Error Occured");
+                });
+
+        });
+
+        function RefreshComment(){
+            $("#target").hide();
+
+        }
+
+
+
+    </script>
+
+}

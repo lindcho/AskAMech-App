@@ -3,6 +3,7 @@ using System.Threading;
 using System.Threading.Tasks;
 using AskAMech.Command.Answers;
 using AskAMech.Command.Questions;
+using AskAMech.Domain;
 using AskAMech.Domain.Models;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
@@ -67,11 +68,17 @@ namespace AskAMech.Controllers
 
             var questionModel = await _questionCommands.GetQuestion(id);
             questionModel.Author.FullName = questionModel.Author.FullName ?? questionModel.Author.UserName;
-            questionModel.Answers = await _answersCommand.GetAnswersByQuestionId(id, new CancellationToken());
+            var questionAnswers = await _answersCommand.GetAnswersByQuestionId(id, new CancellationToken());
+
+            var vm = new QuestionAndAnswersViewModel()
+            {
+                Question = questionModel,
+                QuestionAnswers = questionAnswers
+            };
 
             ViewBag.AcceptedAnswer = await _answersCommand.GetAcceptedAnswerByQuestionId(id, new CancellationToken());
             ViewBag.answerCount = _questionCommands.GetAnswersCount(id);
-            return View(questionModel);
+            return View(vm);
         }
 
         public IActionResult Index(int? pageNumber, string searchString)
