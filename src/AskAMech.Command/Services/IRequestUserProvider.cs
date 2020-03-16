@@ -7,5 +7,6 @@ namespace AskAMech.Command.Services
     {
         string GetUserId();
         Task<ApplicationUser> GetCurrentUserAsync();
+        Task<ApplicationUser> GetUserByUserId(string userId);
     }
 }

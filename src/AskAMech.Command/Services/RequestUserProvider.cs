@@ -25,5 +25,10 @@ namespace AskAMech.Command.Services
         {
             return _userManager.GetUserAsync(_contextAccessor.HttpContext.User);
         }
+
+        public Task<ApplicationUser> GetUserByUserId(string userId)
+        {
+            return _userManager.FindByIdAsync(userId);
+        }
     }
 }
