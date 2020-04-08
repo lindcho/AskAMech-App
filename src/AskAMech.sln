@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio 15
-VisualStudioVersion = 15.0.28307.852
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.29920.165
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AskAMech", "AskAMech\AskAMech.csproj", "{D5E14657-34B8-4293-BFFE-F6F91CD16001}"
 EndProject
@@ -14,6 +14,8 @@ EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AskAMech.Data", "AskAMech.Data\AskAMech.Data.csproj", "{10EEB34D-2FA7-468F-9E48-C3FCF5CD6898}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AskAMech.Command.Test", "AskAMech.Command.Test\AskAMech.Command.Test.csproj", "{B7C71A70-EDDA-40E5-97BD-E3856F559542}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AskAMech.Data.Tests", "AskAMech.Data.Tests\AskAMech.Data.Tests.csproj", "{FB5D1434-7790-4576-9277-FB4C48394E39}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -45,6 +47,10 @@ Global
 		{B7C71A70-EDDA-40E5-97BD-E3856F559542}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{B7C71A70-EDDA-40E5-97BD-E3856F559542}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{B7C71A70-EDDA-40E5-97BD-E3856F559542}.Release|Any CPU.Build.0 = Release|Any CPU
+		{FB5D1434-7790-4576-9277-FB4C48394E39}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{FB5D1434-7790-4576-9277-FB4C48394E39}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{FB5D1434-7790-4576-9277-FB4C48394E39}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{FB5D1434-7790-4576-9277-FB4C48394E39}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
