@@ -14,10 +14,10 @@
 {
     <input type="submit" value="Search" class="btn btn-primary" />
     @Html.TextBox("searchString", null, new { placeholder = "Title", type = "search", required = "required" })
-    if(ViewBag.Searching == true)
+    if (ViewBag.Searching == true)
 
     {
-        <button type="reset" id="backButton" onclick="location.href = '@Url.Action("Index", "Questions")'" class="btn btn-primary" >Back to Questions</button>
+        <button type="reset" id="backButton" onclick="location.href = '@Url.Action("Index", "Questions")'" class="btn btn-primary">Back to Questions</button>
     }
 }
 
@@ -70,13 +70,13 @@
     </tbody>
 </table>
 
+<div style="text-align:center">
+    <div class="inlinediv">
+        Page @(Model.PageCount < Model.PageNumber ? 0 : Model.PageNumber)
+        of @Model.PageCount
+    </div>
 
-<div class="page-container">
-    <div class="inline-block">
-        <div class="page">
-            Page @(Model.PageCount < Model.PageNumber ? 0 : Model.PageNumber)
-            of @Model.PageCount
-        </div>
-        <div class="page">@Html.PagedListPager(Model, page => Url.Action("Index", "Questions", new { pageNumber = page }))</div>
+    <div class="inlinediv">
+        @Html.PagedListPager(Model, page => Url.Action("Index", "Questions", new { pageNumber = page }))
     </div>
 </div>
