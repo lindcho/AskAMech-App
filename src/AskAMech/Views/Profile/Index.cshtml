@@ -1,24 +1,56 @@
 ﻿@model AskAMech.Domain.ViewModels.ProfileDetailsViewModel
 
-@{
-    var currentUserId = ViewBag.UserId;
-}
+<br />
+<div class="card w-100 bg-light" style="margin-bottom: 0.5rem;">
+    <div class="card-body">
+        <h5 class="card-title">
+            @Model.User.FullName
+        </h5>
+        @if (@Model.User.UserPhoto == null)
+        {
+            <td> <img style="width: 60px; border-radius:50px; height: 60px;" src="~/images/Placeholder.png" alt="Profile Picture" /> </td>
+        }
+        else
+        {
+            <td><img style="border-radius:50px" src="data:image;base64,@System.Convert.ToBase64String(@Model.User.UserPhoto)" width="60" height="60" alt="Profile picture" /></td>
+        }
+    </div>
+</div>
+<br />
+<div style="text-align:center">
+
+    <p>This user has not filled their <i>about me</i> section yet.</p>
+</div>
+<hr />
+<div style="text-align:center">
+
+    <div style="display:inline-block;padding-right:10%">
+        <p>@ViewBag.questionCount <br /> Questions </p>
+    </div>
+    @if (User.Identity.IsAuthenticated)
+    {
+        <div style="display:inline-block;padding-left:10%">
+            <p>@ViewBag.questionAnswersCount <br />Answeres</p>
+        </div>
+    }
+</div>
+
 
 
 @if (User.Identity.IsAuthenticated)
 {
-    <h4>User Questions</h4>
+
     <hr />
+    <h4>User Questions and Answeres</h4>
     if (Model.AskedQuestions.Any())
     {
         foreach (var question in @Model.AskedQuestions)
         {
-            <div class="question_row">
-                <div class="row">
-                    <div class="col-sm-10">
-                        <p> @question.Description </p>
-                    </div>
-                </div>
+            <div>
+                <hr />
+                <ul id="TopBreadcrumb" class="breadcrumb">
+                    <li class="breadcrumb-item text-md-center mb-1"><b>@question.Description</b></li>
+                </ul>
             </div>
 
             if (Model.QuestionAnswers.Any())
@@ -26,64 +58,73 @@
                 foreach (var answer in @Model.QuestionAnswers)
                 {
                     if (question.Id == answer.QuestionId)
-                    {
-                        if (question.Author.Id == currentUserId)
-                        {
 
-                            <div class="card">
-                                <div class="card-body">
-                                    <p> @answer.AnswerDescription </p>
+                    {
+                        <div class="card border-primary">
+                            <div class="card-body">
+                                <div class="card-text">
+                                    @answer.AnswerDescription
                                 </div>
                             </div>
-                        }
+                        </div>
+                    }
+                    else
+                    {
+                        <div class="card border-primary">
+                            <div class="card-body">
+                                <div class="card-text">
+                                    <p style="color:firebrick"><i>This question does not have answers.</i></p>
+                                </div>
+                            </div>
+                        </div>
                     }
                 }
             }
+
         }
+    }
+    else
+    {
+        <div>
+            <hr />
+            <ul id="TopBreadcrumb" class="breadcrumb">
+                <li class="breadcrumb-item text-md-center mb-1">The user has not posted any questions yet.</li>
+            </ul>
+        </div>
     }
 }
 
 else
 {
     <h4>User Questions</h4>
-    <hr />
+
     if (Model.AskedQuestions.Any())
     {
         foreach (var question in @Model.AskedQuestions)
         {
             <div>
-                <div class="question_row">
-                    <div class="row">
-                        <div class="col-sm-10">
-                            <p> @question.Description </p>
-                        </div>
-                    </div>
-                </div>
+                <hr />
+                <ul id="TopBreadcrumb" class="breadcrumb">
+                    <li class="breadcrumb-item text-md-center mb-1"><b>@question.Description</b></li>
+                </ul>
             </div>
             <br />
         }
     }
+    else
+    {
+        <div>
+            <hr />
+            <ul id="TopBreadcrumb" class="breadcrumb">
+                <li class="breadcrumb-item text-md-center mb-1">The user has not posted any questions yet.</li>
+            </ul>
+        </div>
+        <br />
+    }
 }
-<h4>User Profile</h4>
 <hr />
-<br />
-<table>
-    <tr>
-        <th>UserName</th>
-        <th>User Profile Photo</th>
-    </tr>
-    <tr>
-        <td>@Model.User.UserName</td>
-        @if (@Model.User.UserPhoto == null)
-        {
-            <td> <img style="width: 40px; height: 40px;" src="~/images/Placeholder.png" alt="Profile Picture" /> </td>
-        }
-        else
-        {
-            <td><img src="data:image;base64,@System.Convert.ToBase64String(@Model.User.UserPhoto)" width="40" height="40" alt="Profile picture" /></td>
-        }
-    </tr>
-</table>
+
+
 
 
 

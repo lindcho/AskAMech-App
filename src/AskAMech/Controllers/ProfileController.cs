@@ -1,4 +1,5 @@
-﻿using System.Threading.Tasks;
+﻿using System.Linq;
+using System.Threading.Tasks;
 using AskAMech.Command.Answers;
 using AskAMech.Command.Questions;
 using AskAMech.Command.Services;
@@ -23,14 +24,17 @@ namespace AskAMech.Controllers
         [HttpGet]
         public async Task<IActionResult> Index(string userId)
         {
-            var currentUserId = _requestUserProvider.GetUserId();
-            ViewBag.UserId = currentUserId;
-
             var questions = await _questionCommands.GetUserQuestions(userId);
             var questionAnswers = _answersCommand.GetQuestionsWithAnswers(userId);
             var user = await _requestUserProvider.GetUserByUserId(userId);
-            var us = _requestUserProvider.GetCurrentUserAsync();
 
+            ViewBag.questionCount = _questionCommands.GetUserQuestions(userId)
+                .Result.Count();
+            var countQuestionAnsweres = _answersCommand.GetQuestionsWithAnswers(userId)
+                .AsQueryable().Count();
+            ViewBag.questionAnswersCount = countQuestionAnsweres;
+
+            
             var viewModel = new ProfileDetailsViewModel
             {
                 AskedQuestions = questions,
