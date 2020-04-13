@@ -36,7 +36,6 @@
 </div>
 
 
-
 @if (User.Identity.IsAuthenticated)
 {
 
@@ -64,16 +63,6 @@
                             <div class="card-body">
                                 <div class="card-text">
                                     @answer.AnswerDescription
-                                </div>
-                            </div>
-                        </div>
-                    }
-                    else
-                    {
-                        <div class="card border-primary">
-                            <div class="card-body">
-                                <div class="card-text">
-                                    <p style="color:firebrick"><i>This question does not have answers.</i></p>
                                 </div>
                             </div>
                         </div>
