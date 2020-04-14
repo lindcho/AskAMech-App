@@ -15,7 +15,6 @@ namespace AskAMech.Areas.Identity.Pages.Account.Manage
 
         public static string TwoFactorAuthentication => "TwoFactorAuthentication";
 
-        public static string ListUserQuestions => "ListUserQuestions";
         public static string UploadUserProfilePicture => "UploadUserProfilePicture";
 
         public static string IndexNavClass(ViewContext viewContext) => PageNavClass(viewContext, Index);
@@ -27,7 +26,6 @@ namespace AskAMech.Areas.Identity.Pages.Account.Manage
         public static string PersonalDataNavClass(ViewContext viewContext) => PageNavClass(viewContext, PersonalData);
 
         public static string TwoFactorAuthenticationNavClass(ViewContext viewContext) => PageNavClass(viewContext, TwoFactorAuthentication);
-        public static string ListUserQuestionNavClass(ViewContext viewContext) => PageNavClass(viewContext, ListUserQuestions);
         public static string UploadProfilePictureNavClass(ViewContext viewContext) => PageNavClass(viewContext, UploadUserProfilePicture);
 
         private static string PageNavClass(ViewContext viewContext, string page)
