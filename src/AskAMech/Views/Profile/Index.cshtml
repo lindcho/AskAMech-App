@@ -48,7 +48,7 @@
             <div>
                 <hr />
                 <ul id="TopBreadcrumb" class="breadcrumb">
-                    <li class="breadcrumb-item text-md-center mb-1"><b>@question.Description</b></li>
+                    <li class="breadcrumb-item text-md-center mb-1"><b>@Html.Raw(@question.Description)</b></li>
                 </ul>
             </div>
 
@@ -62,7 +62,7 @@
                         <div class="card border-primary">
                             <div class="card-body">
                                 <div class="card-text">
-                                    @answer.AnswerDescription
+                                    @Html.Raw(@answer.AnswerDescription)
                                 </div>
                             </div>
                         </div>
@@ -94,7 +94,7 @@ else
             <div>
                 <hr />
                 <ul id="TopBreadcrumb" class="breadcrumb">
-                    <li class="breadcrumb-item text-md-center mb-1"><b>@question.Description</b></li>
+                    <li class="breadcrumb-item text-md-center mb-1"><b>@Html.Raw(@question.Description)</b></li>
                 </ul>
             </div>
             <br />
